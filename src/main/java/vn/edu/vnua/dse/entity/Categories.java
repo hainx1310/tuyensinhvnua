@@ -1,7 +1,7 @@
 package vn.edu.vnua.dse.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -102,7 +102,7 @@ public class Categories implements Serializable {
 		this.updatedUser = updatedUser;
 	}
 
-	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "categories", fetch = FetchType.EAGER)
 	public Collection<Post> getPosts() {
 		return posts;
 	}
