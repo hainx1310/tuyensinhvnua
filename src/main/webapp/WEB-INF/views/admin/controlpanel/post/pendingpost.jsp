@@ -1,14 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<div id="titleContent">
-	<H2>Bài chờ duyệt</H2>
-</div>
 
+<section class="content-header">
+	<h1>
+		Bài chờ duyệt <small>Tuyển sinh HVN</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="${pageContext.request.contextPath}/home"><i
+				class="fa fa-home"></i> Trang chủ</a></li>
+		<li class="active">Bài viết</li>
+		<li class="active">Bài chờ duyệt</li>
+	</ol>
+</section>
+<br>
 
-<div>
+<div style = "height: 100%">
 	<div class="box">
-		<div class="box-header">
-			<h5 class="box-title">Bài chờ duyệt</h5>
+		<div class="box-header" style = "text-align: center;">
+			<h5 class="box-title">Danh sách bài viết đang chờ duyệt</h5>
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">

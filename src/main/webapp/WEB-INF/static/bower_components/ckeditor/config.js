@@ -18,5 +18,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'basicstyles', items: [ 'Font','FontSize','Bold','Italic','Underline','Strike','Subscript','Superscript'] },
         //'/',
         { name: 'align', items: [ 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] }
-];
+    ];
+	
+	config.height = 300;
 };
