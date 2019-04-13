@@ -80,8 +80,8 @@
 		<script src="resources/bower_components/jquery-ui/jquery-ui.min.js"></script>
 		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 		<script>
-		$.widget.bridge('uibutton', $.ui.button);
-	</script>
+			$.widget.bridge('uibutton', $.ui.button);
+		</script>
 		<!-- Bootstrap 3.3.7 -->
 		<script
 			src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -121,7 +121,131 @@
 		<!-- AdminLTE for demo purposes -->
 		<script src="resources/dist/js/demo.js"></script>
 
-		
+		<script>
+			//Date picker
+			$('#datepicker').datepicker({
+				autoclose : true
+			})
+		</script>
+		<script>
+			function openModalUpdateUser() {
+				$('#modal-user').modal({
+					show : 'true'
+				});
+			}
+
+			// Sự kiện khi bấm sửa thành viên
+			$("#update_user").on("click", function() {
+				$('#modal-user').modal({
+					show : 'true'
+				});
+
+				var id = 1;
+				// lấy dữ liệu user theo id
+				var username = "editor01";
+				var password = "123456";
+				var email = "admin@vnua.edu.vn";
+
+				$("#username").val(username);
+				$("#password").val(password);
+				$("#email").val(email);
+				$("#select_role").val("Biên tập viên");
+				$('#role_is_admin').prop('checked', true);
+				$('.modal-user-title').text("Sửa thông tin người dùng");
+			});
+
+			// function bat modal tao moi user
+			function openModalCreateUser() {
+				$('.modal-user-title').text("Thêm người dùng mới");
+				$('#modal-user').modal({
+					show : 'true'
+				});
+			}
+
+			// Reset data modal user sau mỗi khi bị ẩn
+			$("#modal-user").on("hidden.bs.modal", function() {
+				$("#username").val("");
+				$("#password").val("");
+				$("#email").val("");
+				$("#select_role").val("---Chọn quyền--");
+				$('#role_is_admin').prop('checked', false);
+			});
+
+			// Sự kiện khi bấm sửa quyền
+			$("#update_role").on("click", function() {
+				$('#modal-role').modal({
+					show : 'true'
+				});
+
+				var id = 1;
+				// lấy dữ liệu user theo id
+				var name = "Quản trị viên";
+
+				$("#role-name").val(name);
+				$('#role_is_admin').prop('checked', true);
+				$('.modal-role-title').text("Sửa thông tin quyền");
+			});
+
+			// su kien add quyen
+			$("#btn-add-role").on("click", function() {
+				$('.modal-role-title').text("Thêm quyền mới");
+				$('#modal-role').modal({
+					show : 'true'
+				});
+			});
+
+			// function bat modal tao moi user
+			function openModalCreateUser() {
+				$('.modal-user-title').text("Thêm người dùng mới");
+				$('#modal-user').modal({
+					show : 'true'
+				});
+			}
+
+			// Reset data modal user sau mỗi khi bị ẩn
+			$("#modal-user").on("hidden.bs.modal", function() {
+				$("#username").val("");
+				$("#password").val("");
+				$("#email").val("");
+				$("#select_role").val("---Chọn quyền--");
+				$('#role_is_admin').prop('checked', false);
+			});
+
+			// Reset data modal role sau mỗi khi bị ẩn
+			$("#modal-role").on("hidden.bs.modal", function() {
+				$("#role-name").val("");
+				$('#role_is_admin').prop('checked', false);
+			});
+
+			//Sự kiện khi bấm sửa categories
+			$("#update_categories").on("click", function() {
+				$('#modal-categories').modal({
+					show : 'true'
+				});
+
+				var id = 1;
+				// lấy dữ liệu user theo id
+				var name = "Vì sao chọn HVN";
+
+				$("#name").val(name);
+				$('#categories-is-active').prop('checked', true);
+				$('.modal-categories-title').text("Sửa chuyên mục");
+			});
+
+			// Reset data modal categories sau mỗi khi bị ẩn
+			$("#modal-categories").on("hidden.bs.modal", function() {
+				$("#name").val("");
+				$('#categories-is-active').prop('checked', false);
+			});
+
+			// su kien add categories
+			$("#btn-categorites-clcik").on("click", function() {
+				$('.modal-categories-title').text("Thêm chuyên mục");
+				$('#modal-categories').modal({
+					show : 'true'
+				});
+			});
+		</script>
 	</div>
 </body>
 </html>

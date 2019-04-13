@@ -54,9 +54,9 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/categories"><i
+					<li><a href="${pageContext.request.contextPath}/UserManagement"><i
 							class="fa fa-users"></i> Quản lý thành viên</a></li>
-					<li><a href="${pageContext.request.contextPath}/categories"><i
+					<li><a href="${pageContext.request.contextPath}/RoleManagement"><i
 							class="fa fa-sitemap"></i> Quản lý quyền</a></li>
 				</ul></li>
 		</ul>

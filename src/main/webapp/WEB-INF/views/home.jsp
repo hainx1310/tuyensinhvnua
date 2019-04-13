@@ -8,7 +8,7 @@
 </section>
 <br>
 
-<div>
+<div style = "height: 100%">
 	<!-- Thong ke -->
 	<div id="thongke">
 		<h5>Thống kê</h5>

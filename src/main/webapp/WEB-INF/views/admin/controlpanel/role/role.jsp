@@ -1,29 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+
 <section class="content-header">
 	<h1>
-		Quản lý chuyên mục <small>Tuyển sinh HVN</small>
+		Quản lý quyền <small>Tuyển sinh HVN</small>
 	</h1>
 	<ol class="breadcrumb">
 		<li><a href="${pageContext.request.contextPath}/home"><i
 				class="fa fa-home"></i> Trang chủ</a></li>
-		<li class="active">Quản lý nội dung</li>
-		<li class="active">Quản lý chuyên mục</li>
+		<li class="active">Quản lý thành viên</li>
+		<li class="active">Quản lý quyền</li>
 	</ol>
 </section>
 <br>
-
 <div style="height: 100%">
 	<!-- Thong ke -->
 	<div id="thongke">
 		<h5>Tìm kiếm</h5>
+		<a href="pendingpost">(57) Bài chờ duyệt</a>, <a href="pendingpost">(1)
+			Bài đã duyệt</a>
 	</div>
 	<br>
 
 	<div>
 		<div class="box">
 			<div class="box-header">
-				<h5 class="box-title">Danh sách chuyên mục</h5>
+				<h5 class="box-title">Danh sách quyền</h5>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
@@ -41,28 +43,22 @@
 								<thead>
 									<tr role="row">
 										<th>STT</th>
-										<th>Tên chuyên mục</th>
-										<th>Trạng thái</th>
-										<th>Ngày tạo</th>
-										<th>Người tạo</th>
-										<th>Ngày sửa</th>
-										<th>Người sửa</th>
+										<th>Tên quyền</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr role="row" class="odd">
 										<td class="">1</td>
-										<td class="sorting_1">Vì sao chọn HVN</td>
-										<td>Kích hoạt</td>
-										<td>10/04/2019</td>
-										<td>administrator</td>
-										<td></td>
-										<td></td>
-										<td><a
-											href="${pageContext.request.contextPath}/editpost?postId=1">Đổi
-												trạng thái</a> | <a id="update_categories" href="#">Sửa</a> | <a
-											href="#">Xóa</a></td>
+										<td class="sorting_1">Quản trị viên</td>
+										<td><a id="update_role" href="#">Sửa</a> | <a href="#">Xóa</a></td>
+									</tr>
+								</tbody>
+								<tbody>
+									<tr role="row" class="odd">
+										<td class="">2</td>
+										<td class="sorting_1">Biên tập viên</td>
+										<td><a id="update_role" href="#">Sửa</a> | <a href="#">Xóa</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -70,8 +66,7 @@
 					</div>
 
 					<button type="button" class="btn btn-success" data-toggle="modal"
-						data-target="#modal-success" id="btn-categorites-clcik">Thêm
-						mới</button>
+						data-target="#modal-success" id="btn-add-role">Thêm quyền</button>
 					<div class="box-header"></div>
 
 					<div class="row">
@@ -106,7 +101,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="modal-categories">
+			<div class="modal fade" id="modal-role">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -114,19 +109,19 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-categories-title"></h4>
+							<h4 class="modal-role-title"></h4>
 						</div>
 						<div class="modal-body">
 							<table
 								style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
 								<tr>
-									<td>Tên chuyên mục:</td>
-									<td><input type="text" id="name" name="name" size="50%"
-										maxlength="50" autofocus="autofocus"></td>
+									<td>Tên quyền:</td>
+									<td><input type="text" id="role-name" name="name"
+										size="50%" maxlength="50" autofocus="autofocus"></td>
 								</tr>
 								<tr>
-									<td>Kích hoạt:</td>
-									<td><input type="checkbox" id="categories-is-active"
+									<td>Quyền quản trị:</td>
+									<td><input type="checkbox" id="role_is_admin"
 										name="status"></td>
 								</tr>
 							</table>

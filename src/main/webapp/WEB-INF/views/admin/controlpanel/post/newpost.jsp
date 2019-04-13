@@ -27,12 +27,13 @@
 			</c:if>
 			<div>
 				<h5>Tóm tắt (*)</h5>
-            	<textarea style="margin-top: 0px; width: 100%; resize: vertical;" id = "frmSumary"></textarea>
+				<textarea style="margin-top: 0px; width: 100%; resize: vertical;"
+					id="frmSumary"></textarea>
 			</div>
 			<div>
 				<h5>Nội dung chính (*)</h5>
 				<div>
-					<textarea style="margin-top: 0px; width: 100%%;" name="content" 
+					<textarea style="margin-top: 0px; width: 100%%;" name="content"
 						id="frmContent">${content}</textarea>
 					<br>
 				</div>
@@ -67,7 +68,7 @@
 			<div>
 				<div class="form-group">
 					<label>Ngày xuất bản:</label>
-					
+
 					<div class="input-group date">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
@@ -91,10 +92,10 @@
 </script>
 <script>
 	//Date picker
-	$(function () {
-	    $('#datepicker').datetimepicker();
+	$(function() {
+		$('#datepicker').datetimepicker();
 	});
 	$('#datepicker').datepicker({
-	  autoclose: true
+		autoclose : true
 	})
 </script>

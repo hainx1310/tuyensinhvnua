@@ -87,5 +87,21 @@
 			value="/WEB-INF/views/admin/controlpanel/filestorage/images.jsp" />
 	</definition>
 	<!-- End dinh nghia trang quan ly Video -->
-	
+
+	<!-- Dinh nghia trang quan ly Thanh vien -->
+	<definition name="user" extends="base.definition">
+		<put-attribute name="title" value="Quản lý thành viên" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/controlpanel/user/user.jsp" />
+	</definition>
+	<!-- End dinh nghia trang quan ly Quyen -->
+
+	<!-- Dinh nghia trang quan ly Thanh vien -->
+	<definition name="role" extends="base.definition">
+		<put-attribute name="title" value="Quản lý quyền" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/controlpanel/role/role.jsp" />
+	</definition>
+	<!-- End dinh nghia trang quan ly Quyen -->
+
 </tiles-definitions>
