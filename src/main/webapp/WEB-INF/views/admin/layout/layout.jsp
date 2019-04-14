@@ -263,7 +263,29 @@
 								.prop('checked', false);
 						// clear input id
 						$('#modal-update-categories #categoriesId').remove();
+						$('#modal-update-categories #updatedUser').remove();
 					});
+
+			function openModalDeleteCategories(categoriesId, categoriesName) {
+				// show modal
+				$('#modal-delete-categories').modal({
+					show : 'true'
+				});
+				$('#modal-delete-categories .modal-body')
+						.append(
+								'<p>Bạn muốn xóa chuyên mục <strong>'+ categoriesName +'</strong> không?</p>');
+				$('#modal-delete-categories .modal-body')
+						.append(
+								"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = " + categoriesId + " />");
+
+				$('#modal-delete-categories #categoriesId').hide();
+			}
+
+			// reset form sua chuyen muc
+			$("#modal-delete-categories").on("hidden.bs.modal", function() {
+				$('#modal-delete-categories #categoriesId').remove();
+				$('#modal-delete-categories p').remove();
+			});
 		</script>
 	</div>
 </body>

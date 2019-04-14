@@ -19,4 +19,9 @@ public interface CategoriesService {
 	 * Services cap nhat mot categories vao db
 	 */
 	public void updateCategories(Categories categories);
+
+	/**
+	 * Services xóa 1 categories trong db
+	 */
+	public void deleteCategories(int categoriesId);
 }

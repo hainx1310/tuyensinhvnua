@@ -3,6 +3,8 @@ package vn.edu.vnua.dse.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,11 +65,29 @@ public class CategoriesController {
 	 * 
 	 * @return
 	 */
-	 @RequestMapping(value = "/EditCategories", method = RequestMethod.POST)
+	@RequestMapping(value = "/EditCategories", method = RequestMethod.POST)
 	public String updateCategories(Categories categories) {
 
 		try {
 			categoriesService.updateCategories(categories);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return "redirect: categories";
+	}
+
+	/**
+	 * Phương thức xóa bỏ 1 chuyên mục
+	 * 
+	 * @param categories
+	 * @return
+	 */
+	@RequestMapping(value = "/DeleteCategories", method = RequestMethod.POST)
+	public String deleteCategories(HttpServletRequest request) {
+		int categoriesId;
+		categoriesId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
+		try {
+			categoriesService.deleteCategories(categoriesId);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

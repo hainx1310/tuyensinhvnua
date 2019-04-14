@@ -102,4 +102,23 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc xoa 1 chuyen muc
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CategoriesDAO#deleteCategories(int)
+	 */
+	@Override
+	public void deleteCategories(int categoriesId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.DELETE_CATEGORIES);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("id", categoriesId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
 }

@@ -27,3 +27,7 @@
 	margin-right: auto;
 	display: block;
 }
+
+#modal-delete-categories .modal-dialog{
+	width: 200px;
+}

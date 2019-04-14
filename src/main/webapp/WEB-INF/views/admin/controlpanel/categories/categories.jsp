@@ -70,7 +70,9 @@
 														value="${listCategories.get(i-1).getUpdatedUser()}" /></td>
 												<td><a href="#">Đổi trạng thái</a> | <a
 													onclick='openModalUpdateCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}", ${listCategories.get(i-1).isStatus()})'
-													href="#">Sửa</a> | <a href="#">Xóa</a></td>
+													href="#">Sửa</a> | <a
+													onclick='openModalDeleteCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}")'
+													href="#">Xóa</a></td>
 											</tr>
 										</div>
 									</c:forEach>
@@ -188,6 +190,24 @@
 									data-dismiss="modal">Hủy</button>
 								<button id="btn-save-update" type="submit"
 									class="btn btn-primary">Lưu</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+
+			<div class="modal fade" id="modal-delete-categories">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form action="DeleteCategories" method="post">
+							<div class="modal-body"></div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default pull-left"
+									data-dismiss="modal">Không</button>
+								<button id="btn-delete-categories" type="submit"
+									class="btn btn-primary">Có</button>
 							</div>
 						</form>
 					</div>

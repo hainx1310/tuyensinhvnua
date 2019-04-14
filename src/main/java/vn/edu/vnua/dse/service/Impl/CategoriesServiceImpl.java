@@ -54,7 +54,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	}
 
 	/*
-	 * Update mot chuyen muc vao db (non-Javadoc)
+	 * (non-Javadoc) Update mot chuyen muc vao db
 	 * 
 	 * @see
 	 * vn.edu.vnua.dse.service.CategoriesService#updateCategories(vn.edu.vnua.dse.
@@ -68,6 +68,26 @@ public class CategoriesServiceImpl implements CategoriesService {
 			logger.debug("Update Categories End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Xóa 1 chuyên mục trong bảng categories
+	 * 
+	 * @see
+	 * vn.edu.vnua.dse.service.CategoriesService#deleteCategories(vn.edu.vnua.dse.
+	 * entity.Categories)
+	 */
+	@Override
+	public void deleteCategories(int categoriesId) {
+		try {
+			logger.debug("Delete Categories Start");
+			categoriesDao.deleteCategories(categoriesId);
+			logger.debug("Delete Categories End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
 }

@@ -29,5 +29,11 @@ public class CommonConst {
 		 * cau sql update categories vao bang categories
 		 */
 		public static final String UPDATE_CATEGORIES = "sqlfiles/updateCategories.sql";
+
+		/**
+		 * cau sql xóa 1 categories trong bang categories
+		 */
+		public static final String DELETE_CATEGORIES = "sqlfiles/deleteCategories.sql";
+
 	}
 }
