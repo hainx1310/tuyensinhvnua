@@ -217,34 +217,53 @@
 				$('#role_is_admin').prop('checked', false);
 			});
 
-			//Sự kiện khi bấm sửa categories
-			$("#update_categories").on("click", function() {
-				$('#modal-categories').modal({
-					show : 'true'
-				});
-
-				var id = 1;
-				// lấy dữ liệu user theo id
-				var name = "Vì sao chọn HVN";
-
-				$("#name").val(name);
-				$('#categories-is-active').prop('checked', true);
-				$('.modal-categories-title').text("Sửa chuyên mục");
-			});
-
-			// Reset data modal categories sau mỗi khi bị ẩn
-			$("#modal-categories").on("hidden.bs.modal", function() {
-				$("#name").val("");
-				$('#categories-is-active').prop('checked', false);
-			});
-
 			// su kien add categories
 			$("#btn-categorites-clcik").on("click", function() {
-				$('.modal-categories-title').text("Thêm chuyên mục");
-				$('#modal-categories').modal({
+				$('#modal-create-categories').modal({
 					show : 'true'
 				});
 			});
+
+			$("#btn-save").on("click", function() {
+				$('#modal-create-categories').modal('hide');
+			});
+
+			$("#btn-save-update").on("click", function() {
+				$('#modal-update-categories').modal('hide');
+			});
+
+			// ham sua chuyen muc
+			function openModalUpdateCategories(categoriesId, name, status) {
+				// show modal
+				$('#modal-update-categories').modal({
+					show : 'true'
+				});
+
+				$('#modal-update-categories .modal-body')
+						.append(
+								"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = " + categoriesId + " />");
+				$('#modal-update-categories .modal-body')
+						.append(
+								"<input name = \"updatedUser\" id = \"updatedUser\" type = \"text\" value = \"hainx\" />");
+				$('#categoriesId').hide();
+				$('#updatedUser').hide();
+
+				$('#modal-update-categories #name').val(name);
+				$('#modal-update-categories #categories-is-active').prop(
+						'checked', status);
+
+			}
+
+			// reset form sua chuyen muc
+			$("#modal-update-categories").on(
+					"hidden.bs.modal",
+					function() {
+						$("#modal-update-categories #name").val("");
+						$('#modal-update-categories #categories-is-active')
+								.prop('checked', false);
+						// clear input id
+						$('#modal-update-categories #categoriesId').remove();
+					});
 		</script>
 	</div>
 </body>

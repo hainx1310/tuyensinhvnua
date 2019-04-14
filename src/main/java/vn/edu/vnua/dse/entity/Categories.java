@@ -1,12 +1,13 @@
 package vn.edu.vnua.dse.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,13 +29,14 @@ public class Categories implements Serializable {
 	private Date updatedDate;
 	private String updatedUser;
 	private Collection<Post> posts;
+	private boolean status;
 
 	public Categories() {
 
 	}
 
 	public Categories(int id, String name, Date createdDate, String createdUser, Date updatedDate, String updatedUser,
-			Collection<Post> posts) {
+			Collection<Post> posts, boolean status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,9 +45,11 @@ public class Categories implements Serializable {
 		this.updatedDate = updatedDate;
 		this.updatedUser = updatedUser;
 		this.posts = posts;
+		this.status = status;
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -64,6 +68,7 @@ public class Categories implements Serializable {
 		this.name = name;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {
@@ -83,6 +88,7 @@ public class Categories implements Serializable {
 		this.createdUser = createdUser;
 	}
 
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getUpdatedDate() {
@@ -109,6 +115,15 @@ public class Categories implements Serializable {
 
 	public void setPosts(Collection<Post> posts) {
 		this.posts = posts;
+	}
+
+	@Column(name = "status")
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

@@ -8,4 +8,8 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
+	<bean id="categoriesDao" class="vn.edu.vnua.dse.dao.Impl.CategoriesDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
 </beans>

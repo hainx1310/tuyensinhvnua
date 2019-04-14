@@ -21,3 +21,9 @@
 	margin-top: 0px;
 	margin-right: 0px;
 }
+
+#anh-dai-dien img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}

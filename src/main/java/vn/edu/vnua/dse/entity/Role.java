@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,6 +33,7 @@ public class Role implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;

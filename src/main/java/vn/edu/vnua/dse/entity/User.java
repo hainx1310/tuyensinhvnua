@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -68,6 +69,7 @@ public class User implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -141,6 +143,7 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	@Column(name = "last_login")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getLastLogin() {
@@ -151,6 +154,7 @@ public class User implements Serializable {
 		this.lastLogin = lastLogin;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {
@@ -170,6 +174,7 @@ public class User implements Serializable {
 		this.createdUser = createdUser;
 	}
 
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getUpdatedDate() {

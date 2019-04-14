@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +39,7 @@ public class Notification implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -74,6 +76,7 @@ public class Notification implements Serializable {
 		this.createdUser = createdUser;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {

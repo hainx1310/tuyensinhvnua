@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,6 +43,7 @@ public class Comment implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -88,6 +90,7 @@ public class Comment implements Serializable {
 		this.status = status;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {

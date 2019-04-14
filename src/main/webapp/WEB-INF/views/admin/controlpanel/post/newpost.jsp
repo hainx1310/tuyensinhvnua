@@ -41,12 +41,20 @@
 		</div>
 
 		<div class="col-sm-3" style="margin-left: 10px">
-			<div
+			<div id="anh-dai-dien"
 				style="height: 200px; border-color: #1C1C1C 1px; border-style: solid; border-width: 0.2px; margin-top: 5px">
 				<h5
 					style="background-color: #1C1C1C; color: #fff; padding: 5px; margin-top: 0px; margin-right: 0px">Ảnh
 					đại diện</h5>
+				<img id = "avatar-post" src="resources/images/avatar-post.png"
+					alt="ảnh đại diện bài viết" height="60%" width="90%">
+
+				<p>
+					<button type="button" class="btn btn-success" value="Tải lên"
+						onclick="BrowseServer( 'Images:/', 'xImagePath' );"></button>
+				</p>
 			</div>
+
 			<div
 				style="height: 200px; border-color: #1C1C1C 1px; border-style: solid; border-width: 0.2px; margin-top: 5px">
 				<h5
@@ -98,4 +106,40 @@
 	$('#datepicker').datepicker({
 		autoclose : true
 	})
+</script>
+
+<script>
+	/*Avatar start*/
+	function BrowseServer(startupPath, functionData) {
+		// You can use the "CKFinder" class to render CKFinder in a page:
+		var finder = new CKFinder();
+
+		// The path for the installation of CKFinder (default = "/ckfinder/").
+		finder.basePath = '../';
+
+		//Startup path in a form: "Type:/path/to/directory/"
+		finder.startupPath = startupPath;
+
+		// Name of a function which is called when a file is selected in CKFinder.
+		finder.selectActionFunction = SetFileField;
+
+		// Additional data to be passed to the selectActionFunction in a second argument.
+		// We'll use this feature to pass the Id of a field that will be updated.
+		finder.selectActionData = functionData;
+
+		// Name of a function which is called when a thumbnail is selected in CKFinder. Preview img
+		// finder.selectThumbnailActionFunction = ShowThumbnails;
+
+		// Launch CKFinder
+		finder.popup();
+	}
+
+	// This is a sample function which is called when a file is selected in CKFinder.
+	function SetFileField(fileUrl, data) {
+		console.log(fileUrl);
+		document.getElementById(data["selectActionData"]).innerHTML = this
+				.getSelectedFile().name;
+		document.getElementById("avatar-post").src = request.getContextPath()/fileUrl;
+	}
+	/*Avatar end*/
 </script>

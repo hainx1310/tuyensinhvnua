@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,6 +50,7 @@ public class Video implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -103,6 +105,7 @@ public class Video implements Serializable {
 		this.author = author;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {
@@ -113,6 +116,7 @@ public class Video implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getUpdatedDate() {
@@ -132,6 +136,7 @@ public class Video implements Serializable {
 		this.updatedUser = updatedUser;
 	}
 
+	@Column(name = "published_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getPublishedDate() {

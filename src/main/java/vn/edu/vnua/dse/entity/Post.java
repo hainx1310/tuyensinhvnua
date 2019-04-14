@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -65,6 +66,7 @@ public class Post implements Serializable {
 	}
 
 	@Id
+	@GeneratedValue
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -156,6 +158,7 @@ public class Post implements Serializable {
 		this.author = author;
 	}
 
+	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getCreatedDate() {
@@ -166,6 +169,7 @@ public class Post implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getUpdatedDate() {
@@ -185,6 +189,7 @@ public class Post implements Serializable {
 		this.updatedUser = updatedUser;
 	}
 
+	@Column(name = "published_date")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getPublishedDate() {

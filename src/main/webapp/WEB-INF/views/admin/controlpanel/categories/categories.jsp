@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <section class="content-header">
 	<h1>
 		Quản lý chuyên mục <small>Tuyển sinh HVN</small>
@@ -51,19 +53,28 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr role="row" class="odd">
-										<td class="">1</td>
-										<td class="sorting_1">Vì sao chọn HVN</td>
-										<td>Kích hoạt</td>
-										<td>10/04/2019</td>
-										<td>administrator</td>
-										<td></td>
-										<td></td>
-										<td><a
-											href="${pageContext.request.contextPath}/editpost?postId=1">Đổi
-												trạng thái</a> | <a id="update_categories" href="#">Sửa</a> | <a
-											href="#">Xóa</a></td>
-									</tr>
+									<c:forEach var="i" begin="1" end="${listCategories.size()}">
+										<div class="radio">
+											<tr role="row" class="odd">
+												<td class=""><c:out value="${i}" /></td>
+												<td id="categories-name" class="sorting_1"><c:out
+														value="${listCategories.get(i-1).getName()}" /></td>
+												<td id="categories-status"><c:out
+														value="${listCategories.get(i-1).isStatus()==true ? \"Được kích hoạt\" : \"Đang bị ẩn\"}" /></td>
+												<td id="categories-created-date"><c:out
+														value="${listCategories.get(i-1).getCreatedDate()}" /></td>
+												<td id="categories-created-user">administrator</td>
+												<td id="categories-updated-date"><c:out
+														value="${listCategories.get(i-1).getUpdatedDate()}" /></td>
+												<td id="categories-updated-user"><c:out
+														value="${listCategories.get(i-1).getUpdatedUser()}" /></td>
+												<td><a href="#">Đổi trạng thái</a> | <a
+													onclick='openModalUpdateCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}", ${listCategories.get(i-1).isStatus()})'
+													href="#">Sửa</a> | <a href="#">Xóa</a></td>
+											</tr>
+										</div>
+									</c:forEach>
+
 								</tbody>
 							</table>
 						</div>
@@ -106,7 +117,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="modal-categories">
+			<div class="modal fade" id="modal-create-categories">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -114,29 +125,30 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-categories-title"></h4>
+							<h4>Thêm chuyên mục mới</h4>
 						</div>
-						<div class="modal-body">
-							<table
-								style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
-								<tr>
-									<td>Tên chuyên mục:</td>
-									<td><input type="text" id="name" name="name" size="50%"
-										maxlength="50" autofocus="autofocus"></td>
-								</tr>
-								<tr>
-									<td>Kích hoạt:</td>
-									<td><input type="checkbox" id="categories-is-active"
-										name="status"></td>
-								</tr>
-							</table>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default pull-left"
-								data-dismiss="modal">Hủy</button>
-							<button type="button" class="btn btn-primary">Lưu thay
-								đổi</button>
-						</div>
+						<form action="AddCategories" method="post">
+							<div class="modal-body">
+								<table
+									style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
+									<tr>
+										<td>Tên chuyên mục:</td>
+										<td><input type="text" id="name" name="name" size="50%"
+											maxlength="50" autofocus="autofocus"></td>
+									</tr>
+									<tr>
+										<td>Kích hoạt:</td>
+										<td><input type="checkbox" id="categories-is-active"
+											name="status"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default pull-left"
+									data-dismiss="modal">Hủy</button>
+								<button id="btn-save" type="submit" class="btn btn-primary">Lưu</button>
+							</div>
+						</form>
 					</div>
 					<!-- /.modal-content -->
 				</div>
@@ -144,6 +156,46 @@
 			</div>
 			<!-- /.modal -->
 			<!-- /.box-body -->
+
+			<div class="modal fade" id="modal-update-categories">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4>Sửa chuyên mục</h4>
+						</div>
+						<form action="EditCategories" method="post">
+							<div class="modal-body">
+								<table
+									style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
+									<tr>
+										<td>Tên chuyên mục:</td>
+										<td><input type="text" id="name" name="name" size="50%"
+											maxlength="50" autofocus="autofocus"></td>
+									</tr>
+									<tr>
+										<td>Kích hoạt:</td>
+										<td><input type="checkbox" id="categories-is-active"
+											name="status"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default pull-left"
+									data-dismiss="modal">Hủy</button>
+								<button id="btn-save-update" type="submit"
+									class="btn btn-primary">Lưu</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+
 		</div>
 	</div>
 </div>
