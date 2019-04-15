@@ -670,23 +670,33 @@ a:hover, a:active, a:focus {
 	.sidebar-mini
 	
 	
+	
+	
 	:not
 	
+	
 	 
+	
 	
 	(
 	.sidebar-mini-expand-feature
 	
+	
 	 
+	
 	
 	)
 	.sidebar-collapse
 	
+	
 	 
+	
 	
 	.sidebar-menu
 	>
 	li
+	
+	
 	
 	
 	:hover
@@ -698,28 +708,40 @@ a:hover, a:active, a:focus {
 	.label
 	
 	
+	
+	
 	:not
+	
 	
 	
 		
 	
+	
 	(
 	:first-of-type
 	
+	
 	 
+	
 	
 	){
 	display
 	
 	
+	
+	
 	:
 	
+	
 	 
+	
 	
 	none
 	
 	
 	
+	
+
 
 }
 
@@ -1340,13 +1362,19 @@ transform
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1361,13 +1389,19 @@ deg
 
 
 
+
+
 );
 transition-timing-function
 
 
 
 
+
+
 :ease-in
+
+
 
 
 
@@ -1379,13 +1413,19 @@ transform
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1400,13 +1440,19 @@ deg
 
 
 
+
+
 );
 opacity
 
 
 
 
+
+
 :
+
+
 
 
 
@@ -1419,13 +1465,19 @@ transform
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1440,6 +1492,8 @@ deg
 
 
 
+
+
 )
 }
 100%{
@@ -1448,7 +1502,11 @@ transform
 
 
 
+
+
 :perspective(400px)
+
+
 
 
 
@@ -1468,13 +1526,19 @@ transform
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1489,13 +1553,19 @@ deg
 
 
 
+
+
 );
 -webkit-transition-timing-function
 
 
 
 
+
+
 :ease-in
+
+
 
 
 
@@ -1507,13 +1577,19 @@ deg
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1528,13 +1604,19 @@ deg
 
 
 
+
+
 );
 opacity
 
 
 
 
+
+
 :
+
+
 
 
 
@@ -1547,13 +1629,19 @@ opacity
 
 
 
+
+
 :perspective(400px)
+
 
 
  
 
 
+
 rotate3d
+
+
 
 
 
@@ -1568,6 +1656,8 @@ deg
 
 
 
+
+
 )
 }
 100%{
@@ -1576,7 +1666,11 @@ deg
 
 
 
+
+
 :perspective(400px)
+
+
 
 
 
@@ -2174,7 +2268,7 @@ deg
 .box-header {
 	color: #444;
 	display: block;
-	padding: 10px;
+	padding: 0px;
 	position: relative
 }
 
