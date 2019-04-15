@@ -38,12 +38,19 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Categories> getAllCategorires() {
+	public List<Categories> getAllCategorires(int startIndex) {
 		List<Categories> listCategories = new ArrayList<Categories>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_lIST_CATEGORIES);
-			Query query = session.createSQLQuery(sql).addEntity(Categories.class);
+			Query query;
+			if (startIndex < 0) {
+				query = session.createSQLQuery(sql).addEntity(Categories.class);
+			} else {
+				query = session.createQuery("FROM Categories");
+				query.setFirstResult(startIndex);
+				query.setMaxResults(10);
+			}
 			listCategories = (List<Categories>) query.list();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());

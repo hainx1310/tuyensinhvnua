@@ -20,7 +20,7 @@
 			<li><a href="${pageContext.request.contextPath}/home"> <i
 					class="fa fa-home"></i> <span>Trang chủ</span>
 			</a>
-			<li class="treeview"><a href="#"> <i class="fa fa-laptop"></i>
+			<li class="treeview"><a href="#"> <i class="fa fa-file-text-o"></i>
 					<span>Bài viết</span> <span class="pull-right-container"> <i
 						class="fa fa-angle-left pull-right"></i>
 				</span>
@@ -29,11 +29,11 @@
 					<li><a href="${pageContext.request.contextPath}/newpost""><i
 							class="fa fa-pencil"></i> Viết bài mới</a></li>
 					<li><a href="${pageContext.request.contextPath}/pendingpost"><i
-							class="fa  fa-clock-o"></i> Bài chờ duyệt</a></li>
+							class="fa  fa-hourglass-2"></i> Bài chờ duyệt</a></li>
 					<li><a href="${pageContext.request.contextPath}/approvedpost"><i
-							class="fa fa-check-circle-o"></i> Bài đã duyệt</a></li>
+							class="fa fa-calendar"></i> Bài đã duyệt</a></li>
 					<li><a href="${pageContext.request.contextPath}/postpublished"><i
-							class="fa fa-circle-o"></i> Bài đã xuất bản</a></li>
+							class="fa fa-calendar-check-o"></i> Bài đã xuất bản</a></li>
 				</ul></li>
 			<li class="treeview"><a href="#"> <i class="fa fa-edit"></i>
 					<span>Quản lý nội dung</span> <span class="pull-right-container">
@@ -42,14 +42,14 @@
 			</a>
 				<ul class="treeview-menu">
 					<li><a href="${pageContext.request.contextPath}/categories"><i
-							class="fa fa-circle-o"></i> Quản lý Chuyên mục</a></li>
+							class="fa fa-list-ul"></i> Quản lý Chuyên mục</a></li>
 					<li><a href="${pageContext.request.contextPath}/categories"><i
 							class="fa fa-image"></i> Quản lý Ảnh</a></li>
 					<li><a href="${pageContext.request.contextPath}/categories"><i
-							class="fa fa-youtube-play"></i> Quản lý Media</a></li>
+							class="fa fa-youtube-play"></i> Quản lý Video</a></li>
 				</ul></li>
-			<li class="treeview"><a href="#"> <i class="fa fa-table"></i>
-					<span> Quản lý thành viên</span> <span class="pull-right-container">
+			<li class="treeview"><a href="#"> <i class="fa fa-cog"></i>
+					<span> Tổ chức website</span> <span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 				</span>
 			</a>

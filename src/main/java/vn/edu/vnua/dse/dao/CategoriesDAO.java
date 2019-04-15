@@ -15,7 +15,7 @@ public interface CategoriesDAO {
 	 * 
 	 * @return
 	 */
-	public List<Categories> getAllCategorires();
+	public List<Categories> getAllCategorires(int startIndex);
 
 	/**
 	 * Phuong thuc them moi chuyen muc
@@ -44,5 +44,4 @@ public interface CategoriesDAO {
 	 * @param categoriesId
 	 */
 	public void changeStatusCategories(int categoriesId, boolean status);
-
 }

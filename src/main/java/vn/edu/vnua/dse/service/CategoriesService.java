@@ -8,7 +8,7 @@ public interface CategoriesService {
 	/**
 	 * lay tat ca chuyen muc
 	 */
-	public List<Categories> getAllCategories();
+	public List<Categories> getAllCategories(int startIndex);
 
 	/**
 	 * Services them mot categories vao db
@@ -24,7 +24,7 @@ public interface CategoriesService {
 	 * Services xóa 1 categories trong db
 	 */
 	public void deleteCategories(int categoriesId);
-	
+
 	/**
 	 * Services thay doi trang thai cua 1 categories trong db
 	 */

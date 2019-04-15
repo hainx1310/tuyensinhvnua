@@ -34,7 +34,7 @@ public class CommonConst {
 		 * cau sql xóa 1 categories trong bang categories
 		 */
 		public static final String DELETE_CATEGORIES = "sqlfiles/deleteCategories.sql";
-		
+
 		/**
 		 * cau sql thay doi trang thai cua 1 categories trong bang categories
 		 */

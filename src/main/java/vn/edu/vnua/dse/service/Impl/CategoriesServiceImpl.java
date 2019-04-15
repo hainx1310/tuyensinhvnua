@@ -24,11 +24,11 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * Phuong thuc lay ra tat cac chuyen muc
 	 */
 	@Override
-	public List<Categories> getAllCategories() {
+	public List<Categories> getAllCategories(int startIndex) {
 		List<Categories> listCategories = new ArrayList<Categories>();
 		try {
 			logger.debug("GET ALL Categories Start");
-			listCategories = categoriesDao.getAllCategorires();
+			listCategories = categoriesDao.getAllCategorires(startIndex);
 			logger.debug("GET ALL Categories End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());

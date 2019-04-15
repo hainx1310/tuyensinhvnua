@@ -253,3 +253,53 @@ $("#modal-cahngeStatus-categories").on("hidden.bs.modal", function() {
 	$('#modal-cahngeStatus-categories #categoriesId').remove();
 	$('#modal-cahngeStatus-categories p').remove();
 });
+
+/**
+ * Hàm sự kiện nhập keyword tìm kiếm theo tên categoriesF
+ * 
+ * @returns
+ */
+function searchCategoriesByName() {
+	// Declare variables
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("input-search-name-categories");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("table-categories");
+	tr = table.getElementsByTagName("tr");
+
+	// Loop through all table rows, and hide those who don't match the search
+	// query
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[1];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}
+
+$('body').on('click', '.paginate_button', function() {
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 10;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "getCategoriresLimit",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#table-categories').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});

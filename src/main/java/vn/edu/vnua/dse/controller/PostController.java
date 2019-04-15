@@ -24,7 +24,7 @@ public class PostController {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
 		try {
-			listAllCatergories = categoriesDao.getAllCategorires();
+			listAllCatergories = categoriesDao.getAllCategorires(-1);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -50,7 +50,7 @@ public class PostController {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
 		try {
-			listAllCatergories = categoriesDao.getAllCategorires();
+			listAllCatergories = categoriesDao.getAllCategorires(-1);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.service.CategoriesService;
@@ -30,14 +32,20 @@ public class CategoriesController {
 	public String getAllCategorires(Model model) {
 
 		List<Categories> listCategories = new ArrayList<Categories>();
-
+		List<Categories> listAllCategories = new ArrayList<Categories>();
+		int pagesNumber = 0;
+		int totalrRecord = 0;
 		try {
-			listCategories = categoriesService.getAllCategories();
+			listCategories = categoriesService.getAllCategories(0);
+			listAllCategories = categoriesService.getAllCategories(-1);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
+		pagesNumber = (int) Math.ceil(listAllCategories.size() / 10.0);
+		totalrRecord = listAllCategories.size();
 		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("pagesNumber", pagesNumber);
+		model.addAttribute("totalrRecord", totalrRecord);
 
 		return "categories";
 	}
@@ -112,5 +120,45 @@ public class CategoriesController {
 			throw new RuntimeException(e);
 		}
 		return "redirect: /categories";
+	}
+
+	/**
+	 * Controller lấy ra 10 categories tiep theo
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/getCategoriresLimit", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getCategoriresLimit(@RequestParam int startIndex) {
+
+		List<Categories> listCategories = new ArrayList<Categories>();
+		String html = "";
+		int i = startIndex + 1;
+		try {
+			listCategories = categoriesService.getAllCategories(startIndex);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		for (Categories item : listCategories) {
+			html += "<tr role='row' class='odd'>";
+			html += "<td class=''>" + (i++) + "</td>";
+			html += "<td id='categories-name' class='sorting_1'>" + item.getName() + "</td>";
+			html += "<td id='categories-status'>" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
+			html += "<td id='categories-created-date'>" + item.getCreatedDate() + "</td>";
+			html += "<td id='categories-created-user'>administrator</td>";
+			html += "<td id='categories-updated-date'>" + (item.getUpdatedDate() == null ? "" : item.getUpdatedDate())
+					+ "</td>";
+			html += "<td id='categories-updated-user'>" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
+					+ "</td>";
+			html += "<td><a id='changeStatusCategories' onclick='openModalChangeStatusCategories(" + item.getId() + ", "
+					+ item.isStatus() + ")' href='#'>Đổi trạng thái</a> | <a onclick='openModalUpdateCategories("
+					+ item.getId() + ", \"" + item.getName() + "\", " + item.isStatus() + ")' href=\"#\">Sửa</a> | <a "
+					+ "onclick='openModalDeleteCategories(" + item.getId() + ", \"" + item.getName() + "\")' "
+					+ "href=\"#\">Xóa</a></td>";
+			html += "</tr>";
+		}
+		return html + (i - 1);
 	}
 }
