@@ -68,7 +68,9 @@
 														value="${listCategories.get(i-1).getUpdatedDate()}" /></td>
 												<td id="categories-updated-user"><c:out
 														value="${listCategories.get(i-1).getUpdatedUser()}" /></td>
-												<td><a href="#">Đổi trạng thái</a> | <a
+												<td><a id = "changeStatusCategories"
+													onclick='openModalChangeStatusCategories(${listCategories.get(i-1).getId()}, ${listCategories.get(i-1).isStatus()})'
+													href="#">Đổi trạng thái</a> | <a
 													onclick='openModalUpdateCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}", ${listCategories.get(i-1).isStatus()})'
 													href="#">Sửa</a> | <a
 													onclick='openModalDeleteCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}")'
@@ -207,6 +209,24 @@
 								<button type="button" class="btn btn-default pull-left"
 									data-dismiss="modal">Không</button>
 								<button id="btn-delete-categories" type="submit"
+									class="btn btn-primary">Có</button>
+							</div>
+						</form>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			
+			<div class="modal fade" id="modal-cahngeStatus-categories">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form action="ChangeStatusCategories" method="post">
+							<div class="modal-body"></div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default pull-left"
+									data-dismiss="modal">Không</button>
+								<button id="btn-cahngeStatus-categories" type="submit"
 									class="btn btn-primary">Có</button>
 							</div>
 						</form>

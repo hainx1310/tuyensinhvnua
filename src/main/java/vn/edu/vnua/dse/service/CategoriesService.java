@@ -24,4 +24,9 @@ public interface CategoriesService {
 	 * Services xóa 1 categories trong db
 	 */
 	public void deleteCategories(int categoriesId);
+	
+	/**
+	 * Services thay doi trang thai cua 1 categories trong db
+	 */
+	public void changeStatusCategories(int categoriesId, boolean status);
 }

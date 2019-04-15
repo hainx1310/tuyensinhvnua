@@ -93,4 +93,24 @@ public class CategoriesController {
 		}
 		return "redirect: categories";
 	}
+
+	/**
+	 * Phuong thuc thay doi trang thai cua categories
+	 * 
+	 * @param request
+	 */
+	@RequestMapping(value = "/changeStatusCategories", method = RequestMethod.POST)
+	public String changeStatusCategories(HttpServletRequest request) {
+		int categoriesId;
+		categoriesId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
+		boolean status = request.getParameter("status") != null
+				? "true".equals(request.getParameter("status")) ? false : true
+				: false;
+		try {
+			categoriesService.changeStatusCategories(categoriesId, status);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return "redirect: /categories";
+	}
 }

@@ -121,4 +121,20 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 		}
 	}
 
+	@Override
+	public void changeStatusCategories(int categoriesId, boolean status) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.CHANGE_STATUS_CATEGORIES);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("updated_user", "hainx");
+			query.setParameter("status", status);
+			query.setParameter("id", categoriesId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
 }

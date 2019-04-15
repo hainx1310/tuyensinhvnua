@@ -90,4 +90,22 @@ public class CategoriesServiceImpl implements CategoriesService {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
+
+	/*
+	 * (non-Javadoc) Cap nhat trang thai cua categories
+	 * 
+	 * @see vn.edu.vnua.dse.service.CategoriesService#changeStatusCategories(int,
+	 * boolean)
+	 */
+	@Override
+	public void changeStatusCategories(int categoriesId, boolean status) {
+		try {
+			logger.debug("Update Categories Start");
+			categoriesDao.changeStatusCategories(categoriesId, status);
+			logger.debug("Update Categories End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
 }

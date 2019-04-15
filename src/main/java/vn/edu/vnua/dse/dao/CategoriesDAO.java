@@ -38,4 +38,11 @@ public interface CategoriesDAO {
 	 */
 	public void deleteCategories(int categoriesId);
 
+	/**
+	 * Phuong thuc thay doi trang thai cua 1 categories
+	 * 
+	 * @param categoriesId
+	 */
+	public void changeStatusCategories(int categoriesId, boolean status);
+
 }
