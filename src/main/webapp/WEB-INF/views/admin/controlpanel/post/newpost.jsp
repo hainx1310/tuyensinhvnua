@@ -39,7 +39,7 @@
 												<h5>Tóm tắt (*)</h5>
 												<textarea
 													style="margin-top: 0px; width: 100%; resize: vertical;"
-													id="frmSumary"></textarea>
+													id="short_content" name = "short_content"></textarea>
 											</div>
 											<div>
 												<h5>Nội dung chính (*)</h5>
@@ -57,10 +57,10 @@
 												<h5
 													style="background-color: #1C1C1C; color: #fff; padding: 5px; margin-top: 0px; margin-right: 0px">Ảnh
 													đại diện</h5>
-												<img id="avatar-post" src="resources/images/avatar-post.png"
+												<img name = "avatar_post" id="avatar-post" src="resources/images/avatar-post.png"
 													alt="ảnh đại diện bài viết" height="70%" width="90%">
 												<button style = "margin-left: 10px"type="button" class="btn btn-success"
-													onclick="BrowseServer( 'Images:/', 'xImagePath' )">Tải ảnh lên</button>
+													onclick="BrowseServer( 'Images:/')">Tải ảnh lên</button>
 											</div>
 											
 											<br>
@@ -71,11 +71,10 @@
 													mục (*)</h5>
 												<div
 													style="width: 100%; height: 82%; overflow-y: scroll; padding-left: 10px">
-													<c:forEach var="i" begin="1" end="10">
+													<c:forEach var="i" begin="1" end="${listAllCatergories.size()}">
 														<div class="radio">
-															<label> <input type="radio" name="channelId"
-																value="Chuyên mục ${ i}"> Chuyên mục <c:out
-																	value="${ i}"></c:out> <br>
+															<label> <input type="radio" name="categories_id"
+																value="${listAllCatergories.get(i-1).getName()}"> ${listAllCatergories.get(i-1).getName()}<br>
 															</label>
 														</div>
 														<br>
@@ -91,7 +90,7 @@
 														<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
 														</div>
-														<input type="text" class="form-control pull-right"
+														<input name = "published_date" type="text" class="form-control pull-right"
 															id="datepicker">
 													</div>
 													<!-- /.input group -->
@@ -127,8 +126,8 @@
 		</script>
 
 		<script>
-			/*Avatar start*/
-			function BrowseServer(startupPath, functionData) {
+			// Chon avatar bai viet start
+			function BrowseServer(startupPath) {
 				// You can use the "CKFinder" class to render CKFinder in a page:
 				var finder = new CKFinder();
 
@@ -137,16 +136,9 @@
 
 				//Startup path in a form: "Type:/path/to/directory/"
 				finder.startupPath = startupPath;
-
+				
 				// Name of a function which is called when a file is selected in CKFinder.
 				finder.selectActionFunction = SetFileField;
-
-				// Additional data to be passed to the selectActionFunction in a second argument.
-				// We'll use this feature to pass the Id of a field that will be updated.
-				finder.selectActionData = functionData;
-
-				// Name of a function which is called when a thumbnail is selected in CKFinder. Preview img
-				// finder.selectThumbnailActionFunction = ShowThumbnails;
 
 				// Launch CKFinder
 				finder.popup();
@@ -154,14 +146,10 @@
 
 			// This is a sample function which is called when a file is selected in CKFinder.
 			function SetFileField(fileUrl, data) {
-				console.log(fileUrl);
-				document.getElementById(data["selectActionData"]).innerHTML = this
-						.getSelectedFile().name;
-				document.getElementById("avatar-post").src = request
-						.getContextPath()
-						/ fileUrl;
+				document.getElementById("avatar-post").src = fileUrl;
 			}
-			/*Avatar end*/
+			// Chon avatar bai viet end
+			
 		</script>
 	</div>
 </div>

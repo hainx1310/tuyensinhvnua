@@ -30,7 +30,6 @@ public class Post implements Serializable {
 	private String url;
 	private String avatarPost;
 	private String content;
-	private String tag;
 	private Categories categories;
 	private String editor;
 	private String author;
@@ -38,15 +37,16 @@ public class Post implements Serializable {
 	private Date updatedDate;
 	private String updatedUser;
 	private Date publishedDate;
+	private int status;
 	private Collection<Comment> comments;
 
 	public Post() {
 
 	}
 
-	public Post(int id, String shortContent, String title, String url, String avatarPost, String content, String tag,
+	public Post(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, Collection<Comment> comments) {
+			Date publishedDate, int status, Collection<Comment> comments) {
 		super();
 		this.id = id;
 		this.shortContent = shortContent;
@@ -54,7 +54,6 @@ public class Post implements Serializable {
 		this.url = url;
 		this.avatarPost = avatarPost;
 		this.content = content;
-		this.tag = tag;
 		this.categories = categories;
 		this.editor = editor;
 		this.author = author;
@@ -62,6 +61,7 @@ public class Post implements Serializable {
 		this.updatedDate = updatedDate;
 		this.updatedUser = updatedUser;
 		this.publishedDate = publishedDate;
+		this.status = status;
 		this.comments = comments;
 	}
 
@@ -119,15 +119,6 @@ public class Post implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	@Column(name = "tag", length = 255)
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
 	}
 
 	@ManyToOne
@@ -198,6 +189,15 @@ public class Post implements Serializable {
 
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	@Column(name = "status")
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
