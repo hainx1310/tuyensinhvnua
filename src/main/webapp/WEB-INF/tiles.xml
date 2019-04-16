@@ -33,7 +33,7 @@
 	<!-- End dinh nghia trang chu -->
 
 	<!-- Dinh nghia trang them moi bai viet -->
-	<definition name="newpost" extends="base.definition">
+	<definition name="post" extends="base.definition">
 		<put-attribute name="title" value="Thêm bài viết" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/newpost.jsp" />
@@ -41,7 +41,7 @@
 	<!-- End dinh nghia trang them moi bai viet -->
 
 	<!-- Dinh nghia trang bai viet cho duyet -->
-	<definition name="pendingpost" extends="base.definition">
+	<definition name="admin/pendingpost" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đang chờ duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/pendingpost.jsp" />
@@ -49,7 +49,7 @@
 	<!-- End dinh nghia trang bai viet cho duyet -->
 
 	<!-- Dinh nghia trang bai viet da duyet -->
-	<definition name="approvedpost" extends="base.definition">
+	<definition name="admin/approvedpost" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/approvedpost.jsp" />
@@ -57,7 +57,7 @@
 	<!-- End dinh nghia trang bai viet da duyet -->
 
 	<!-- Dinh nghia trang bai viet da xuat ban -->
-	<definition name="postpublished" extends="base.definition">
+	<definition name="admin/postpublished" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã xuất bản" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/postpublished.jsp" />
@@ -65,7 +65,7 @@
 	<!-- End dinh nghia trang bai viet da xuat ban -->
 
 	<!-- Dinh nghia trang quan ly chuyen muc -->
-	<definition name="categories" extends="base.definition">
+	<definition name="admin/categories" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Chuyên mục" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/categories/categories.jsp" />
@@ -73,7 +73,7 @@
 	<!-- End dinh nghia trang quan ly chuyen muc -->
 
 	<!-- Dinh nghia trang quan ly Hinh anh -->
-	<definition name="medias" extends="base.definition">
+	<definition name="admin/medias" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Media" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/filestorage/medias.jsp" />
@@ -81,7 +81,7 @@
 	<!-- End dinh nghia trang quan ly Hinh anh -->
 
 	<!-- Dinh nghia trang quan ly Video -->
-	<definition name="images" extends="base.definition">
+	<definition name="admin/images" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Ảnh" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/filestorage/images.jsp" />
@@ -89,7 +89,7 @@
 	<!-- End dinh nghia trang quan ly Video -->
 
 	<!-- Dinh nghia trang quan ly Thanh vien -->
-	<definition name="user" extends="base.definition">
+	<definition name="admin/user" extends="base.definition">
 		<put-attribute name="title" value="Quản lý thành viên" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/user/user.jsp" />
@@ -97,7 +97,7 @@
 	<!-- End dinh nghia trang quan ly Quyen -->
 
 	<!-- Dinh nghia trang quan ly Thanh vien -->
-	<definition name="role" extends="base.definition">
+	<definition name="admin/role" extends="base.definition">
 		<put-attribute name="title" value="Quản lý quyền" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/role/role.jsp" />

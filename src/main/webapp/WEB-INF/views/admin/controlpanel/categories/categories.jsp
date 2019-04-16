@@ -21,15 +21,13 @@
 			<!-- Thong ke -->
 			<div id="thongke">
 				<h4>Chuyên mục</h4>
-				<form action="searchCategrories" method="get">
-					<div id="filter">
-						<span>Tên chuyên mục:&nbsp;&nbsp;</span> <input
-							id="input-search-name-categories"
-							onkeyup="searchCategoriesByName()"
-							placeholder="Tìm tên chuyên mục..." type="text"
-							style="width: 300px;" />
-					</div>
-				</form>
+				<div id="filter">
+					<span>Tên chuyên mục:&nbsp;&nbsp;</span> <input
+						id="input-search-name-categories"
+						onkeyup="searchCategoriesByName()"
+						placeholder="Tìm tên chuyên mục..." type="text"
+						style="width: 300px;" />
+				</div>
 			</div>
 			<div>
 				<div class="box">
@@ -199,24 +197,6 @@
 										<button type="button" class="btn btn-default pull-left"
 											data-dismiss="modal">Không</button>
 										<button id="btn-delete-categories" type="submit"
-											class="btn btn-primary">Có</button>
-									</div>
-								</form>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-						<!-- /.modal-dialog -->
-					</div>
-
-					<div class="modal fade" id="modal-cahngeStatus-categories">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="ChangeStatusCategories" method="post">
-									<div class="modal-body"></div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
-											data-dismiss="modal">Không</button>
-										<button id="btn-cahngeStatus-categories" type="submit"
 											class="btn btn-primary">Có</button>
 									</div>
 								</form>

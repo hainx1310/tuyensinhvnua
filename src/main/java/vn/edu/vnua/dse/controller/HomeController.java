@@ -13,18 +13,7 @@ public class HomeController {
 		return "index";
 	}
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String login() {
-		return "login";
-	}
-
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.POST)
-	public String login(boolean bool) {
-		System.out.println("login thanh cong");
-		return "redirect:home";
-	}
-
-	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "home" }, method = RequestMethod.GET)
 	public String homePage(Model model) {
 		return "home";
 	}

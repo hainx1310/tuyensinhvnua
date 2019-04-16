@@ -236,7 +236,7 @@ function openModalChangeStatusCategories(categoriesId, status) {
 			id : categoriesId,
 		},
 		success : function(response) {
-			location.reload();
+			//location.reload();
 		},
 		error : function(e) {
 			location.reload();

@@ -19,17 +19,17 @@ public class Role implements Serializable {
 
 	private int id;
 	private String name;
-	private Collection<User> users;
+	private Collection<UserRole> role;
 
 	public Role() {
 
 	}
 
-	public Role(int id, String name, Collection<User> users) {
+	public Role(int id, String name, Collection<UserRole> role) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.users = users;
+		this.role = role;
 	}
 
 	@Id
@@ -53,12 +53,12 @@ public class Role implements Serializable {
 	}
 
 	@OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
-	public Collection<User> getUsers() {
-		return users;
+	public Collection<UserRole> getUsers() {
+		return role;
 	}
 
-	public void setUsers(Collection<User> users) {
-		this.users = users;
+	public void setUsers(Collection<UserRole> role) {
+		this.role = role;
 	}
 
 }

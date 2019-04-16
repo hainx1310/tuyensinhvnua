@@ -8,4 +8,50 @@
 
 	<global-method-security pre-post-annotations="enabled" />
 
+	<http use-expressions="true">
+		<csrf disabled="true" />
+
+		<intercept-url pattern="/" access="permitAll()" />
+		<intercept-url pattern="/login" access="permitAll()" />
+		<intercept-url pattern="/logout" access="permitAll()" />
+		<intercept-url pattern="/resources/**" access="permitAll()" />
+
+
+		<intercept-url pattern="/post"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/userInfo"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+
+		<access-denied-handler error-page="/403" />
+
+		<form-login login-page='/login' login-processing-url="/login"
+			default-target-url="/home" always-use-default-target="false"
+			authentication-failure-url="/login?error=true" username-parameter="username"
+			password-parameter="password" />
+
+		<logout logout-url="/logout" logout-success-url="/logoutSuccessful"
+			delete-cookies="JSESSIONID" invalidate-session="true" />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="user1" password="12345" authorities="ROLE_EDITOR" />
+				<user name="admin1" password="12345" authorities="ROLE_EDITOR ROLE_ADMIN" />
+			</user-service>
+		</authentication-provider>
+
+
+
+		<!-- authentication from database -->
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="myDataSource"
+				users-by-username-query="select username, password, status from user where username=?"
+				authorities-by-username-query="Select username, concat('ROLE_', user_role) user_role from user_roles where username=?" />
+		</authentication-provider>
+
+	</authentication-manager>
+
 </beans:beans>

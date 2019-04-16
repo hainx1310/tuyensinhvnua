@@ -16,12 +16,11 @@
 					<!-- Thong ke -->
 					<div id="thongke">
 						<h4>Thống kê</h4>
-						<a href="pendingpost">(57) Bài chờ duyệt</a>, <a
-							href="approvedpost">(1) Bài đã duyệt</a>
+						<a href="admin/pendingpost">(57) Bài chờ duyệt</a>, <a
+							href="admin/approvedpost">(1) Bài đã duyệt</a>
 					</div>
 				</div>
-				<h5 class="box-title">Bài mới cập nhật</h5>
-				<!-- /.box-header -->
+				<h5 class="box-title">Bài mới xuất bản</h5>
 				<div class="box-body">
 					<div id="example2_wrapper"
 						class="dataTables_wrapper form-inline dt-bootstrap">
@@ -47,122 +46,104 @@
 											<td>1</td>
 											<td class="">Chất lượng đào tạo hàng đầu Việt Nam</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Hainx</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=1">Sửa
-													bài|</a><a href="#">Xem trên mobile</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>hainx</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>2</td>
 											<td class="">Đội ngũ giảng viên trình độ cao</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Hainx</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=2">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>hainx</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>3</td>
 											<td class="">Diều kiện cơ sở vật chất khang trang, chất
 												lượng cao</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Hainx</td>
-											<td>Administrator</td>
-											<td><a href="newpost">Sửa bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>hainx</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>4</td>
 											<td class="">Điều kiện sống và sinh hoạt thuận tiện</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=3">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>5</td>
 											<td class="">Cơ hội việc làm rộng mở</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=9">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>6</td>
 											<td class="">Thông tin tuyển sinh 2019</td>
 											<td class="sorting_1">Thông tin tuyển sinh</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=4">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>7</td>
 											<td class="">Ngành công nghệ thông tin</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=8">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>8</td>
 											<td class="">Ngành bảo vệ thực vật</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=5">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>9</td>
 											<td class="">Cơ hội hoạt động ngoại khóa và hoạt động xã
 												hội phong phú</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=6">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>10</td>
 											<td class="">Chương trình đào tạo tiên tiến, chất lượng
 												cao</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
-											<td></td>
-											<td>Administrator</td>
-											<td>Administrator</td>
-											<td><a
-												href="${pageContext.request.contextPath}/editpost?postId=9">Sửa
-													bài</a></td>
+											<td>05/04/2019</td>
+											<td>10/04/2019</td>
+											<td>administrator</td>
+											<td>administrator</td>
+											<td><a href="#">Xem</a> | <a href="#">Sửa</a></td>
 										</tr>
 									</tbody>
 								</table>

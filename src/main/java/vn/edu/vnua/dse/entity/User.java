@@ -1,14 +1,15 @@
 package vn.edu.vnua.dse.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,6 @@ public class User implements Serializable {
 	private String password;
 	private String passwordSalt;
 	private String passwordHash;
-	private Role role;
 	private Date lastLogin;
 	private Date createdDate;
 	private String createdUser;
@@ -35,13 +35,14 @@ public class User implements Serializable {
 	private String updatedUser;
 	private boolean status;
 	private String resetPasswordCode;
+	private Collection<UserRole> role;
 
 	public User() {
 
 	}
 
 	public User(int id, String name, String email, String username, String password, String passwordSalt,
-			String passwordHash, Role role, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
+			String passwordHash, Collection<UserRole> role, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
 			String updatedUser, boolean status, String resetPasswordCode) {
 		super();
 		this.id = id;
@@ -133,13 +134,12 @@ public class User implements Serializable {
 		this.passwordHash = passwordHash;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	public Role getRole() {
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	public Collection<UserRole> getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(Collection<UserRole> role) {
 		this.role = role;
 	}
 

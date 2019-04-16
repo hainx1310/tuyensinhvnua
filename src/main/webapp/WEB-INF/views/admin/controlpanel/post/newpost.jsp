@@ -29,20 +29,20 @@
 										<div class="col-sm-8" style="margin-left: 10px">
 											<c:if test="${1==1 }">
 												<div>
-													<h5>Tiêu đề bài viết (*)</h5>
+													<h4>Tiêu đề bài viết (*)</h4>
 													<input style="margin-right: 0px; width: 100%" type="text"
 														placeholder="Tiêu đề bài viết" name="title"
 														value="${title}" />
 												</div>
 											</c:if>
 											<div>
-												<h5>Tóm tắt (*)</h5>
+												<h4>Tóm tắt (*)</h4>
 												<textarea
 													style="margin-top: 0px; width: 100%; resize: vertical;"
 													id="short_content" name = "short_content"></textarea>
 											</div>
 											<div>
-												<h5>Nội dung chính (*)</h5>
+												<h4>Nội dung chính (*)</h4>
 												<div>
 													<textarea style="margin-top: 0px; width: 100%%;"
 														name="content" id="frmContent">${content}</textarea>
@@ -54,9 +54,9 @@
 										<div class="col-sm-3">
 											<div id="anh-dai-dien"
 												style="height: 270px; width: 250px; border-color: #1C1C1C 1px; border-style: solid; border-width: 0.2px; margin-top: 5px">
-												<h5
+												<h4
 													style="background-color: #1C1C1C; color: #fff; padding: 5px; margin-top: 0px; margin-right: 0px">Ảnh
-													đại diện</h5>
+													đại diện</h4>
 												<img name = "avatar_post" id="avatar-post" src="resources/images/avatar-post.png"
 													alt="ảnh đại diện bài viết" height="70%" width="90%">
 												<button style = "margin-left: 10px"type="button" class="btn btn-success"
@@ -66,9 +66,9 @@
 											<br>
 											<div
 												style="height: 200px; border-color: #1C1C1C 1px; border-style: solid; border-width: 0.2px; margin-top: 5px">
-												<h5
+												<h4
 													style="background-color: #1C1C1C; color: #fff; padding: 5px; margin-top: 0px; margin-right: 0px">Chuyên
-													mục (*)</h5>
+													mục (*)</h4>
 												<div
 													style="width: 100%; height: 82%; overflow-y: scroll; padding-left: 10px">
 													<c:forEach var="i" begin="1" end="${listAllCatergories.size()}">

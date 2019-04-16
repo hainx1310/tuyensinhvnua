@@ -20,55 +20,21 @@
 			<!-- Thong ke -->
 			<div id="thongke">
 				<h4>Bài đã xuất bản</h4>
-				<tbody id="filter">
-					<tr class="odd">
-						<td style="width: 220px; padding-left: 10px;" valign="middle">
-							<span>Trạng thái:&nbsp;&nbsp;</span> <select
-							name="ctl00$plhContent$ddlStatus" id="plhContent_ddlStatus"
-							style="width: 100px;">
-								<option value="">[Tất cả]</option>
-								<option selected="selected" value="true">Kích hoạt</option>
-								<option value="false">Khóa</option>
-
-						</select>
-						</td>
-						<td style="width: 220px;" valign="middle"><span>Quyền:&nbsp;&nbsp;</span>
-							<select name="ctl00$plhContent$ddlRoles" id="plhContent_ddlRoles"
-							style="width: 120px;">
-								<option value="">[Tất cả]</option>
-								<option value="Administrators">Administrators</option>
-								<option value="AdvertisementManagemer">AdvertisementManagemer</option>
-								<option value="AllUsers">AllUsers</option>
-								<option value="Biên tập viên">Biên tập viên</option>
-								<option value="Guests">Guests</option>
-								<option selected="selected" value="Moderators">Moderators</option>
-								<option value="phóng viên">phóng viên</option>
-								<option value="quản trị">quản trị</option>
-								<option value="quyencaonhat">quyencaonhat</option>
-								<option value="siteadmin">siteadmin</option>
-								<option value="Users">Users</option>
-
-						</select></td>
-						<td style="width: 220px;" valign="middle"><span>Tìm
-								theo:&nbsp;&nbsp;</span> <select name="ctl00$plhContent$ddlSearchBy"
-							id="plhContent_ddlSearchBy" style="width: 130px;">
-								<option selected="selected" value="UserName">Tên đăng
-									nhập</option>
-								<option value="Email">Email</option>
-
-						</select></td>
-						<td style="width: 295px; text-align: right;"><span>Từ
-								khóa:&nbsp;&nbsp;</span> <input name="ctl00$plhContent$txtKeyword"
-							type="text" id="plhContent_txtKeyword" style="width: 190px;">
-						</td>
-						<td style="text-align: right; padding-right: 45px;"
-							valign="middle"><input type="button"
-							name="ctl00$plhContent$btnSearch" value="Tìm kiếm"
-							onclick="javascript:__doPostBack('ctl00$plhContent$btnSearch','')"
-							id="plhContent_btnSearch" style="height: 26px; width: 80px;">
-							<div id="plhContent_spin" style="display: none;"></div></td>
-					</tr>
-				</tbody>
+				<div id="filter">
+					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
+						id="input-search-name-categories"
+						onkeyup="searchCategoriesByTitle()"
+						placeholder="Tìm theo tiêu đề..." type="text"
+						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
+						chuyên mục:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
+						onkeyup="searchCategoriesByName()"
+						placeholder="Tìm theo tên chuyên mục..." type="text"
+						style="width: 180px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
+						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
+						onkeyup="searchCategoriesByName()"
+						placeholder="Tìm theo tên tác giả..." type="text"
+						style="width: 150px;" />
+				</div>
 			</div>
 			<div class="box">
 				<div class="box-body">
@@ -95,104 +61,104 @@
 											<td>1</td>
 											<td class="">Chất lượng đào tạo hàng đầu Việt Nam</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Hainx</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>2</td>
 											<td class="">Đội ngũ giảng viên trình độ cao</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Hainx</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>3</td>
 											<td class="">Diều kiện cơ sở vật chất khang trang, chất
 												lượng cao</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Hainx</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>4</td>
 											<td class="">Điều kiện sống và sinh hoạt thuận tiện</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>5</td>
 											<td class="">Cơ hội việc làm rộng mở</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>6</td>
 											<td class="">Thông tin tuyển sinh 2019</td>
 											<td class="sorting_1">Thông tin tuyển sinh</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>7</td>
 											<td class="">Ngành công nghệ thông tin</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>8</td>
 											<td class="">Ngành bảo vệ thực vật</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>9</td>
 											<td class="">Cơ hội hoạt động ngoại khóa và hoạt động xã
 												hội phong phú</td>
 											<td class="sorting_1">Vì sao chọn HVN</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost"> Sửa bài </a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 										<tr role="row" class="odd">
 											<td>10</td>
 											<td class="">Chương trình đào tạo tiên tiến, chất lượng
 												cao</td>
 											<td class="sorting_1">Ngành đào tạo</td>
-											<td>05/04/2019 01:14:01 AM</td>
+											<td>05/04/2019</td>
 											<td>Administrator</td>
 											<td>Administrator</td>
-											<td><a href="newpost">Sửa bài</a>|<a href="#"> Gỡ
-													bài</a></td>
+											<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
+												href="#">Gỡ</a></td>
 										</tr>
 									</tbody>
 								</table>

@@ -19,7 +19,7 @@ public class PostController {
 	@Autowired
 	private CategoriesDAO categoriesDao;
 
-	@RequestMapping(value = { "/newpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/post" }, method = RequestMethod.GET)
 	public String newpostPage(Model model) {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
@@ -31,10 +31,10 @@ public class PostController {
 
 		model.addAttribute("titleContent", "Thêm bài viết");
 		model.addAttribute("listAllCatergories", listAllCatergories);
-		return "newpost";
+		return "post";
 	}
 
-	@RequestMapping(value = { "/newpost" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/post" }, method = RequestMethod.POST)
 	public String addNewPostPage(Post post, String a) {
 		return "home";
 	}
@@ -64,7 +64,7 @@ public class PostController {
 						+ "\r\n" + "<p>&nbsp;</p>\r\n" + "\r\n" + "<p>nội dung b&agrave;i viết</p>\r\n" + "\r\n"
 						+ "<p>&nbsp;</p>");
 		model.addAttribute("author", "tác giả bài viết");
-		return "newpost";
+		return "post";
 	}
 
 	@RequestMapping(value = "/editpost{id}", method = RequestMethod.POST)
@@ -72,27 +72,27 @@ public class PostController {
 		return "home";
 	}
 
-	@RequestMapping(value = { "/pendingpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "admin/pendingpost" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
 		model.addAttribute("title", "Đây là title bài viết đang chờ duyệt");
 		model.addAttribute("content", "Đây là nội dung bài viết đang chờ duyệt");
 		model.addAttribute("author", "Đây là tác giả bài viết đang chờ duyệt");
-		return "pendingpost";
+		return "admin/pendingpost";
 	}
 
-	@RequestMapping(value = { "/approvedpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "admin/approvedpost" }, method = RequestMethod.GET)
 	public String approvedPostPage(Model model) {
 		model.addAttribute("title", "Đây là title bài viết đã được duyệt");
 		model.addAttribute("content", "Đây là nội dung bài viết đã được duyệt");
 		model.addAttribute("author", "Đây là tác giả bài viết đã được duyệt");
-		return "approvedpost";
+		return "admin/approvedpost";
 	}
 
-	@RequestMapping(value = { "/postpublished" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "admin/postpublished" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
 		model.addAttribute("title", "Đây là title bài viết đã được xuất bản");
 		model.addAttribute("content", "Đây là nội dung bài viết đã được xuất bản");
 		model.addAttribute("author", "Đây là tác giả bài viết đã được xuất bản");
-		return "postpublished";
+		return "admin/postpublished";
 	}
 }

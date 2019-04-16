@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.service.CategoriesService;
 
 @Controller
+@RequestMapping("/admin")
 public class CategoriesController {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class CategoriesController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalrRecord", totalrRecord);
 
-		return "categories";
+		return "admin/categories";
 	}
 
 	/**
@@ -57,7 +59,7 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/AddCategories", method = RequestMethod.POST)
-	public String createCategory(Categories categories) {
+	public ModelAndView createCategory(Categories categories) {
 
 		try {
 			categoriesService.addCategories(categories);
@@ -65,7 +67,7 @@ public class CategoriesController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect: categories";
+		return new ModelAndView("redirect: /admin/categories");
 	}
 
 	/**
@@ -74,14 +76,14 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/EditCategories", method = RequestMethod.POST)
-	public String updateCategories(Categories categories) {
+	public ModelAndView updateCategories(Categories categories) {
 
 		try {
 			categoriesService.updateCategories(categories);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect: categories";
+		return new ModelAndView("redirect: /admin/categories");
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/DeleteCategories", method = RequestMethod.POST)
-	public String deleteCategories(HttpServletRequest request) {
+	public ModelAndView deleteCategories(HttpServletRequest request) {
 		int categoriesId;
 		categoriesId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
 		try {
@@ -99,7 +101,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect: categories";
+		return new ModelAndView("redirect: /admin/categories");
 	}
 
 	/**
@@ -119,7 +121,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect: /categories";
+		return "redirect: /admin/categories";
 	}
 
 	/**

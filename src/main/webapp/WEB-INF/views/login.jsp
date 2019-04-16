@@ -11,7 +11,7 @@
 </head>
 <body id="loginpage" style="">
 	<div class="wrapper">
-		<form method="post" action="${pageContext.request.contextPath}/login"
+		<form method="post" action="login"
 			class="form-signin">
 			<h2 class="form-signin-heading">Đăng nhập</h2>
 			<input type="text" class="form-control" name="username"
