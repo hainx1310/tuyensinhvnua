@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.CommonUtils;
 import vn.edu.vnua.dse.dao.UserDAO;
+import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.entity.User;
 
 @Repository
@@ -86,6 +87,27 @@ public class UserDaoImpl implements UserDAO {
 			}
 		}
 		return false; // ko ton tai
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc tim kiem user theo username
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#getUserByUsername(java.lang.String)
+	 */
+	@Override
+	public List<User> getUserByUsername(String username) {
+		List<User> listUser = new ArrayList<User>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_USER_BY_USERNAME);
+			Query query = session.createSQLQuery(sql).addEntity(User.class);
+			query.setParameter("username", username);
+			listUser = (List<User>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listUser;
 	}
 
 }

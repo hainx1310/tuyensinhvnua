@@ -29,4 +29,12 @@ public interface UserDAO {
 	 * @return
 	 */
 	public boolean checkExistUserByName(String username);
+
+	/**
+	 * Phuong thuc tim kiem user theo username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public List<User> getUserByUsername(String username);
 }

@@ -24,4 +24,12 @@ public interface UserService {
 	 * @return
 	 */
 	public boolean checkExistUserByName(String username);
+
+	/**
+	 * Phuong thuc kiem tra dang nhap
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public List<User> getUserByUsername(String username);
 }

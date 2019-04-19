@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.service.Impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc kiem tra xem username da ton tai ko
+	 * 
+	 * @see
+	 * vn.edu.vnua.dse.service.UserService#checkExistUserByName(java.lang.String)
+	 */
 	@Override
 	public boolean checkExistUserByName(String username) {
 		boolean result;
@@ -54,6 +61,24 @@ public class UserServiceImpl implements UserService {
 			result = false;
 		}
 		return result;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc tra ve thong tin user theo username
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#getUserByUsername(java.lang.String)
+	 */
+	@Override
+	public List<User> getUserByUsername(String username) {
+		List<User> listUser = new ArrayList<User>();
+		try {
+			logger.debug("GET User by username Start");
+			listUser = userDao.getUserByUsername(username);
+			logger.debug("GET User by username End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listUser;
 	}
 
 }

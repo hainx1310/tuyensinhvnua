@@ -11,15 +11,14 @@
 </head>
 <body id="loginpage" style="">
 	<div class="wrapper">
-		<form method="post" action="login"
-			class="form-signin">
+		<form method="post" action="login" class="form-signin">
 			<h2 class="form-signin-heading">Đăng nhập</h2>
 			<input type="text" class="form-control" name="username"
 				placeholder="Email Address" required="" autofocus=""></input> <input
-				type="password" class="form-control" name="password"
-				placeholder="Password" required="" /> <label class="checkbox">
-				<input type="checkbox" value="remember-me" id="rememberMe"
-				name="rememberMe"> Nhớ mật khẩu </input>
+				type="password" class="form-control" name="password" required="true" />
+			<label class="checkbox"> <input type="checkbox"
+				value="remember-me" id="rememberMe" name="rememberMe"> Nhớ
+					mật khẩu </input>
 			</label>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Đăng
 				nhập</button>
