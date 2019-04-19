@@ -29,4 +29,9 @@ public interface CategoriesService {
 	 * Services thay doi trang thai cua 1 categories trong db
 	 */
 	public void changeStatusCategories(int categoriesId, boolean status);
+
+	/**
+	 * lay tat ca chuyen muc duoc kich hoat
+	 */
+	public List<Categories> getAllCategoriesIsActive();
 }

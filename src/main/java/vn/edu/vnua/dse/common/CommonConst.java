@@ -19,6 +19,11 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca categories
 		 */
 		public static final String GET_lIST_CATEGORIES = "sqlfiles/getListCategories.sql";
+		
+		/**
+		 * cau sql lay ra danh sach tat ca categories duoc kich hoat
+		 */
+		public static final String GET_lIST_CATEGORIES_IS_ACTIVE = "sqlfiles/getListCategoriesIsActive.sql";
 
 		/**
 		 * cau sql insert categories vao bang categories
@@ -39,6 +44,11 @@ public class CommonConst {
 		 * cau sql thay doi trang thai cua 1 categories trong bang categories
 		 */
 		public static final String CHANGE_STATUS_CATEGORIES = "sqlfiles/changeStatusCategories.sql";
+		
+		/**
+		 * cau sql them moi user vao bang user
+		 */
+		public static final String CREATE_USER = "sqlfiles/createUser.sql";
 
 	}
 }

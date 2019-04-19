@@ -24,9 +24,7 @@
 				<value>vn.edu.vnua.dse.entity.File</value>
 				<value>vn.edu.vnua.dse.entity.Notification</value>
 				<value>vn.edu.vnua.dse.entity.Post</value>
-				<value>vn.edu.vnua.dse.entity.Role</value>
 				<value>vn.edu.vnua.dse.entity.User</value>
-				<value>vn.edu.vnua.dse.entity.UserRole</value>
 				<value>vn.edu.vnua.dse.entity.Video</value>
 			</list>
 		</property>

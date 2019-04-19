@@ -1,15 +1,13 @@
 package vn.edu.vnua.dse.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,15 +33,16 @@ public class User implements Serializable {
 	private String updatedUser;
 	private boolean status;
 	private String resetPasswordCode;
-	private Collection<UserRole> role;
+	private String avatarUrl;
+	private boolean role;
 
 	public User() {
 
 	}
 
 	public User(int id, String name, String email, String username, String password, String passwordSalt,
-			String passwordHash, Collection<UserRole> role, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
-			String updatedUser, boolean status, String resetPasswordCode) {
+			String passwordHash, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
+			String updatedUser, boolean status, String resetPasswordCode, String avatarUrl, boolean role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -52,7 +51,6 @@ public class User implements Serializable {
 		this.password = password;
 		this.passwordSalt = passwordSalt;
 		this.passwordHash = passwordHash;
-		this.role = role;
 		this.lastLogin = lastLogin;
 		this.createdDate = createdDate;
 		this.createdUser = createdUser;
@@ -60,6 +58,8 @@ public class User implements Serializable {
 		this.updatedUser = updatedUser;
 		this.status = status;
 		this.resetPasswordCode = resetPasswordCode;
+		this.avatarUrl = avatarUrl;
+		this.role = role;
 	}
 
 	public User(int id, String name, String email, String sdt) {
@@ -70,7 +70,7 @@ public class User implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	public int getId() {
 		return id;
@@ -132,15 +132,6 @@ public class User implements Serializable {
 
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
-	}
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	public Collection<UserRole> getRole() {
-		return role;
-	}
-
-	public void setRole(Collection<UserRole> role) {
-		this.role = role;
 	}
 
 	@Column(name = "last_login")
@@ -210,6 +201,24 @@ public class User implements Serializable {
 
 	public void setResetPasswordCode(String resetPasswordCode) {
 		this.resetPasswordCode = resetPasswordCode;
+	}
+
+	@Column(name = "avatar_url", length = 255)
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	@Column(name = "role")
+	public boolean isRole() {
+		return role;
+	}
+
+	public void setRole(boolean role) {
+		this.role = role;
 	}
 
 }

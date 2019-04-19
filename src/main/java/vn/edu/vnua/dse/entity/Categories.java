@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Categories implements Serializable {
@@ -108,6 +110,7 @@ public class Categories implements Serializable {
 		this.updatedUser = updatedUser;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "categories", fetch = FetchType.EAGER)
 	public Collection<Post> getPosts() {
 		return posts;

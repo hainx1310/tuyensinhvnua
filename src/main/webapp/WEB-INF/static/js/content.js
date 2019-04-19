@@ -143,6 +143,10 @@ $("#btn-save").on("click", function() {
 	$('#modal-create-categories').modal('hide');
 });
 
+$("#btn-submit-user").on("click", function() {
+	$('#modal-user"').modal('hide');
+});
+
 $("#btn-save-update").on("click", function() {
 	$('#modal-update-categories').modal('hide');
 });
@@ -236,7 +240,7 @@ function openModalChangeStatusCategories(categoriesId, status) {
 			id : categoriesId,
 		},
 		success : function(response) {
-			//location.reload();
+			// location.reload();
 		},
 		error : function(e) {
 			location.reload();

@@ -401,6 +401,13 @@
 		</dependency>
 		<!--CKFinder end -->
 
+		<!-- Add thu vien ma hoa -->
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

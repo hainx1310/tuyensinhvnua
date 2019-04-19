@@ -67,7 +67,7 @@ public class CategoriesController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect: /admin/categories");
+		return new ModelAndView("redirect:" + "/admin/categories");
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect: /admin/categories");
+		return new ModelAndView("redirect:" + "/admin/categories");
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect: /admin/categories");
+		return new ModelAndView("redirect:" + "/admin/categories");
 	}
 
 	/**

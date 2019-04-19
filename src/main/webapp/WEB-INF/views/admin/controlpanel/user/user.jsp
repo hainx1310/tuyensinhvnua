@@ -160,55 +160,59 @@
 									</button>
 									<h4 class="modal-user-title"></h4>
 								</div>
-								<div class="modal-body">
-									<table
-										style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
-										<tr>
-											<td>Tên đăng nhập:</td>
-											<td><input type="text" id="username" name="username"
-												size="50%" maxlength="50" autofocus="autofocus"></td>
-										</tr>
-										<tr style="padding-top: 10px">
-											<td>Mật khẩu:</td>
-											<td><input type="password" id="password" name="password"
-												size="50%" maxlength="500"></td>
-										</tr>
-										<br>
-										<tr style>
-											<td>Nhập lại mật khẩu:</td>
-											<td><input type="password" id="password_again"
-												name="passwrod_again" size="50%" maxlength="500"></td>
-										</tr>
-										<tr>
-											<td>Email:</td>
-											<td><input type="text" id="email" name="email"
-												size="50%" maxlength="50"></td>
-										</tr>
-										<tr>
-											<td>Quyền quản trị:</td>
-											<td><div class="form-group">
-													<select id="select_role"
-														class="form-control select2 select2-hidden-accessible"
-														style="width: 100%;" tabindex="-1" aria-hidden="true">
-														<option selected="selected">---Chọn quyền--</option>
-														<option>Biên tập viên</option>
-														<option>Quản trị viên</option>
-													</select>
-												</div></td>
-										</tr>
-										<tr>
-											<td>Kích hoạt:</td>
-											<td><input type="checkbox" id="role_is_admin"
-												name="status"></td>
-										</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default pull-left"
-										data-dismiss="modal">Hủy</button>
-									<button type="button" class="btn btn-primary">Lưu thay
-										đổi</button>
-								</div>
+								<form action="add" method="post">
+									<div class="modal-body">
+										<table
+											style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
+											<tr>
+												<td>Tên đăng nhập:</td>
+												<td><input type="text" id="username" name="username"
+													size="50%" maxlength="50" autofocus="autofocus"></td>
+												<p>${message}</p>
+											</tr>
+											<tr style="padding-top: 10px">
+												<td>Mật khẩu:</td>
+												<td><input type="password" id="password"
+													name="password" size="50%" maxlength="500"></td>
+											</tr>
+											<br>
+											<tr style>
+												<td>Nhập lại mật khẩu:</td>
+												<td><input type="password" id="password_again"
+													name="passwrod_again" size="50%" maxlength="500"></td>
+											</tr>
+											<tr>
+												<td>Email:</td>
+												<td><input type="text" id="email" name="email"
+													size="50%" maxlength="50"></td>
+											</tr>
+											<tr>
+												<td>Quyền:</td>
+												<td><div class="form-group">
+														<select id="select_role"
+															class="form-control select2 select2-hidden-accessible"
+															style="width: 100%;" tabindex="-1" aria-hidden="true"
+															name="role">
+															<option selected="selected">---Chọn quyền--</option>
+															<option value="0">Biên tập viên</option>
+															<option value="1">Quản trị viên</option>
+														</select>
+													</div></td>
+											</tr>
+											<tr>
+												<td>Kích hoạt:</td>
+												<td><input type="checkbox" id="role_is_admin"
+													name="status"></td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default pull-left"
+											data-dismiss="modal">Hủy</button>
+										<button id="btn-submit-user" type="submit"
+											class="btn btn-primary">Lưu</button>
+									</div>
+								</form>
 							</div>
 							<!-- /.modal-content -->
 						</div>

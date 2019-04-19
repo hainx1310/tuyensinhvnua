@@ -144,4 +144,25 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc lay tat ca chuyen muc dang duoc kich hoat
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CategoriesDAO#getListCategoriesIsActive()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Categories> getListCategoriesIsActive() {
+		List<Categories> listCategories = new ArrayList<Categories>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_lIST_CATEGORIES_IS_ACTIVE);
+			Query query = session.createSQLQuery(sql).addEntity(Categories.class);
+			listCategories = (List<Categories>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listCategories;
+	}
+
 }

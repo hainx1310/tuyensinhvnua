@@ -108,4 +108,17 @@ public class CategoriesServiceImpl implements CategoriesService {
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 	}
+
+	@Override
+	public List<Categories> getAllCategoriesIsActive() {
+		List<Categories> listCategories = new ArrayList<Categories>();
+		try {
+			logger.debug("getListCategoriesIsActive Start");
+			listCategories = categoriesDao.getListCategoriesIsActive();
+			logger.debug("getListCategoriesIsActive End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listCategories;
+	}
 }

@@ -1,1 +1,1 @@
-SELECT * FROM demo.user
+SELECT * FROM tuyensinhapi.user

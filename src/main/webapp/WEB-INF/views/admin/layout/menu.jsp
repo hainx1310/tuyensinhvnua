@@ -45,7 +45,7 @@
 							class="fa fa-list-ul"></i> Quản lý Chuyên mục</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/categories"><i
 							class="fa fa-image"></i> Quản lý Ảnh</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin//categories"><i
+					<li><a href="${pageContext.request.contextPath}/admin/categories"><i
 							class="fa fa-youtube-play"></i> Quản lý Video</a></li>
 				</ul></li>
 			<li class="treeview"><a href="#"> <i class="fa fa-cog"></i>
@@ -54,7 +54,7 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/admin/UserManagement"><i
+					<li><a href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
 							class="fa fa-users"></i> Quản lý thành viên</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/RoleManagement"><i
 							class="fa fa-sitemap"></i> Quản lý quyền</a></li>

@@ -44,4 +44,11 @@ public interface CategoriesDAO {
 	 * @param categoriesId
 	 */
 	public void changeStatusCategories(int categoriesId, boolean status);
+
+	/**
+	 * Phuong thuc lay tat ca chuyen muc dang duoc kich hoat
+	 * 
+	 * @return
+	 */
+	public List<Categories> getListCategoriesIsActive();
 }
