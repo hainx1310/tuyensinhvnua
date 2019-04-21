@@ -1,28 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1">
-<title>.: Login - Tuyển sinh Administration :.</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link rel="stylesheet" type="text/css" href="resources/css/login.css" />
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-</head>
-<body id="loginpage" style="">
-	<div class="wrapper">
-		<form method="post" action="login" class="form-signin">
-			<h2 class="form-signin-heading">Đăng nhập</h2>
-			<input type="text" class="form-control" name="username"
-				placeholder="Email Address" required="" autofocus=""></input> <input
-				type="password" class="form-control" name="password" required="true" />
-			<label class="checkbox"> <input type="checkbox"
-				value="remember-me" id="rememberMe" name="rememberMe"> Nhớ
-					mật khẩu </input>
-			</label>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Đăng
-				nhập</button>
-		</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Đăng nhập - Tuyển sinh HVN</title>
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="<%=request.getContextPath()%>/resources/css/login.css"
+	rel="stylesheet">
+
+<!--Pulling Awesome Font -->
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-5 col-md-3">
+			<div class="form-login">
+				<h4>Tuyển sinh HVN</h4>
+				<form method="POST" action="login">
+					<input type="text" id="userName" name="username"
+						class="form-control input-sm chat-input" placeholder="username" />
+					</br> <input name="password" type="password" id="userPassword"
+						class="form-control input-sm chat-input" placeholder="password" />
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> <span>Nhớ mật khẩu: </span><input
+						type="checkbox" name="remember-me" /><a id="quen-mk"
+						href="${contextPath}/registration">Quên mật khẩu</a> </br>
+					<div class="wrapper">
+						<c:if test="${not empty error }">
+							<span id="errormessage">${message}</span>
+						</c:if>
+						<button type="submit">Đăng nhập</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
 	</div>
-</body>
-</html>
+</div>

@@ -1,0 +1,1 @@
+DELETE FROM tuyensinhapi.user WHERE id = :id

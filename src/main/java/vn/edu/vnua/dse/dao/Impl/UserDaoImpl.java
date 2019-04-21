@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.CommonUtils;
 import vn.edu.vnua.dse.dao.UserDAO;
-import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.entity.User;
 
 @Repository
@@ -32,6 +31,11 @@ public class UserDaoImpl implements UserDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc lay tat ca user
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#getListUser()
+	 */
 	@Override
 	public List<User> getListUser() {
 		List<User> listAllUser = new ArrayList<User>();
@@ -108,6 +112,91 @@ public class UserDaoImpl implements UserDAO {
 			throw new RuntimeException(ex);
 		}
 		return listUser;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc cap nhat mot user
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#updateUser(vn.edu.vnua.dse.entity.User)
+	 */
+	@Override
+	public void updateUser(User user) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.UPDATE_USER);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("updated_user", user.getUpdatedUser());
+			query.setParameter("status", user.isStatus());
+			query.setParameter("role", user.isRole());
+			query.setParameter("id", user.getId());
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc xoa 1 user
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#deleteUser(int)
+	 */
+	@Override
+	public void deleteUser(int userId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.DELETE_USER);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("id", userId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc thay doi trang thai cua 1 User
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#changeStatusUser(int, boolean,
+	 * java.lang.String)
+	 */
+	@Override
+	public void changeStatusUser(int userId, boolean status, String updateByUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.CHANGE_STATUS_USER);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("updated_user", updateByUser);
+			query.setParameter("status", status);
+			query.setParameter("id", userId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Lấy danh sach 10 user de phan trang
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#getListUserLimit(int)
+	 */
+	@Override
+	public List<User> getListUserLimit(int startIndex) {
+		List<User> listUserLimit = new ArrayList<User>();
+
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM User");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+
+			listUserLimit = (List<User>) query.list();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return listUserLimit;
 	}
 
 }

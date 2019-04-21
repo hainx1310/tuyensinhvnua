@@ -43,7 +43,7 @@ public interface CategoriesDAO {
 	 * 
 	 * @param categoriesId
 	 */
-	public void changeStatusCategories(int categoriesId, boolean status);
+	public void changeStatusCategories(int categoriesId, boolean status, String updateByUser);
 
 	/**
 	 * Phuong thuc lay tat ca chuyen muc dang duoc kich hoat

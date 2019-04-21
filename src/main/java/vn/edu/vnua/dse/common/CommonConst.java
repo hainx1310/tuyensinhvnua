@@ -55,5 +55,20 @@ public class CommonConst {
 		 */
 		public static final String GET_USER_BY_USERNAME = "sqlfiles/getUserByUsername.sql";
 
+		/**
+		 * cau sql xóa 1 user trong bang user
+		 */
+		public static final String DELETE_USER = "sqlfiles/deleteUser.sql";
+
+		/**
+		 * cau sql thay doi trang thai cua 1 user trong bang user
+		 */
+		public static final String CHANGE_STATUS_USER = "sqlfiles/changeStatusUser.sql";
+
+		/**
+		 * cau sql update user vao bang user
+		 */
+		public static final String UPDATE_USER = "sqlfiles/updateUser.sql";
+
 	}
 }

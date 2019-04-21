@@ -37,4 +37,30 @@ public interface UserDAO {
 	 * @return
 	 */
 	public List<User> getUserByUsername(String username);
+
+	/**
+	 * Phuong thuc cap nhat mot user
+	 * 
+	 * @param name
+	 */
+	public void updateUser(User user);
+
+	/**
+	 * Phuong thuc xoa 1 user
+	 * 
+	 * @param UserId
+	 */
+	public void deleteUser(int userId);
+
+	/**
+	 * Phuong thuc thay doi trang thai cua 1 User
+	 * 
+	 * @param UserId
+	 */
+	public void changeStatusUser(int userId, boolean status, String updateByUser);
+
+	/**
+	 * Lấy danh sach 10 user de phan trang
+	 */
+	public List<User> getListUserLimit(int startIndex);
 }

@@ -61,7 +61,8 @@
 															value="${listCategories.get(i-1).isStatus()==true ? \"Kích hoạt\" : \"Khóa\"}" /></td>
 													<td id="categories-created-date"><c:out
 															value="${listCategories.get(i-1).getCreatedDate()}" /></td>
-													<td id="categories-created-user">administrator</td>
+													<td id="categories-created-user"><c:out
+															value="${listCategories.get(i-1).getCreatedUser()}" /></td>
 													<td id="categories-updated-date"><c:out
 															value="${listCategories.get(i-1).getUpdatedDate()}" /></td>
 													<td id="categories-updated-user"><c:out
@@ -99,7 +100,7 @@
 										id="example2_paginate">
 										<ul class="pagination">
 											<c:forEach var="i" begin="1" end="${pagesNumber}">
-												<li class="paginate_button next" id="example2_next"><a
+												<li class="paginate_button page-of-categories next" id="example2_next"><a
 													href="#" aria-controls="example2" data-dt-idx="'${i}'"
 													tabindex="0">${i}</a></li>
 											</c:forEach>
@@ -157,7 +158,7 @@
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
-									<h4>Sửa chuyên mục</h4>
+									<h4>Cập nhật chuyên mục</h4>
 								</div>
 								<form action="EditCategories" method="post">
 									<div class="modal-body">
@@ -188,7 +189,7 @@
 						<!-- /.modal-dialog -->
 					</div>
 
-					<div class="modal fade" id="modal-delete-categories">
+					<div class="modal fade" id="modal-confirm-delete">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form action="DeleteCategories" method="post">

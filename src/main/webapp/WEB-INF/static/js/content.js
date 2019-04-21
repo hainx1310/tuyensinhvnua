@@ -7,37 +7,6 @@ $('#datepicker').datepicker({
 });
 
 /**
- * Su kien show modal cap nhat thanh vien
- * 
- * @returns
- */
-function openModalUpdateUser() {
-	$('#modal-user').modal({
-		show : 'true'
-	});
-}
-
-// Sự kiện khi bấm sửa thành viên
-$("#update_user").on("click", function() {
-	$('#modal-user').modal({
-		show : 'true'
-	});
-
-	var id = 1;
-	// lấy dữ liệu user theo id
-	var username = "editor01";
-	var password = "123456";
-	var email = "admin@vnua.edu.vn";
-
-	$("#username").val(username);
-	$("#password").val(password);
-	$("#email").val(email);
-	$("#select_role").val("Biên tập viên");
-	$('#role_is_admin').prop('checked', true);
-	$('.modal-user-title').text("Sửa thông tin người dùng");
-});
-
-/**
  * function bat modal tao moi user
  * 
  * @returns
@@ -168,9 +137,6 @@ function openModalUpdateCategories(categoriesId, name, status) {
 	$('#modal-update-categories .modal-body').append(
 			"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = "
 					+ categoriesId + " />");
-	$('#modal-update-categories .modal-body')
-			.append(
-					"<input name = \"updatedUser\" id = \"updatedUser\" type = \"text\" value = \"hainx\" />");
 	$('#categoriesId').hide();
 	$('#updatedUser').hide();
 
@@ -189,7 +155,6 @@ $("#modal-update-categories").on("hidden.bs.modal", function() {
 	$('#modal-update-categories #categories-is-active').prop('checked', false);
 	// clear input id
 	$('#modal-update-categories #categoriesId').remove();
-	$('#modal-update-categories #updatedUser').remove();
 });
 
 /**
@@ -201,17 +166,17 @@ $("#modal-update-categories").on("hidden.bs.modal", function() {
  */
 function openModalDeleteCategories(categoriesId, categoriesName) {
 	// show modal
-	$('#modal-delete-categories').modal({
+	$('#modal-confirm-delete').modal({
 		show : 'true'
 	});
-	$('#modal-delete-categories .modal-body').append(
+	$('#modal-confirm-delete .modal-body').append(
 			'<p>Bạn muốn xóa chuyên mục <strong>' + categoriesName
 					+ '</strong> không?</p>');
-	$('#modal-delete-categories .modal-body').append(
+	$('#modal-confirm-delete .modal-body').append(
 			"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = "
 					+ categoriesId + " />");
 
-	$('#modal-delete-categories #categoriesId').hide();
+	$('#modal-confirm-delete #categoriesId').hide();
 }
 
 /**
@@ -240,7 +205,7 @@ function openModalChangeStatusCategories(categoriesId, status) {
 			id : categoriesId,
 		},
 		success : function(response) {
-			// location.reload();
+			location.reload();
 		},
 		error : function(e) {
 			location.reload();
@@ -286,7 +251,12 @@ function searchCategoriesByName() {
 	}
 }
 
-$('body').on('click', '.paginate_button', function() {
+/**
+ * Sự kiện phân trang chuyên mục
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-categories', function() {
 	var currentPage = $(this).text();
 	var startIndex = (currentPage - 1) * 10;
 	$('#recored-start').text(startIndex + 1);
@@ -298,6 +268,163 @@ $('body').on('click', '.paginate_button', function() {
 		},
 		success : function(value) {
 			var element = $('#table-categories').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});
+
+/**
+ * Sự kiện click vào đăng xuất
+ * 
+ * @returns
+ */
+$('#btn-logout').on('click', function() {
+	$.ajax({
+		url : "logout",
+		type : "post",
+		success : function(value) {
+			window.location.href = "login";
+		}
+	});
+});
+
+/**
+ * Hàm xử lý sự kiện người dùng nhấn đổi trạng thái user
+ * 
+ * @param userId
+ * @param status
+ * @returns
+ */
+function changeStatusUserById(userId, status) {
+	$.ajax({
+		type : "post",
+		url : "changeStatusUser",
+		data : {
+			status : status,
+			id : userId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
+
+/**
+ * ham sua user
+ * 
+ * @param categoriesId
+ * @param name
+ * @param status
+ * @returns
+ */
+function openModalUpdateUser(userId, username, role, status) {
+
+	console.log(userId, username, role, status);
+
+	// show modal
+	$('#modal-update-user').modal({
+		show : 'true'
+	});
+
+	$('#modal-update-user .modal-body').append(
+			"<input name = \"id\" id = \"userId\" type = \"text\" value = "
+					+ userId + " />");
+	$('#userId').hide();
+
+	$('#modal-update-user #username').text(username);
+	role === true ? $("#modal-update-user #select_role").val("1") : $(
+			"#modal-update-user #select_role").val("0");
+	$('#modal-update-user #user_is_active').prop('checked', status);
+
+}
+
+/**
+ * Sự kiện reset form sua user
+ * 
+ * @returns
+ */
+$("#modal-update-user").on("hidden.bs.modal", function() {
+	$("#modal-update-user #username").val("");
+	$('#modal-update-user #user_is_active').prop('checked', false);
+	// clear input id
+	$('#modal-update-user #userId').remove();
+});
+
+/**
+ * Hàm mở modal xác nhận xóa user
+ * 
+ * @param categoriesId
+ * @param categoriesName
+ * @returns
+ */
+function openModalDeleteUser(userId, username) {
+	// show modal
+	$('#modal-confirm-delete').modal({
+		show : 'true'
+	});
+	$('#modal-confirm-delete .modal-body').append(
+			'<p>Bạn muốn xóa thành viên <strong>' + username
+					+ '</strong> không?</p>');
+	$('#modal-confirm-delete .modal-body').append(
+			"<input name = \"id\" id = \"userId\" type = \"text\" value = "
+					+ userId + " />");
+
+	$('#modal-confirm-delete #userId').hide();
+}
+
+/**
+ * Hàm sự kiện nhập keyword lọc theo username
+ * 
+ * @returns
+ */
+function searchUserByUsername() {
+	// Declare variables
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("input-search-name-user");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("table-user");
+	tr = table.getElementsByTagName("tr");
+
+	// Loop through all table rows, and hide those who don't match the search
+	// query
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[1];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}
+
+/**
+ * Sự kiện phân trang user
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-user', function() {
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 10;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "getUserLimit",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#table-user').find("tbody");
 			var idx = value.lastIndexOf(">") + 1;
 			var last = value.substring(idx, value.length);
 			var result = value.substring(0, idx);

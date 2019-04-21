@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@page session="false"%>
-<html>
-<head>
-<title>Truy cập bị từ chối</title>
-</head>
-<body>
-	<h3 style="color: red;">${message}</h3>
-</body>
-</html>
+
+<div id="wrapper-content">
+	<div id="container-content">
+		<h3 style="color: red; text-align: center;">${message}</h3>
+	</div>
+</div>

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,8 +37,9 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, Model model) {
+	public String login(HttpServletRequest request, Model model, HttpSession session) {
 
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(12);
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -49,21 +52,38 @@ public class LoginController {
 			listResul = userService.getUserByUsername(username);
 			if (listResul != null && listResul.size() > 0) {
 				// lay salt
-				User user = listResul.get(0);
-				String salt = user.getPasswordSalt();
-				// check password
-				if (salt != null) {
-					if (BCrypt.checkpw(salt.concat(password), listResul.get(0).getPassword())) {
-						System.out.println("login thanh cong");
-						return "redirect: home";
+				if (bcrypt.matches(password, listResul.get(0).getPassword())) {
+					// TH tai khoan bi khoa
+					if (!listResul.get(0).isStatus()) {
+						model.addAttribute("error", "true");
+						model.addAttribute("message", "Tài khoản đã bị khóa.");
+						return "redirect: login";
 					}
+					if (session.getAttribute("user") != null) {
+						System.out.println("bla bla");
+						session.setAttribute("user", listResul.get(0));
+					}
+
+					return "redirect: home";
 				}
 
 			}
 		}
 
-		model.addAttribute("message", "Mật khẩu hoặc tài khoản không chính xác");
 		return "redirect: login";
+	}
+
+	/**
+	 * Phuong thuc xu ly login that bai
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
+	public String loginFailed(ModelMap model) {
+		model.addAttribute("error", "true");
+		model.addAttribute("message", "Tài khoản hoặc mật khẩu không chính xác");
+		return "login";
 	}
 
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

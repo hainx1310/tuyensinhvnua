@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+
 <header class="main-header">
 	<!-- Logo -->
 	<a href="" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -29,7 +32,8 @@
 							class="img-circle" alt="Avartar người dùng">
 
 							<p>
-								Nguyễn Xuân Hải <small>Administrator</small>
+								<sec:authentication property="principal.username" />
+								<small><sec:authentication property="principal.username" /></small>
 							</p></li>
 						<!-- Menu Body -->
 						<!-- Menu Footer-->
@@ -39,8 +43,8 @@
 									nhân</a>
 							</div>
 							<div class="pull-right">
-								<a href="${pageContext.request.contextPath}/login"
-									class="btn btn-default btn-flat">Đăng xuất</a>
+								<a id="btn-logout" class="btn btn-default btn-flat">Đăng
+									xuất</a>
 							</div>
 						</li>
 					</ul></li>

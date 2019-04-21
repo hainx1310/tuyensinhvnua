@@ -45,7 +45,7 @@
 	display: block;
 }
 
-#modal-delete-categories .modal-dialog {
+#modal-confirm-delete .modal-dialog {
 	width: 200px;
 }
 

@@ -21,7 +21,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getListUser() {
-		return userDao.getListUser();
+		List<User> listUser = new ArrayList<User>();
+		try {
+			logger.debug("GET ALL User Start");
+			listUser = userDao.getListUser();
+			logger.debug("GET ALL User End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listUser;
 	}
 
 	/*
@@ -75,6 +83,77 @@ public class UserServiceImpl implements UserService {
 			logger.debug("GET User by username Start");
 			listUser = userDao.getUserByUsername(username);
 			logger.debug("GET User by username End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listUser;
+	}
+
+	/*
+	 * (non-Javadoc) Cap nhat user
+	 * 
+	 * @see
+	 * vn.edu.vnua.dse.service.UserService#updateUser(vn.edu.vnua.dse.entity.User)
+	 */
+	@Override
+	public void updateUser(User user) {
+		try {
+			logger.debug("Update user Start");
+			userDao.updateUser(user);
+			logger.debug("Update user End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Xoa user theo userID
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#deleteUser(int)
+	 */
+	@Override
+	public void deleteUser(int userId) {
+		try {
+			logger.debug("Delete user Start");
+			userDao.deleteUser(userId);
+			logger.debug("Delete user End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Thay doi trang tahi cua user theo userId
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#changeStatusUser(int, boolean,
+	 * java.lang.String)
+	 */
+	@Override
+	public void changeStatusUser(int userId, boolean status, String updateByUser) {
+		try {
+			logger.debug("Update user Start");
+			userDao.changeStatusUser(userId, status, updateByUser);
+			logger.debug("Update user End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 user phan trang
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#getListUserLimit(int)
+	 */
+	@Override
+	public List<User> getListUserLimit(int startIndex) {
+		List<User> listUser = new ArrayList<User>();
+		try {
+			logger.debug("GET Limit User Start");
+			listUser = userDao.getListUserLimit(startIndex);
+			logger.debug("GET Limit User End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}

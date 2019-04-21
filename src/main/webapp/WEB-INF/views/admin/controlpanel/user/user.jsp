@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -17,57 +18,14 @@
 		</section>
 		<div style="margin-left: 10px; margin-right: 10px;">
 			<!-- Thong ke -->
+			<!-- Thong ke -->
 			<div id="thongke">
 				<h4>Thành viên</h4>
-				<tbody>
-					<tr class="odd">
-						<td style="width: 220px; padding-left: 10px;" valign="middle">
-							<span>Trạng thái:&nbsp;&nbsp;</span> <select
-							name="ctl00$plhContent$ddlStatus" id="plhContent_ddlStatus"
-							style="width: 100px;">
-								<option value="">[Tất cả]</option>
-								<option selected="selected" value="true">Kích hoạt</option>
-								<option value="false">Khóa</option>
-
-						</select>
-						</td>
-						<td style="width: 220px;" valign="middle"><span>Quyền:&nbsp;&nbsp;</span>
-							<select name="ctl00$plhContent$ddlRoles" id="plhContent_ddlRoles"
-							style="width: 120px;">
-								<option value="">[Tất cả]</option>
-								<option value="Administrators">Administrators</option>
-								<option value="AdvertisementManagemer">AdvertisementManagemer</option>
-								<option value="AllUsers">AllUsers</option>
-								<option value="Biên tập viên">Biên tập viên</option>
-								<option value="Guests">Guests</option>
-								<option selected="selected" value="Moderators">Moderators</option>
-								<option value="phóng viên">phóng viên</option>
-								<option value="quản trị">quản trị</option>
-								<option value="quyencaonhat">quyencaonhat</option>
-								<option value="siteadmin">siteadmin</option>
-								<option value="Users">Users</option>
-
-						</select></td>
-						<td style="width: 220px;" valign="middle"><span>Tìm
-								theo:&nbsp;&nbsp;</span> <select name="ctl00$plhContent$ddlSearchBy"
-							id="plhContent_ddlSearchBy" style="width: 130px;">
-								<option selected="selected" value="UserName">Tên đăng
-									nhập</option>
-								<option value="Email">Email</option>
-
-						</select></td>
-						<td style="width: 295px; text-align: right;"><span>Từ
-								khóa:&nbsp;&nbsp;</span> <input name="ctl00$plhContent$txtKeyword"
-							type="text" id="plhContent_txtKeyword" style="width: 190px;">
-						</td>
-						<td style="text-align: right; padding-right: 45px;"
-							valign="middle"><input type="button"
-							name="ctl00$plhContent$btnSearch" value="Tìm kiếm"
-							onclick="javascript:__doPostBack('ctl00$plhContent$btnSearch','')"
-							id="plhContent_btnSearch" style="height: 26px; width: 80px;">
-							<div id="plhContent_spin" style="display: none;"></div></td>
-					</tr>
-				</tbody>
+				<div id="filter">
+					<span>Tên thành viên:&nbsp;&nbsp;</span> <input
+						id="input-search-name-user" onkeyup="searchUserByUsername()"
+						placeholder="Lọc thành viên..." type="text" style="width: 300px;" />
+				</div>
 			</div>
 			<div>
 				<div class="box">
@@ -76,7 +34,7 @@
 							class="dataTables_wrapper form-inline dt-bootstrap">
 							<div class="row">
 								<div class="col-sm-12">
-									<table id="example2"
+									<table id="table-user"
 										class="table table-bordered table-hover dataTable" role="grid"
 										aria-describedby="example2_info">
 										<thead>
@@ -85,6 +43,7 @@
 												<th>Tên đăng nhập</th>
 												<th>Email</th>
 												<th>Trạng thái</th>
+												<th>Quyền</th>
 												<th>Ngày tạo</th>
 												<th>Người tạo</th>
 												<th>Ngày sửa</th>
@@ -93,20 +52,34 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr role="row" class="odd">
-												<td>1</td>
-												<td class="">editor01</td>
-												<td class="sorting_1">admin@vnua.edu.vn</td>
-												<td>Kích hoạt</td>
-												<td>10/04/2019</td>
-												<td>administrator</td>
-												<td></td>
-												<td></td>
-												<td><a
-													href="${pageContext.request.contextPath}/editpost?postId=1">Đổi
-														trạng thái</a> | <a id="update_user" href="#">Sửa</a> | <a
-													href="#">Xóa</a></td>
-											</tr>
+											<c:forEach var="i" begin="1" end="${listUser.size()}">
+												<tr role="row" class="odd">
+													<td class=""><c:out value="${i}" /></td>
+													<td id="user-username" class="sorting_1"><c:out
+															value="${listUser.get(i-1).getUsername()}" /></td>
+													<td id="user-email"><c:out
+															value="${listUser.get(i-1).getEmail()}" /></td>
+													<td id="user-status"><c:out
+															value="${listUser.get(i-1).isStatus()==true ? \"Kích hoạt\" : \"Khóa\"}" /></td>
+													<td id="user-role"><c:out
+															value="${listUser.get(i-1).isRole()==true ? \"Quản trị viên\" : \"Biên tập viên\"}" /></td>
+													<td id="user-created-date"><c:out
+															value="${listUser.get(i-1).getCreatedDate()}" /></td>
+													<td id="user-created-user"><c:out
+															value="${listUser.get(i-1).getCreatedUser()}" /></td>
+													<td id="user-udapted-date"><c:out
+															value="${listUser.get(i-1).getUpdatedDate()}" /></td>
+													<td id="user-udapted-user"><c:out
+															value="${listUser.get(i-1).getUpdatedUser()}" /></td>
+													<td><a id="changeStatusUser"
+														onclick='changeStatusUserById(${listUser.get(i-1).getId()}, ${listUser.get(i-1).isStatus()})'
+														href="#">Đổi trạng thái</a> | <a
+														onclick='openModalUpdateUser(${listUser.get(i-1).getId()}, "${listUser.get(i-1).getUsername()}", ${listUser.get(i-1).isRole()}, ${listUser.get(i-1).isStatus()})'
+														href="#">Sửa</a> | <a
+														onclick='openModalDeleteUser(${listUser.get(i-1).getId()}, "${listUser.get(i-1).getUsername()}")'
+														href="#">Xóa</a></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -119,31 +92,23 @@
 
 							<div class="row">
 								<div class="col-sm-5">
-									<div class="dataTables_info" id="example2_info" role="status"
-										aria-live="polite">Hiển thị 1 đến 10 trong số 57 mục</div>
+									<div class="dataTables_info" id="show-data-of-page"
+										role="status" aria-live="polite">
+										Hiển thị <span id="recored-start">1</span> đến <span
+											id="recored-end">${listUser.size()}</span> trong số
+										<c:out value="${totalrRecord}" />
+										mục
+									</div>
 								</div>
 								<div class="col-sm-7">
 									<div class="dataTables_paginate paging_simple_numbers"
 										id="example2_paginate">
 										<ul class="pagination">
-											<li class="paginate_button previous disabled"
-												id="example2_previous"><a href="#"
-												aria-controls="example2" data-dt-idx="0" tabindex="0">Đầu</a></li>
-											<li class="paginate_button active"><a href="#"
-												aria-controls="example2" data-dt-idx="1" tabindex="0">1</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="example2" data-dt-idx="2" tabindex="0">2</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="example2" data-dt-idx="3" tabindex="0">3</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="example2" data-dt-idx="4" tabindex="0">4</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="example2" data-dt-idx="5" tabindex="0">5</a></li>
-											<li class="paginate_button "><a href="#"
-												aria-controls="example2" data-dt-idx="6" tabindex="0">6</a></li>
-											<li class="paginate_button next" id="example2_next"><a
-												href="#" aria-controls="example2" data-dt-idx="7"
-												tabindex="0">Next</a></li>
+											<c:forEach var="i" begin="1" end="${pagesNumber}">
+												<li class="paginate_button page-of-user next" id="example2_next"><a
+													href="#" aria-controls="example2" data-dt-idx="'${i}'"
+													tabindex="0">${i}</a></li>
+											</c:forEach>
 										</ul>
 									</div>
 								</div>
@@ -201,7 +166,7 @@
 											</tr>
 											<tr>
 												<td>Kích hoạt:</td>
-												<td><input type="checkbox" id="role_is_admin"
+												<td><input type="checkbox" id="user_is_active"
 													name="status"></td>
 											</tr>
 										</table>
@@ -220,6 +185,79 @@
 					</div>
 					<!-- /.modal -->
 					<!-- /.box-body -->
+
+					<!-- Modal update user -->
+					<div class="modal fade" id="modal-update-user">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-user-title">Cập nhật thành viên</h4>
+								</div>
+								<form action="EditUser" method="post">
+									<div class="modal-body">
+										<table
+											style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
+											<tr>
+												<td>Tên đăng nhập:</td>
+												<td id="username"></td>
+											</tr>
+											<tr>
+												<td>Quyền:</td>
+												<td><div class="form-group">
+														<select id="select_role"
+															class="form-control select2 select2-hidden-accessible"
+															style="width: 100%;" tabindex="-1" aria-hidden="true"
+															name="role">
+															<option selected="selected">---Chọn quyền--</option>
+															<option value="0">Biên tập viên</option>
+															<option value="1">Quản trị viên</option>
+														</select>
+													</div></td>
+											</tr>
+											<tr>
+												<td>Kích hoạt:</td>
+												<td><input type="checkbox" id="user_is_active"
+													name="status"></td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default pull-left"
+											data-dismiss="modal">Hủy</button>
+										<button id="btn-submit-user" type="submit"
+											class="btn btn-primary">Lưu</button>
+									</div>
+								</form>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- End modal update user -->
+					
+					<!-- Start modal delete user -->
+					<div class="modal fade" id="modal-confirm-delete">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form action="DeleteUser" method="post">
+									<div class="modal-body"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default pull-left"
+											data-dismiss="modal">Không</button>
+										<button id="btn-delete-categories" type="submit"
+											class="btn btn-primary">Có</button>
+									</div>
+								</form>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+					</div>
+					<!-- End modal delete user -->
 				</div>
 			</div>
 		</div>

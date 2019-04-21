@@ -104,4 +104,12 @@
 	</definition>
 	<!-- End dinh nghia trang quan ly Quyen -->
 
+	<!-- Dinh nghia trang 403 -->
+	<definition name="403Page" extends="base.definition">
+		<put-attribute name="title" value="403Page" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/403Page.jsp" />
+	</definition>
+	<!-- End dinh nghia trang 403 -->
+
 </tiles-definitions>

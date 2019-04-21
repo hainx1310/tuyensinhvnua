@@ -98,10 +98,10 @@ public class CategoriesServiceImpl implements CategoriesService {
 	 * boolean)
 	 */
 	@Override
-	public void changeStatusCategories(int categoriesId, boolean status) {
+	public void changeStatusCategories(int categoriesId, boolean status, String updateByUser) {
 		try {
 			logger.debug("Update Categories Start");
-			categoriesDao.changeStatusCategories(categoriesId, status);
+			categoriesDao.changeStatusCategories(categoriesId, status, updateByUser);
 			logger.debug("Update Categories End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());

@@ -28,7 +28,7 @@ public interface CategoriesService {
 	/**
 	 * Services thay doi trang thai cua 1 categories trong db
 	 */
-	public void changeStatusCategories(int categoriesId, boolean status);
+	public void changeStatusCategories(int categoriesId, boolean status, String updateByUser);
 
 	/**
 	 * lay tat ca chuyen muc duoc kich hoat

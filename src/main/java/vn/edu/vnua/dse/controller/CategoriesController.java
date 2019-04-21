@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +62,12 @@ public class CategoriesController {
 	 */
 	@RequestMapping(value = "/AddCategories", method = RequestMethod.POST)
 	public ModelAndView createCategory(Categories categories) {
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+			categories.setCreatedUser(username);
+		}
 
 		try {
 			categoriesService.addCategories(categories);
@@ -77,6 +85,14 @@ public class CategoriesController {
 	 */
 	@RequestMapping(value = "/EditCategories", method = RequestMethod.POST)
 	public ModelAndView updateCategories(Categories categories) {
+
+		// Get username
+		String username;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+			categories.setUpdatedUser(username);
+		}
 
 		try {
 			categoriesService.updateCategories(categories);
@@ -112,16 +128,26 @@ public class CategoriesController {
 	@RequestMapping(value = "/changeStatusCategories", method = RequestMethod.POST)
 	public String changeStatusCategories(HttpServletRequest request) {
 		int categoriesId;
+		String username = null;
+
+		// get categoriesId
 		categoriesId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
 		boolean status = request.getParameter("status") != null
 				? "true".equals(request.getParameter("status")) ? false : true
 				: false;
+
+		// Get username
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		}
+
 		try {
-			categoriesService.changeStatusCategories(categoriesId, status);
+			categoriesService.changeStatusCategories(categoriesId, status, username);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect: /admin/categories";
+		return "redirect:/admin/categories";
 	}
 
 	/**
@@ -149,7 +175,8 @@ public class CategoriesController {
 			html += "<td id='categories-name' class='sorting_1'>" + item.getName() + "</td>";
 			html += "<td id='categories-status'>" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
 			html += "<td id='categories-created-date'>" + item.getCreatedDate() + "</td>";
-			html += "<td id='categories-created-user'>administrator</td>";
+			html += "<td id='categories-created-user'>" + (item.getCreatedUser() == null ? "" : item.getCreatedUser())
+					+ "</td>";
 			html += "<td id='categories-updated-date'>" + (item.getUpdatedDate() == null ? "" : item.getUpdatedDate())
 					+ "</td>";
 			html += "<td id='categories-updated-user'>" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
