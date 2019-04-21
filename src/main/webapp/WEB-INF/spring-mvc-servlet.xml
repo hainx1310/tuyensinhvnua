@@ -30,9 +30,9 @@
 		</property>
 	</bean>
 	<!-- End cau hinh view -->
-	
+
 	<!-- Cau hinh resource -->
-	<mvc:resources location="/WEB-INF/static/" mapping="/resources/**"/>
+	<mvc:resources location="/WEB-INF/static/" mapping="/resources/**" />
 
 	<!-- Cau hinh package chua cac component -->
 	<context:component-scan base-package="vn.edu.vnua.dse.controller" />

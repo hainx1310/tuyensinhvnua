@@ -36,16 +36,6 @@
 
 	</http>
 
-	<!--<authentication-manager> <authentication-provider> <user-service> <user 
-		name="user1" password="12345" authorities="ROLE_EDITOR" /> <user name="admin1" 
-		password="12345" authorities="ROLE_EDITOR, ROLE_ADMIN" /> </user-service> 
-		</authentication-provider> <authentication-provider> <jdbc-user-service data-source-ref="myDataSource" 
-		users-by-username-query="select username, password, status from user where 
-		username=?" authorities-by-username-query="select user.username, CASE WHEN 
-		user.role = 1 THEN 'ROLE_ADMIN' WHEN user.role = 0 THEN 'ROLE_EDITOR' END 
-		AS role from user where user.username = ?" /> </authentication-provider> 
-		</authentication-manager> -->
-
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider user-service-ref="userServiceDetails">
 			<password-encoder ref="bCryptPasswordEncoder"></password-encoder>

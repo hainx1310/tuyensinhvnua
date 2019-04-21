@@ -165,4 +165,25 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 		return listCategories;
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc lay tat ca chuyen muc theo id
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CategoriesDAO#getCategoriresById(int)
+	 */
+	@Override
+	public Categories getCategoriresById(int id) {
+		Categories categories = new Categories();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_CATEGORIES_BY_ID);
+			Query query = session.createSQLQuery(sql).addEntity(Categories.class);
+			query.setParameter("id", id);
+			categories = (Categories) query.list().get(0);
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return categories;
+	}
+
 }

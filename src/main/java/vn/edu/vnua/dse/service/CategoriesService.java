@@ -34,4 +34,11 @@ public interface CategoriesService {
 	 * lay tat ca chuyen muc duoc kich hoat
 	 */
 	public List<Categories> getAllCategoriesIsActive();
+	
+	/**
+	 * Phuong thuc lay tat ca chuyen muc theo id
+	 * 
+	 * @return
+	 */
+	public Categories getCategoriresById(int id);
 }

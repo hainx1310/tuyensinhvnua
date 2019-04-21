@@ -24,6 +24,11 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca categories duoc kich hoat
 		 */
 		public static final String GET_lIST_CATEGORIES_IS_ACTIVE = "sqlfiles/getListCategoriesIsActive.sql";
+		
+		/**
+		 * cau sql lay ra categories theo id
+		 */
+		public static final String GET_CATEGORIES_BY_ID = "sqlfiles/getListCategoriesById.sql";
 
 		/**
 		 * cau sql insert categories vao bang categories
@@ -69,6 +74,46 @@ public class CommonConst {
 		 * cau sql update user vao bang user
 		 */
 		public static final String UPDATE_USER = "sqlfiles/updateUser.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet
+		 */
+		public static final String GET_ALL_POST = "sqlfiles/getListPost.sql";
+
+		/**
+		 * cau sql xóa 1 bai viet trong bang post theo id bai viet
+		 */
+		public static final String DELETE_POST_BY_ID = "sqlfiles/deletePost.sql";
+
+		/**
+		 * cau sql them moi bai viet
+		 */
+		public static final String CREATE_POST = "sqlfiles/createPost.sql";
+
+		/**
+		 * cau sql update bai viet
+		 */
+		public static final String UPDATE_POST = "sqlfiles/updatePost.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet da xuat ban
+		 */
+		public static final String GET_ALL_PUBLISHED_POST = "sqlfiles/getAllPublishedPost.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet dang cho duyet
+		 */
+		public static final String GET_ALL_PENDING_POST = "sqlfiles/getAllPendingPost.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet da duoc duyet
+		 */
+		public static final String GET_ALL_APPROVED_POST = "sqlfiles/getAllApprovedPost.sql";
+		
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet da xuat ban theo chuyen muc theo chuyen muc
+		 */
+		public static final String GET_ALL_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getAllPublishedPostByCategoriesId.sql";
 
 	}
 }

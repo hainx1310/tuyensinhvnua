@@ -121,4 +121,22 @@ public class CategoriesServiceImpl implements CategoriesService {
 		}
 		return listCategories;
 	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc lay tat ca chuyen muc theo id
+	 * 
+	 * @see vn.edu.vnua.dse.service.CategoriesService#getCategoriresById(int)
+	 */
+	@Override
+	public Categories getCategoriresById(int id) {
+		Categories categories = new Categories();
+		try {
+			logger.debug("getListCategoriesIsActive Start");
+			categories = categoriesDao.getCategoriresById(id);
+			logger.debug("getListCategoriesIsActive End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return categories;
+	}
 }

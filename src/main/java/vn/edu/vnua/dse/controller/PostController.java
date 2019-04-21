@@ -3,28 +3,37 @@ package vn.edu.vnua.dse.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import vn.edu.vnua.dse.dao.CategoriesDAO;
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.entity.Post;
+import vn.edu.vnua.dse.service.CategoriesService;
+import vn.edu.vnua.dse.service.PostService;
 
 @Controller
 public class PostController {
 
 	@Autowired
-	private CategoriesDAO categoriesDao;
+	private CategoriesService categoriesService;
+
+	@Autowired
+	private PostService postService;
 
 	@RequestMapping(value = { "/post" }, method = RequestMethod.GET)
 	public String newpostPage(Model model) {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
 		try {
-			listAllCatergories = categoriesDao.getAllCategorires(-1);
+			listAllCatergories = categoriesService.getAllCategories(-1);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -35,8 +44,39 @@ public class PostController {
 	}
 
 	@RequestMapping(value = { "/post" }, method = RequestMethod.POST)
-	public String addNewPostPage(Post post, String a) {
-		return "home";
+	public ModelAndView createdPost(Post post, HttpServletRequest request) {
+
+		// Get username
+		String author;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			author = ((UserDetails) principal).getUsername();
+			post.setAuthor(author);
+			post.setEditor(author);
+		}
+
+		// get categoriesId
+		int categoriesId = request.getParameter("categoriesId") != null
+				? Integer.parseInt(request.getParameter("categoriesId").toString())
+				: 0;
+
+		if (categoriesId == 0) {
+			return new ModelAndView("redirect:/post");
+		}
+
+		// get categories by id
+		Categories categories = categoriesService.getCategoriresById(categoriesId);
+
+		// Xy ly url
+
+		post.setCategories(categories);
+		try {
+			postService.createdPost(post);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ModelAndView("redirect:/home");
 	}
 
 	/**
@@ -50,7 +90,7 @@ public class PostController {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
 		try {
-			listAllCatergories = categoriesDao.getAllCategorires(-1);
+			listAllCatergories = categoriesService.getAllCategories(-1);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -60,9 +100,22 @@ public class PostController {
 		model.addAttribute("titleContent", "Sửa bài viêt");
 		model.addAttribute("title", "Tra cứu danh sách trúng tuyển và thủ tục nhập học");
 		model.addAttribute("content",
-				"<p><img alt=\"\" src=\"https://tuyensinh.vnua.edu.vn/wp-content/uploads/2019/03/t%E1%BB%9D-r%C6%A1i-m-truoc.jpg\" style=\"height:432px; width:300px\" /></p>\r\n"
-						+ "\r\n" + "<p>&nbsp;</p>\r\n" + "\r\n" + "<p>nội dung b&agrave;i viết</p>\r\n" + "\r\n"
-						+ "<p>&nbsp;</p>");
+				"<p style=\"text-align:justify\">Đội ngũ giảng vi&ecirc;n &ndash; chuy&ecirc;n gia &ndash; nh&agrave; khoa học lu&ocirc;n đ&oacute;ng vai tr&ograve; quan trọng trong qu&aacute; tr&igrave;nh ph&aacute;t triển của Học viện N&ocirc;ng nghiệp Việt Nam. 80% giảng vi&ecirc;n được đ&agrave;o tạo ch&iacute;nh quy v&agrave; tu nghiệp h&agrave;ng năm tại c&aacute;c nước ph&aacute;t triển như Mỹ, Ph&aacute;p, Đức, Bỉ, H&agrave; Lan, Nhật Bản, &Uacute;c&hellip; c&ugrave;ng với đ&oacute; l&agrave; rất nhiều giảng vi&ecirc;n quốc tế đang thỉnh giảng v&agrave; nghi&ecirc;n cứu khoa học tại Học viện N&ocirc;ng nghiệp Việt Nam.</p>\r\n"
+						+ " \r\n"
+						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/Picture5.png\" style=\"height:215px; width:350px\" /></p>\r\n"
+						+ " \r\n"
+						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/Picture6.png\" style=\"height:234px; width:350px\" /></p>\r\n"
+						+ " \r\n"
+						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/ncs-480x300.jpg\" style=\"height:219px; width:350px\" /></p>\r\n"
+						+ " \r\n"
+						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/thacsy-480x300.jpg\" style=\"height:219px; width:350px\" /></p>\r\n"
+						+ " \r\n"
+						+ " <p>Tổng số c&aacute;n bộ vi&ecirc;n chức đang l&agrave;m việc tại Học viện N&ocirc;ng nghiệp Việt Nam: 1.368 người.</p>\r\n"
+						+ " \r\n" + " <p>Trong đ&oacute;:</p>\r\n" + " \r\n" + " <ul>\r\n"
+						+ " 	<li>728 giảng vi&ecirc;n</li>\r\n" + " 	<li>Tr&ecirc;n 100 Gi&aacute;o sư, PGS</li>\r\n"
+						+ " 	<li>290 Tiến sĩ</li>\r\n"
+						+ " 	<li>105 Nh&agrave; gi&aacute;o nh&acirc;n d&acirc;n, Nh&agrave; gi&aacute;o ưu t&uacute;, Anh h&ugrave;ng lao động</li>\r\n"
+						+ " </ul>\r\n" + " ");
 		model.addAttribute("author", "tác giả bài viết");
 		return "post";
 	}

@@ -1,0 +1,1 @@
+DELETE FROM tuyensinhapi.post WHERE id = :id

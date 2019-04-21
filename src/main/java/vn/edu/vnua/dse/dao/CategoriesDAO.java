@@ -51,4 +51,11 @@ public interface CategoriesDAO {
 	 * @return
 	 */
 	public List<Categories> getListCategoriesIsActive();
+	
+	/**
+	 * Phuong thuc lay tat ca chuyen muc theo id
+	 * 
+	 * @return
+	 */
+	public Categories getCategoriresById(int id);
 }

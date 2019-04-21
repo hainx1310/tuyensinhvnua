@@ -434,3 +434,4 @@ $('body').on('click', '.page-of-user', function() {
 		}
 	});
 });
+
