@@ -241,7 +241,9 @@ public class PostDaoImpl implements PostDAO {
 
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Post where categoriesId = :categoriesId and status = 2");
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_LIMIT_PUBLISHED_POST_BY_CATEGORIES_ID);
+			Query query = session.createQuery(sql);
+			query.setParameter("categoriesId", categoriesId);
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 
@@ -264,7 +266,7 @@ public class PostDaoImpl implements PostDAO {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			Query query = session
-					.createQuery("FROM Post WHERE status = 1 and publishedDate >= now() ORDER BY publishedDate desc");
+					.createQuery("FROM Post WHERE status = 1 and publishedDate <= now() ORDER BY publishedDate asc");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Post>) query.list();

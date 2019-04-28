@@ -114,7 +114,7 @@ public class Post implements Serializable {
 		this.avatarPost = avatarPost;
 	}
 
-	@Column(name = "content", length = 5000)
+	@Column(name = "content")
 	public String getContent() {
 		return content;
 	}

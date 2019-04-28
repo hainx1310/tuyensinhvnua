@@ -20,7 +20,7 @@ public class CategoriesApi {
 	private CategoriesService categoriesService;
 
 	/**
-	 * Api lấy ra danh sách user
+	 * Api lấy ra danh sách categories duoc kich hoat
 	 * 
 	 * @param model
 	 * @return

@@ -114,6 +114,11 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca bai viet da xuat ban theo chuyen muc theo chuyen muc
 		 */
 		public static final String GET_ALL_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getAllPublishedPostByCategoriesId.sql";
+		
+		/**
+		 * cau sql lay ra danh sach 10 bai viet da xuat ban theo chuyen muc theo chuyen muc
+		 */
+		public static final String GET_LIMIT_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getLimitPublishedPostByCategoriesId.sql";
 
 	}
 }

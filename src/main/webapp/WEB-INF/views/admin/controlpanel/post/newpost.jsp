@@ -34,6 +34,11 @@
 											</div>
 										</c:if>
 										<div>
+											<h4>Địa chỉ bài viết (*)</h4>
+											<input name = "url" style="margin-right: 0px; width: 100%" type="text"
+												placeholder="Địa chỉ bài viết" id="url" value="${url}" />
+										</div>
+										<div>
 											<h4>Tóm tắt (*)</h4>
 											<textarea
 												style="margin-top: 0px; width: 100%; resize: vertical;"
@@ -165,11 +170,13 @@
 				var avatarPost = $('#avatarPost').attr('src');
 				var categoriesId = $('input[name=categoriesId]:checked').val();
 				var publishedDate = document.getElementById("publishedDate").value;
+				var url = document.getElementById("url").value;
 				$.ajax({
 					type : "post",
 					url : "post",
 					data : {
 						title : title,
+						url : url,
 						shortContent : shortContent,
 						content : content,
 						avatarPost : avatarPost,

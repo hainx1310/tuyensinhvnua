@@ -18,7 +18,7 @@
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
 	<baseDir>C:\KhoaLuanTotNghiep\tuyensinhvnua\src\main\webapp\WEB-INF\static\upload\</baseDir>
-	<baseURL>http://localhost:8080/tuyensinhhvnapi/resources/upload</baseURL>
+	<baseURL>http://192.168.1.127:8080/tuyensinhhvnapi/resources/upload</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>
 	<!--
