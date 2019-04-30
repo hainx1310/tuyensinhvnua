@@ -522,3 +522,19 @@ function approvedPost(postId) {
 		}
 	});
 }
+
+function unApprovedPost(postId){
+	$.ajax({
+		type : "post",
+		url : "pendingpost/unapproved",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}

@@ -272,4 +272,21 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc go bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int postId, String unapprovedUser) {
+		try {
+			logger.debug("unapproved Post Start");
+			postDao.unapproved(postId, unapprovedUser);
+			logger.debug("unapproved Post End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
 }

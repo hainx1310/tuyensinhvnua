@@ -77,7 +77,8 @@
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
-														href="#">Gỡ</a></td>
+														href="#"
+														onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')">Gỡ</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

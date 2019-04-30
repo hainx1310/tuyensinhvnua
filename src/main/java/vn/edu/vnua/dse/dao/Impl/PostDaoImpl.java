@@ -338,4 +338,24 @@ public class PostDaoImpl implements PostDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc go bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int postId, String unapprovedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.UNAPPROVED_POST);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("unapprovedUser", unapprovedUser);
+			query.setParameter("id", postId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
 }

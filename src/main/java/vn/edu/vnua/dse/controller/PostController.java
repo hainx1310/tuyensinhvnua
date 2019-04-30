@@ -227,4 +227,35 @@ public class PostController {
 
 		return "redirect:/admin/pendingpost";
 	}
+	
+	/**
+	 * Controller duyet bai viet
+	 * 
+	 * @param postId
+	 * @return
+	 */
+	@RequestMapping(value = { "admin/pendingpost/unapproved" }, method = RequestMethod.POST)
+	public String unapproved(HttpServletRequest request) {
+
+		// get postId
+		int postId = request.getParameter("postId") != null
+				? Integer.parseInt(request.getParameter("postId").toString())
+				: 0;
+
+		// Get user
+		String unapprovedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			unapprovedUser = ((UserDetails) principal).getUsername();
+		}
+		
+		// go bai viet
+		try {
+			postService.unapproved(postId, unapprovedUser);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "redirect:/admin/pendingpost";
+	}
 }

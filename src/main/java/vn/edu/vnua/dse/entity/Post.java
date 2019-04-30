@@ -41,6 +41,7 @@ public class Post implements Serializable {
 	private Date publishedDate;
 	private int status;
 	private String approvedUser;
+	private String unapprovedUser;
 	private Collection<Comment> comments;
 
 	public Post() {
@@ -49,7 +50,7 @@ public class Post implements Serializable {
 
 	public Post(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, int status, String approvedUser, Collection<Comment> comments) {
+			Date publishedDate, int status, String approvedUser, String unapprovedUser, Collection<Comment> comments) {
 		super();
 		this.id = id;
 		this.shortContent = shortContent;
@@ -66,6 +67,7 @@ public class Post implements Serializable {
 		this.publishedDate = publishedDate;
 		this.status = status;
 		this.approvedUser = approvedUser;
+		this.unapprovedUser = unapprovedUser;
 		this.comments = comments;
 	}
 
@@ -211,6 +213,15 @@ public class Post implements Serializable {
 
 	public void setApprovedUser(String approvedUser) {
 		this.approvedUser = approvedUser;
+	}
+
+	@Column(name = "unapproved_user", length = 50)
+	public String getUnapprovedUser() {
+		return unapprovedUser;
+	}
+
+	public void setUnapprovedUser(String unapprovedUser) {
+		this.unapprovedUser = unapprovedUser;
 	}
 
 	@JsonIgnore
