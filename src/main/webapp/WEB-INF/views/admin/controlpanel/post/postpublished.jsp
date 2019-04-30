@@ -57,7 +57,7 @@
 												<th>Chuyên mục</th>
 												<th>Ngày đăng</th>
 												<th>Tác giả</th>
-												<th>Người đăng cuối</th>
+												<th>Người duyệt</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -75,7 +75,7 @@
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
-															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
+															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
 														href="#">Gỡ</a></td>
 												</tr>

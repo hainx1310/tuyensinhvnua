@@ -77,7 +77,7 @@
 															value="${listPendingPost.get(i-1).getPublishedDate()}"></c:out></td>
 													<td><a href="#" class="fa fa-eye"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 														href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-check"></a></td>
+														href="#" class="fa fa-check" onclick="approvedPost('${listPendingPost.get(i-1).getId()}')"></a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

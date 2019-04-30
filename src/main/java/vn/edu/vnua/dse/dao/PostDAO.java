@@ -101,4 +101,11 @@ public interface PostDAO {
 	 * @return
 	 */
 	public List<Post> getPostPublishedByCategoriesIdLimit(int categoriesId, int startIndex);
+
+	/**
+	 * Phuong thuc duyet bai viet
+	 * 
+	 * @param postId
+	 */
+	public void approved(int postId, String approvedUser);
 }

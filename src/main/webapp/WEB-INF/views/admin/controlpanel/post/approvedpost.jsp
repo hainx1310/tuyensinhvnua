@@ -56,7 +56,8 @@
 												<th>Chuyên mục</th>
 												<th>Tác giả</th>
 												<th>Ngày sửa</th>
-												<th>Ngày xuất bản</th>
+												<th>Ngày đăng</th>
+												<th>Người duyệt</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -73,6 +74,8 @@
 															value="${listApprovedPost.get(i-1).getUpdatedDate()}"></c:out></td>
 													<td><c:out
 															value="${listApprovedPost.get(i-1).getPublishedDate()}"></c:out></td>
+													<td><c:out
+															value="${listApprovedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<td><a href="post">Xem</a> | <a href="#">Sửa</a></td>
 												</tr>
 											</c:forEach>

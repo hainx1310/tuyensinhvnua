@@ -255,4 +255,21 @@ public class PostServiceImpl implements PostService {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc duyet bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int postId, String approvedUser) {
+		try {
+			logger.debug("approved Post Start");
+			postDao.approved(postId, approvedUser);
+			logger.debug("approved Post End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
 }

@@ -435,7 +435,7 @@ $('body').on('click', '.page-of-user', function() {
 	});
 });
 
-//Chon avatar bai viet start
+// Chon avatar bai viet start
 function BrowseServer(startupPath) {
 	// You can use the "CKFinder" class to render CKFinder in a page:
 	var finder = new CKFinder();
@@ -443,7 +443,7 @@ function BrowseServer(startupPath) {
 	// The path for the installation of CKFinder (default = "/ckfinder/").
 	finder.basePath = '../';
 
-	//Startup path in a form: "Type:/path/to/directory/"
+	// Startup path in a form: "Type:/path/to/directory/"
 	finder.startupPath = startupPath;
 
 	// Name of a function which is called when a file is selected in CKFinder.
@@ -453,7 +453,8 @@ function BrowseServer(startupPath) {
 	finder.popup();
 }
 
-// This is a sample function which is called when a file is selected in CKFinder.
+// This is a sample function which is called when a file is selected in
+// CKFinder.
 function SetFileField(fileUrl, data) {
 	document.getElementById("avatarPost").src = fileUrl;
 }
@@ -501,11 +502,23 @@ $("#btn-save-video").on("click", function() {
 	$('#modal-create-video').modal('hide');
 });
 
-
-
-
-
-
-
-
-
+/**
+ * Phuong thuc xu ly su kien nguoi dung click duyet bai viet
+ * 
+ * @returns
+ */
+function approvedPost(postId) {
+	$.ajax({
+		type : "post",
+		url : "pendingpost/approved",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}

@@ -1,5 +1,7 @@
 package vn.edu.vnua.dse.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -193,5 +195,36 @@ public class PostController {
 		model.addAttribute("numberPage", numberPage);
 
 		return "admin/postpublished";
+	}
+
+	/**
+	 * Controller duyet bai viet
+	 * 
+	 * @param postId
+	 * @return
+	 */
+	@RequestMapping(value = { "admin/pendingpost/approved" }, method = RequestMethod.POST)
+	public String approved(HttpServletRequest request) {
+
+		// get postId
+		int postId = request.getParameter("postId") != null
+				? Integer.parseInt(request.getParameter("postId").toString())
+				: 0;
+
+		// Get user
+		String approvedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			approvedUser = ((UserDetails) principal).getUsername();
+		}
+		
+		// update
+		try {
+			postService.approved(postId, approvedUser);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "redirect:/admin/pendingpost";
 	}
 }

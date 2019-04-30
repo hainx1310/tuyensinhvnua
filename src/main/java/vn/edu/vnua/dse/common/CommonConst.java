@@ -94,6 +94,11 @@ public class CommonConst {
 		 * cau sql update bai viet
 		 */
 		public static final String UPDATE_POST = "sqlfiles/updatePost.sql";
+		
+		/**
+		 * cau sql duyet bai viet
+		 */
+		public static final String APPROVED_POST = "sqlfiles/approvedPost.sql";
 
 		/**
 		 * cau sql lay ra danh sach tat ca bai viet da xuat ban

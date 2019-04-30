@@ -318,4 +318,24 @@ public class PostDaoImpl implements PostDAO {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc duyet bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int postId, String approvedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.APPROVED_POST);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("approvedUser", approvedUser);
+			query.setParameter("id", postId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
 }
