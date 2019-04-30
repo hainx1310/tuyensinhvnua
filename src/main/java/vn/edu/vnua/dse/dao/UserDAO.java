@@ -63,4 +63,20 @@ public interface UserDAO {
 	 * Lấy danh sach 10 user de phan trang
 	 */
 	public List<User> getListUserLimit(int startIndex);
+
+	/**
+	 * Lay so luong bai viet theo author
+	 * 
+	 * @param author
+	 * @return
+	 */
+	public int getTotalPostByUser(String author);
+
+	/**
+	 * Lay so luong Video theo author
+	 * 
+	 * @param author
+	 * @return
+	 */
+	public int getTotalVideoByUser(String author);
 }

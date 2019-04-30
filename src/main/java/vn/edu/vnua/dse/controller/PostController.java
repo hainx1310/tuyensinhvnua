@@ -127,25 +127,71 @@ public class PostController {
 
 	@RequestMapping(value = { "admin/pendingpost" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
-		model.addAttribute("title", "Đây là title bài viết đang chờ duyệt");
-		model.addAttribute("content", "Đây là nội dung bài viết đang chờ duyệt");
-		model.addAttribute("author", "Đây là tác giả bài viết đang chờ duyệt");
+		List<Post> listAllPendingPost = new ArrayList<Post>();
+		List<Post> listLimitPendingPost = new ArrayList<Post>();
+
+		try {
+			// lay danh sach 10 bai viet dang cho duyet moi nhat tu db
+			listAllPendingPost = postService.getPendingPost();
+
+			// lay 10 bai viet dang cho duyet
+			listLimitPendingPost = postService.getLimitPendingPost(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllPendingPost.size() / 10.0);
+
+		model.addAttribute("listPendingPost", listLimitPendingPost);
+		model.addAttribute("totalRecord", listAllPendingPost.size());
+		model.addAttribute("numberPage", numberPage);
+
 		return "admin/pendingpost";
 	}
 
 	@RequestMapping(value = { "admin/approvedpost" }, method = RequestMethod.GET)
 	public String approvedPostPage(Model model) {
-		model.addAttribute("title", "Đây là title bài viết đã được duyệt");
-		model.addAttribute("content", "Đây là nội dung bài viết đã được duyệt");
-		model.addAttribute("author", "Đây là tác giả bài viết đã được duyệt");
+		List<Post> listAllApprovedPost = new ArrayList<Post>();
+		List<Post> listLimitApprovedPost = new ArrayList<Post>();
+
+		try {
+			// lay danh sach 10 bai viet dang cho duyet moi nhat tu db
+			listAllApprovedPost = postService.getApprovedPost();
+
+			// lay 10 bai viet dang cho duyet
+			listLimitApprovedPost = postService.getLimitApprovedPost(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllApprovedPost.size() / 10.0);
+
+		model.addAttribute("listApprovedPost", listLimitApprovedPost);
+		model.addAttribute("totalRecord", listAllApprovedPost.size());
+		model.addAttribute("numberPage", numberPage);
+
 		return "admin/approvedpost";
 	}
 
 	@RequestMapping(value = { "admin/postpublished" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
-		model.addAttribute("title", "Đây là title bài viết đã được xuất bản");
-		model.addAttribute("content", "Đây là nội dung bài viết đã được xuất bản");
-		model.addAttribute("author", "Đây là tác giả bài viết đã được xuất bản");
+
+		List<Post> listAllPublishedPost = new ArrayList<Post>();
+		List<Post> listLimitPublishedPost = new ArrayList<Post>();
+
+		try {
+			// lay danh sach 10 bai viet da xuat ban moi nhat tu db
+			listAllPublishedPost = postService.getPostPublished();
+
+			// lay 10 bai viet da xuat ban
+			listLimitPublishedPost = postService.getLimitPostPublished(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
+
+		model.addAttribute("listPublishedPost", listLimitPublishedPost);
+		model.addAttribute("totalRecord", listAllPublishedPost.size());
+		model.addAttribute("numberPage", numberPage);
+
 		return "admin/postpublished";
 	}
 }

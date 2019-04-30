@@ -32,6 +32,14 @@
 	</definition>
 	<!-- End dinh nghia trang chu -->
 
+	<!-- Dinh nghia trang profile -->
+	<definition name="profile" extends="base.definition">
+		<put-attribute name="title" value="Thông tin cá nhân" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/controlpanel/user/profile.jsp" />
+	</definition>
+	<!-- End dinh nghia trang profile -->
+
 	<!-- Dinh nghia trang them moi bai viet -->
 	<definition name="post" extends="base.definition">
 		<put-attribute name="title" value="Thêm bài viết" />
@@ -72,21 +80,21 @@
 	</definition>
 	<!-- End dinh nghia trang quan ly chuyen muc -->
 
-	<!-- Dinh nghia trang quan ly Hinh anh -->
+	<!-- Dinh nghia trang quan ly Video -->
 	<definition name="admin/medias" extends="base.definition">
-		<put-attribute name="title" value="Quản lý Media" />
+		<put-attribute name="title" value="Quản lý Video" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/filestorage/medias.jsp" />
 	</definition>
-	<!-- End dinh nghia trang quan ly Hinh anh -->
+	<!-- End dinh nghia trang quan ly Video -->
 
-	<!-- Dinh nghia trang quan ly Video -->
+	<!-- Dinh nghia trang quan ly Hinh anh -->
 	<definition name="admin/images" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Ảnh" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/filestorage/images.jsp" />
 	</definition>
-	<!-- End dinh nghia trang quan ly Video -->
+	<!-- End dinh nghia trang quan ly Hinh anh -->
 
 	<!-- Dinh nghia trang quan ly Thanh vien -->
 	<definition name="admin/user" extends="base.definition">
@@ -107,8 +115,7 @@
 	<!-- Dinh nghia trang 403 -->
 	<definition name="403Page" extends="base.definition">
 		<put-attribute name="title" value="403Page" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/403Page.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/403Page.jsp" />
 	</definition>
 	<!-- End dinh nghia trang 403 -->
 

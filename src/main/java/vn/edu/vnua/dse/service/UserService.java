@@ -32,7 +32,7 @@ public interface UserService {
 	 * @return
 	 */
 	public List<User> getUserByUsername(String username);
-	
+
 	/**
 	 * Phuong thuc cap nhat mot user
 	 * 
@@ -58,4 +58,20 @@ public interface UserService {
 	 * Lấy danh sach 10 user de phan trang
 	 */
 	public List<User> getListUserLimit(int startIndex);
+
+	/**
+	 * Lay so luong bai viet theo user id
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public int getTotalPostByUser(String author);
+
+	/**
+	 * Lay so luong Video theo user id
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public int getTotalVideoByUser(String author);
 }

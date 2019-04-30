@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.dao.Impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,6 +198,46 @@ public class UserDaoImpl implements UserDAO {
 			throw new RuntimeException(e);
 		}
 		return listUserLimit;
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong bai viet theo user id
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#getTotalPostByUser(int)
+	 */
+	@Override
+	public int getTotalPostByUser(String author) {
+		int result = 0;
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_TOTAL_POST_BY_AUTHOR);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("author", author);
+			result = ((BigInteger) query.uniqueResult()).intValue();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong Video theo user id
+	 * 
+	 * @see vn.edu.vnua.dse.dao.UserDAO#getTotalVideoByUser(int)
+	 */
+	@Override
+	public int getTotalVideoByUser(String author) {
+		int result = 0;
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_TOTAL_VIDEO_BY_AUTHOR);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("author", author);
+			result = ((BigInteger) query.uniqueResult()).intValue();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return result;
 	}
 
 }

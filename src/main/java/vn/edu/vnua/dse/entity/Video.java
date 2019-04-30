@@ -29,13 +29,14 @@ public class Video implements Serializable {
 	private Date updatedDate;
 	private String updatedUser;
 	private Date publishedDate;
+	private boolean status;
 
 	public Video() {
 
 	}
 
 	public Video(int id, String url, String title, String shortContent, String editor, String author, Date createdDate,
-			Date updatedDate, String updatedUser, Date publishedDate) {
+			Date updatedDate, String updatedUser, Date publishedDate, boolean status) {
 		super();
 		this.id = id;
 		this.url = url;
@@ -47,6 +48,7 @@ public class Video implements Serializable {
 		this.updatedDate = updatedDate;
 		this.updatedUser = updatedUser;
 		this.publishedDate = publishedDate;
+		this.status = status;
 	}
 
 	@Id
@@ -145,6 +147,15 @@ public class Video implements Serializable {
 
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	@Column(name = "status")
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

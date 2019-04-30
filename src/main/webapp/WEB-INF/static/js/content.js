@@ -239,7 +239,7 @@ function searchCategoriesByName() {
 	// Loop through all table rows, and hide those who don't match the search
 	// query
 	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
+		td = tr[i].getElementsByTagName("td")[2];
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -396,7 +396,7 @@ function searchUserByUsername() {
 	// Loop through all table rows, and hide those who don't match the search
 	// query
 	for (i = 0; i < tr.length; i++) {
-		td = tr[i].getElementsByTagName("td")[1];
+		td = tr[i].getElementsByTagName("td")[2];
 		if (td) {
 			txtValue = td.textContent || td.innerText;
 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -434,4 +434,78 @@ $('body').on('click', '.page-of-user', function() {
 		}
 	});
 });
+
+//Chon avatar bai viet start
+function BrowseServer(startupPath) {
+	// You can use the "CKFinder" class to render CKFinder in a page:
+	var finder = new CKFinder();
+
+	// The path for the installation of CKFinder (default = "/ckfinder/").
+	finder.basePath = '../';
+
+	//Startup path in a form: "Type:/path/to/directory/"
+	finder.startupPath = startupPath;
+
+	// Name of a function which is called when a file is selected in CKFinder.
+	finder.selectActionFunction = SetFileField;
+
+	// Launch CKFinder
+	finder.popup();
+}
+
+// This is a sample function which is called when a file is selected in CKFinder.
+function SetFileField(fileUrl, data) {
+	document.getElementById("avatarPost").src = fileUrl;
+}
+
+/**
+ * Hàm sự kiện nhập keyword lọc theo tiêu đề video
+ * 
+ * @returns
+ */
+function searchVideoByName() {
+	// Declare variables
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("input-search-title-video");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("table-video");
+	tr = table.getElementsByTagName("tr");
+
+	// Loop through all table rows, and hide those who don't match the search
+	// query
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[2];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+}
+
+/**
+ * su kien add video
+ * 
+ * @returns
+ */
+$("#btn-video-clcik").on("click", function() {
+	$('#modal-create-video').modal({
+		show : 'true'
+	});
+});
+
+$("#btn-save-video").on("click", function() {
+	$('#modal-create-video').modal('hide');
+});
+
+
+
+
+
+
+
+
 

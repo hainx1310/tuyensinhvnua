@@ -35,8 +35,9 @@
 										</c:if>
 										<div>
 											<h4>Địa chỉ bài viết (*)</h4>
-											<input name = "url" style="margin-right: 0px; width: 100%" type="text"
-												placeholder="Địa chỉ bài viết" id="url" value="${url}" />
+											<input name="url" style="margin-right: 0px; width: 100%"
+												type="text" placeholder="Địa chỉ bài viết" id="url"
+												value="${url}" />
 										</div>
 										<div>
 											<h4>Tóm tắt (*)</h4>
@@ -78,9 +79,9 @@
 												<c:forEach var="i" begin="1"
 													end="${listAllCatergories.size()}">
 													<div class="radio">
-														<label> <input
-															type="radio" id="categoriesId" name = "categoriesId"
-															value="${listAllCatergories.get(i-1).getId()}"/>
+														<label> <input type="radio" id="categoriesId"
+															name="categoriesId"
+															value="${listAllCatergories.get(i-1).getId()}" />
 															${listAllCatergories.get(i-1).getName()}<br>
 														</label>
 													</div>
@@ -130,32 +131,6 @@
 			$('#datepicker').datepicker({
 				autoclose : true
 			})
-		</script>
-
-		<script>
-			// Chon avatar bai viet start
-			function BrowseServer(startupPath) {
-				// You can use the "CKFinder" class to render CKFinder in a page:
-				var finder = new CKFinder();
-
-				// The path for the installation of CKFinder (default = "/ckfinder/").
-				finder.basePath = '../';
-
-				//Startup path in a form: "Type:/path/to/directory/"
-				finder.startupPath = startupPath;
-
-				// Name of a function which is called when a file is selected in CKFinder.
-				finder.selectActionFunction = SetFileField;
-
-				// Launch CKFinder
-				finder.popup();
-			}
-
-			// This is a sample function which is called when a file is selected in CKFinder.
-			function SetFileField(fileUrl, data) {
-				document.getElementById("avatarPost").src = fileUrl;
-			}
-			// Chon avatar bai viet end
 		</script>
 		<script type="text/javascript">
 			/**

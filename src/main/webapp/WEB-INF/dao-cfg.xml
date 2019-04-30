@@ -16,4 +16,8 @@
 		<property name="sessionFactory" ref="mySessionFactory" />
 	</bean>
 
+	<bean id="videoDao" class="vn.edu.vnua.dse.dao.Impl.VideoDaoImpl">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
 </beans>

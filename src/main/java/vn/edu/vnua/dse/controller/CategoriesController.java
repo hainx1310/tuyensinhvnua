@@ -171,6 +171,7 @@ public class CategoriesController {
 
 		for (Categories item : listCategories) {
 			html += "<tr role='row' class='odd'>";
+			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
 			html += "<td class=''>" + (i++) + "</td>";
 			html += "<td id='categories-name' class='sorting_1'>" + item.getName() + "</td>";
 			html += "<td id='categories-status'>" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
@@ -182,10 +183,13 @@ public class CategoriesController {
 			html += "<td id='categories-updated-user'>" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
 					+ "</td>";
 			html += "<td><a id='changeStatusCategories' onclick='openModalChangeStatusCategories(" + item.getId() + ", "
-					+ item.isStatus() + ")' href='#'>Đổi trạng thái</a> | <a onclick='openModalUpdateCategories("
-					+ item.getId() + ", \"" + item.getName() + "\", " + item.isStatus() + ")' href=\"#\">Sửa</a> | <a "
+					+ item.isStatus() + ")' href='#' class = "
+					+ (item.isStatus() == true ? "\"fa fa-toggle-on\"" : "\"fa fa-toggle-off\"")
+					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateCategories("
+					+ item.getId() + ", \"" + item.getName() + "\", " + item.isStatus()
+					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
 					+ "onclick='openModalDeleteCategories(" + item.getId() + ", \"" + item.getName() + "\")' "
-					+ "href=\"#\">Xóa</a></td>";
+					+ "href=\"#\" class = \"fa fa-trash-o\"></a></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);

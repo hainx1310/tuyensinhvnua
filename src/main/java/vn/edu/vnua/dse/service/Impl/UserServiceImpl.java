@@ -14,7 +14,7 @@ import vn.edu.vnua.dse.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-	
+
 	private static final Logger logger = Logger.getLogger(CategoriesServiceImpl.class);
 
 	@Autowired
@@ -159,6 +159,42 @@ public class UserServiceImpl implements UserService {
 			logger.error(e.getMessage());
 		}
 		return listUser;
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong bai viet theo user id
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#getTotalPostByUser(int)
+	 */
+	@Override
+	public int getTotalPostByUser(String author) {
+		int result = 0;
+		try {
+			logger.debug("GET Limit User Start");
+			result = userDao.getTotalPostByUser(author);
+			logger.debug("GET Limit User End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong Video theo user id
+	 * 
+	 * @see vn.edu.vnua.dse.service.UserService#getTotalVideoByUser(int)
+	 */
+	@Override
+	public int getTotalVideoByUser(String author) {
+		int result = 0;
+		try {
+			logger.debug("GET Limit User Start");
+			result = userDao.getTotalVideoByUser(author);
+			logger.debug("GET Limit User End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return result;
 	}
 
 }

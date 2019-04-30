@@ -21,14 +21,14 @@
 				<!-- User Account: style can be found in dropdown.less -->
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="<%=request.getContextPath()%>/resources/dist/img/user2-160x160.jpg"
+						src="<%=request.getContextPath()%>/resources/images/avatar_user.png"
 						class="user-image" alt="User Image"> <span class="hidden-xs">Nguyễn
 							Xuân Hải</span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
 						<li class="user-header"><img
-							src="<%=request.getContextPath()%>/resources/dist/img/user2-160x160.jpg"
+							src="<%=request.getContextPath()%>/resources/images/avatar_user.png"
 							class="img-circle" alt="Avartar người dùng">
 
 							<p>

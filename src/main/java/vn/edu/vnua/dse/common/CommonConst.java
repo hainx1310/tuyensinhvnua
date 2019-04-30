@@ -24,7 +24,7 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca categories duoc kich hoat
 		 */
 		public static final String GET_lIST_CATEGORIES_IS_ACTIVE = "sqlfiles/getListCategoriesIsActive.sql";
-		
+
 		/**
 		 * cau sql lay ra categories theo id
 		 */
@@ -109,16 +109,58 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca bai viet da duoc duyet
 		 */
 		public static final String GET_ALL_APPROVED_POST = "sqlfiles/getAllApprovedPost.sql";
-		
+
 		/**
-		 * cau sql lay ra danh sach tat ca bai viet da xuat ban theo chuyen muc theo chuyen muc
+		 * cau sql lay ra danh sach tat ca bai viet da xuat ban theo chuyen muc theo
+		 * chuyen muc
 		 */
 		public static final String GET_ALL_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getAllPublishedPostByCategoriesId.sql";
-		
+
 		/**
-		 * cau sql lay ra danh sach 10 bai viet da xuat ban theo chuyen muc theo chuyen muc
+		 * cau sql lay ra danh sach 10 bai viet da xuat ban theo chuyen muc theo chuyen
+		 * muc
 		 */
 		public static final String GET_LIMIT_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getLimitPublishedPostByCategoriesId.sql";
+
+		/**
+		 * cau sql lay so luong bai viet theo tac gia
+		 */
+		public static final String GET_TOTAL_POST_BY_AUTHOR = "sqlfiles/getTotalPostByUser.sql";
+
+		/**
+		 * cau sql lay so luong video theo tac gia
+		 */
+		public static final String GET_TOTAL_VIDEO_BY_AUTHOR = "sqlfiles/getTotalVideoByUser.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca video
+		 */
+		public static final String GET_ALL_VIDEO = "sqlfiles/getAllVideo.sql";
+
+		/**
+		 * cau sql them moi mot video
+		 */
+		public static final String CREATE_VIDEO = "sqlfiles/createVideo.sql";
+
+		/**
+		 * cau sql update categories vao bang categories
+		 */
+		public static final String UPDATE_VIDEO = "sqlfiles/updateVideo.sql";
+
+		/**
+		 * cau sql xóa 1 categories trong bang categories
+		 */
+		public static final String DELETE_VIDEO = "sqlfiles/deleteVideo.sql";
+
+		/**
+		 * cau sql thay doi trang thai cua 1 categories trong bang categories
+		 */
+		public static final String CHANGE_STATUS_VIDEO = "sqlfiles/changeStatusVideo.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca video
+		 */
+		public static final String GET_ALL_VIDEO_IS_ACTIVE = "sqlfiles/getAllVideoIsActive.sql";
 
 	}
 }

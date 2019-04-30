@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,6 @@ import vn.edu.vnua.dse.entity.User;
 import vn.edu.vnua.dse.service.UserService;
 
 @Controller
-@RequestMapping("/admin/user")
 public class UserController {
 
 	@Autowired
@@ -33,7 +33,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
 	public ModelAndView createUser(User user, HttpServletRequest request, Model model) {
 
 		// kiem tra username co ton tai ko
@@ -77,13 +77,13 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/UserManagement", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/user/UserManagement", method = RequestMethod.GET)
 	public String getFirstResultPage(Model model) {
 
 		List<User> listUser = new ArrayList<User>();
 		List<User> listAllUser = new ArrayList<User>();
 		int pagesNumber = 0;
-		int totalrRecord = 0;
+		int totalRecord = 0;
 		try {
 			listUser = userService.getListUserLimit(0);
 			listAllUser = userService.getListUser();
@@ -91,10 +91,10 @@ public class UserController {
 			throw new RuntimeException(e);
 		}
 		pagesNumber = (int) Math.ceil(listAllUser.size() / 10.0);
-		totalrRecord = listAllUser.size();
+		totalRecord = listAllUser.size();
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("pagesNumber", pagesNumber);
-		model.addAttribute("totalrRecord", totalrRecord);
+		model.addAttribute("totalRecord", totalRecord);
 
 		return "admin/user";
 	}
@@ -104,7 +104,7 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/EditUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/EditUser", method = RequestMethod.POST)
 	public ModelAndView updateUser(User user) {
 
 		// Get username
@@ -129,7 +129,7 @@ public class UserController {
 	 * @param User
 	 * @return
 	 */
-	@RequestMapping(value = "/DeleteUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/DeleteUser", method = RequestMethod.POST)
 	public ModelAndView deleteUser(HttpServletRequest request) {
 		int UserId;
 		UserId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
@@ -146,7 +146,7 @@ public class UserController {
 	 * 
 	 * @param request
 	 */
-	@RequestMapping(value = "/changeStatusUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/user/changeStatusUser", method = RequestMethod.POST)
 	public ModelAndView changeStatusUser(HttpServletRequest request) {
 		int UserId;
 		String username = null;
@@ -177,7 +177,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/getUserLimit", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@RequestMapping(value = "/admin/user/getUserLimit", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getCategoriresLimit(@RequestParam int startIndex) {
 
@@ -192,6 +192,7 @@ public class UserController {
 
 		for (User item : listUser) {
 			html += "<tr role='row' class='odd'>";
+			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
 			html += "<td class=''>" + (i++) + "</td>";
 			html += "<td id=\"user-username\" class=\"sorting_1\">" + item.getUsername() + "</td>";
 			html += "<td id=\"user-email\">" + item.getEmail() + "</td>";
@@ -205,12 +206,50 @@ public class UserController {
 			html += "<td id=\"user-udapted-user\">" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
 					+ "</td>";
 			html += "<td><a id='changeStatusUser' onclick='changeStatusUserById(" + item.getId() + ", "
-					+ item.isStatus() + ")' href='#'>Đổi trạng thái</a> | <a onclick='openModalUpdateUser("
+					+ item.isStatus() + ")' href='#' "
+					+ (item.isStatus() == true ? "class=\"fa fa-toggle-on\"" : "class=\"fa fa-toggle-off\"")
+					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateUser("
 					+ item.getId() + ", \"" + item.getUsername() + "\", " + item.isRole() + ", " + item.isStatus()
-					+ ")' href=\"#\">Sửa</a> | <a " + "onclick='openModalDeleteUser(" + item.getId() + ", \""
-					+ item.getUsername() + "\")' " + "href=\"#\">Xóa</a></td>";
+					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
+					+ "onclick='openModalDeleteUser(" + item.getId() + ", \"" + item.getUsername() + "\")' "
+					+ "href=\"#\" class = \"fa fa fa-trash-o\"></a></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);
+	}
+
+	/**
+	 * Controller tra ve trang thong tin ca nhan
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	public String profile(ModelMap model) {
+
+		User user = new User();
+		int totalPostByAuthor = 0;
+		int totalVideoByAuthor = 0;
+
+		String author = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			author = ((UserDetails) principal).getUsername();
+		}
+
+		// get user
+		user = userService.getUserByUsername(author).get(0);
+
+		try {
+			totalPostByAuthor = userService.getTotalPostByUser(author);
+			totalVideoByAuthor = userService.getTotalVideoByUser(author);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		model.addAttribute("user", user);
+		model.addAttribute("totalPostByAuthor", totalPostByAuthor);
+		model.addAttribute("totalVideoByAuthor", totalVideoByAuthor);
+
+		return "profile";
 	}
 }
