@@ -79,6 +79,11 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca bai viet
 		 */
 		public static final String GET_ALL_POST = "sqlfiles/getListPost.sql";
+		
+		/**
+		 * cau sql lay ra bai viet theo id
+		 */
+		public static final String GET_POST_BY_ID = "sqlfiles/getPostById.sql";
 
 		/**
 		 * cau sql xóa 1 bai viet trong bang post theo id bai viet
@@ -171,6 +176,16 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca video
 		 */
 		public static final String GET_ALL_VIDEO_IS_ACTIVE = "sqlfiles/getAllVideoIsActive.sql";
+		
+		/**
+		 * cau sql lay ra danh sach binh luan theo id bai viet
+		 */
+		public static final String GET_COMMENT_BY_POST_ID = "sqlfiles/getCommentByPostId.sql";
+
+		/**
+		 * cau sql them moi binh luan
+		 */
+		public static final String CREATE_COMMENT = "sqlfiles/createComment.sql";
 
 	}
 }

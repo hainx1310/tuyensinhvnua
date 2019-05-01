@@ -358,4 +358,25 @@ public class PostDaoImpl implements PostDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc lay bai viet theo id
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getPostById(int)
+	 */
+	@Override
+	public Post getPostById(int id) {
+		List<Post> listResult = new ArrayList<Post>();
+
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_POST_BY_ID);
+			Query query = session.createSQLQuery(sql).addEntity(Post.class);
+			query.setParameter("id", id);
+			listResult = (List<Post>) query.list();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return listResult == null ? null : listResult.get(0);
+	}
+
 }

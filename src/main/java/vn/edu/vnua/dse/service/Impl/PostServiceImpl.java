@@ -289,4 +289,22 @@ public class PostServiceImpl implements PostService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc lay bai viet theo id
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getPostById(int)
+	 */
+	@Override
+	public Post getPostById(int id) {
+		Post post = new Post();
+		try {
+			logger.debug("GET getPostById Start");
+			post = postDao.getPostById(id);
+			logger.debug("GET getPostById End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return post;
+	}
+
 }

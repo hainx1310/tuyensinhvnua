@@ -96,18 +96,26 @@ public interface PostService {
 	 * @return
 	 */
 	public List<Post> getPostPublishedByCategoriesIdLimit(int categoriesId, int startIndex);
-	
+
 	/**
 	 * Phuong thuc duyet bai viet
 	 * 
 	 * @param postId
 	 */
 	public void approved(int postId, String approvedUser);
-	
+
 	/**
 	 * Phuong thuc go bai viet
 	 * 
 	 * @param postId
 	 */
 	public void unapproved(int postId, String unapprovedUser);
+
+	/**
+	 * Phuong thuc lay bai viet theo id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Post getPostById(int id);
 }
