@@ -34,10 +34,43 @@ public class PostApi {
 	 * @return
 	 */
 	@RequestMapping(value = { "/post" }, method = RequestMethod.GET)
-	public ResponseEntity<List<Post>> getAllPostPublished() {
+	public @ResponseBody ResponseEntity<Object>  getAllPostPublished() {
 		List<Post> listResult = new ArrayList<Post>();
+		List<PostCO> list = new ArrayList<PostCO>();
+		PostCO postCO = new PostCO();
+		List<Comment> listComment = new ArrayList<Comment>();
+		
+		try {
+			listResult = postService.getPostPublished();
+			if (listResult != null && listResult.size() > 0) {
+				for (Post post : listResult) {
+					postCO.setId(post.getId());
+					postCO.setShortContent(post.getShortContent());
+					postCO.setTitle(post.getTitle());
+					postCO.setUrl(post.getUrl());
+					postCO.setAvatarPost(post.getAvatarPost());
+					postCO.setContent(post.getContent());
+					postCO.setCategories(post.getCategories());
+					postCO.setEditor(post.getEditor());
+					postCO.setAuthor(post.getAuthor());
+					postCO.setCreatedDate(post.getCreatedDate());
+					postCO.setUpdatedDate(post.getUpdatedDate());
+					postCO.setPublishedDate(post.getPublishedDate());
+					postCO.setStatus(post.getStatus());
+					postCO.setApprovedUser(post.getApprovedUser());
+					postCO.setUnapprovedUser(post.getUnapprovedUser());
+					listComment = commentService.getComments(post.getId());
+					postCO.setComments(listComment);
+					list.add(postCO);
+					postCO = new PostCO();
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 		listResult = postService.getPostPublished();
-		return new ResponseEntity<List<Post>>(listResult, HttpStatus.OK);
+		return new ResponseEntity<Object>(list, HttpStatus.OK);
 	}
 
 	/**
@@ -47,17 +80,43 @@ public class PostApi {
 	 * @return
 	 */
 	@RequestMapping(value = { "/post/limit" }, method = RequestMethod.GET)
-	public ResponseEntity<List<Post>> getLimitPostPublish(int startIndex) {
+	public @ResponseBody ResponseEntity<Object>  getLimitPostPublish(int startIndex) {
 
 		List<Post> listResult = new ArrayList<Post>();
+		List<PostCO> list = new ArrayList<PostCO>();
+		PostCO postCO = new PostCO();
+		List<Comment> listComment = new ArrayList<Comment>();
 
 		try {
 			listResult = postService.getLimitPostPublished(startIndex);
+			if (listResult != null && listResult.size() > 0) {
+				for (Post post : listResult) {
+					postCO.setId(post.getId());
+					postCO.setShortContent(post.getShortContent());
+					postCO.setTitle(post.getTitle());
+					postCO.setUrl(post.getUrl());
+					postCO.setAvatarPost(post.getAvatarPost());
+					postCO.setContent(post.getContent());
+					postCO.setCategories(post.getCategories());
+					postCO.setEditor(post.getEditor());
+					postCO.setAuthor(post.getAuthor());
+					postCO.setCreatedDate(post.getCreatedDate());
+					postCO.setUpdatedDate(post.getUpdatedDate());
+					postCO.setPublishedDate(post.getPublishedDate());
+					postCO.setStatus(post.getStatus());
+					postCO.setApprovedUser(post.getApprovedUser());
+					postCO.setUnapprovedUser(post.getUnapprovedUser());
+					listComment = commentService.getComments(post.getId());
+					postCO.setComments(listComment);
+					list.add(postCO);
+					postCO = new PostCO();
+				}
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return new ResponseEntity<List<Post>>(listResult, HttpStatus.OK);
+		return new ResponseEntity<Object>(list, HttpStatus.OK);
 	}
 
 	/**
