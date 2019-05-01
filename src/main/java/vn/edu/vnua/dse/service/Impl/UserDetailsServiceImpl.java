@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import vn.edu.vnua.des.co.CustomUserDetails;
 import vn.edu.vnua.dse.dao.UserDAO;
 import vn.edu.vnua.dse.entity.User;
 
@@ -32,14 +33,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<User> listUser = userDao.getUserByUsername(username);
 		User user;
+		CustomUserDetails userDetails;
 		if (listUser != null && listUser.size() > 0) {
 			user = listUser.get(0);
 			Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 			String roleName = user.isRole() == true ? "ROLE_ADMIN" : "ROLE_EDITOR";
 			grantedAuthorities.add(new SimpleGrantedAuthority(roleName));
-
-			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-					user.isStatus(), true, true, true, grantedAuthorities);
+			userDetails = new CustomUserDetails(user);
+			return userDetails;
 		}
 		return null;
 	}

@@ -39,8 +39,11 @@
 			<div class="row">
 				<div class="col-sm-10">
 					<h1>
-						<sec:authentication property="principal.username" />
+						<sec:authentication property="principal.name" />
 					</h1>
+					<h3>
+						<sec:authentication property="principal.username" />
+					</h3>
 				</div>
 			</div>
 			<div class="row">

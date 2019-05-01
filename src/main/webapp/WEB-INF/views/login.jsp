@@ -3,7 +3,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
+<sec:authorize access="isAuthenticated()">
+	<meta http-equiv='refresh' content='0; URL=home'>
+</sec:authorize>
+
+<sec:authorize access="!isAuthenticated()">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,3 +63,4 @@
 		</div>
 	</div>
 </div>
+</sec:authorize>

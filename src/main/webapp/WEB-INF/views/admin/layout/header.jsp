@@ -21,19 +21,18 @@
 				<!-- User Account: style can be found in dropdown.less -->
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
-						src="<%=request.getContextPath()%>/resources/images/avatar_user.png"
-						class="user-image" alt="User Image"> <span class="hidden-xs">Nguyễn
-							Xuân Hải</span>
+						src="<%=request.getContextPath()%>/<sec:authentication property="principal.avatarUrl" />"
+						class="user-image" alt="User Image"> <span class="hidden-xs"><sec:authentication property="principal.name" /></span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
 						<li class="user-header"><img
-							src="<%=request.getContextPath()%>/resources/images/avatar_user.png"
+							src="<%=request.getContextPath()%>/<sec:authentication property="principal.avatarUrl" />"
 							class="img-circle" alt="Avartar người dùng">
 
 							<p>
 								<sec:authentication property="principal.username" />
-								<small><sec:authentication property="principal.username" /></small>
+								<small><sec:authentication property="principal.roleName" /></small>
 							</p></li>
 						<!-- Menu Body -->
 						<!-- Menu Footer-->

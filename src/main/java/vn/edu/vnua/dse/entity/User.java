@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,6 +36,7 @@ public class User implements Serializable {
 	private String resetPasswordCode;
 	private String avatarUrl;
 	private boolean role;
+	private String roleName;
 
 	public User() {
 
@@ -221,4 +223,8 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	@Transient
+	public String getRoleName() {
+		return this.isRole() == true ? "Quản trị viên" : "Biên tập viên";
+	}
 }
