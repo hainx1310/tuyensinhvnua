@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,7 @@ public class PostApi {
 
 	@Autowired
 	private PostService postService;
-	
+
 	@Autowired
 	private CommentService commentService;
 
@@ -34,12 +35,12 @@ public class PostApi {
 	 * @return
 	 */
 	@RequestMapping(value = { "/post" }, method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<Object>  getAllPostPublished() {
+	public @ResponseBody ResponseEntity<Object> getAllPostPublished() {
 		List<Post> listResult = new ArrayList<Post>();
 		List<PostCO> list = new ArrayList<PostCO>();
 		PostCO postCO = new PostCO();
 		List<Comment> listComment = new ArrayList<Comment>();
-		
+
 		try {
 			listResult = postService.getPostPublished();
 			if (listResult != null && listResult.size() > 0) {
@@ -68,8 +69,7 @@ public class PostApi {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		listResult = postService.getPostPublished();
+
 		return new ResponseEntity<Object>(list, HttpStatus.OK);
 	}
 
@@ -80,7 +80,7 @@ public class PostApi {
 	 * @return
 	 */
 	@RequestMapping(value = { "/post/limit" }, method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<Object>  getLimitPostPublish(int startIndex) {
+	public @ResponseBody ResponseEntity<Object> getLimitPostPublish(int startIndex) {
 
 		List<Post> listResult = new ArrayList<Post>();
 		List<PostCO> list = new ArrayList<PostCO>();
@@ -133,9 +133,105 @@ public class PostApi {
 		List<PostCO> list = new ArrayList<PostCO>();
 		PostCO postCO = new PostCO();
 		List<Comment> listComment = new ArrayList<Comment>();
-		
+
 		try {
 			listResult = postService.getPostPublishedByCategoriesIdLimit(categoriesId, startIndex);
+			if (listResult != null && listResult.size() > 0) {
+				for (Post post : listResult) {
+					postCO.setId(post.getId());
+					postCO.setShortContent(post.getShortContent());
+					postCO.setTitle(post.getTitle());
+					postCO.setUrl(post.getUrl());
+					postCO.setAvatarPost(post.getAvatarPost());
+					postCO.setContent(post.getContent());
+					postCO.setCategories(post.getCategories());
+					postCO.setEditor(post.getEditor());
+					postCO.setAuthor(post.getAuthor());
+					postCO.setCreatedDate(post.getCreatedDate());
+					postCO.setUpdatedDate(post.getUpdatedDate());
+					postCO.setPublishedDate(post.getPublishedDate());
+					postCO.setStatus(post.getStatus());
+					postCO.setApprovedUser(post.getApprovedUser());
+					postCO.setUnapprovedUser(post.getUnapprovedUser());
+					listComment = commentService.getComments(post.getId());
+					postCO.setComments(listComment);
+					list.add(postCO);
+					postCO = new PostCO();
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ResponseEntity<Object>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * Api lay tat ca bai viet theo id
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = { "/post/{arrPostId}" }, method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<Object> getAllPostPublished(@PathVariable String arrPostId) {
+		List<Post> listResult = new ArrayList<Post>();
+		List<PostCO> list = new ArrayList<PostCO>();
+		PostCO postCO = new PostCO();
+		List<Comment> listComment = new ArrayList<Comment>();
+
+		try {
+			listResult = postService.getListPostById(arrPostId);
+			if (listResult != null && listResult.size() > 0) {
+				for (Post post : listResult) {
+					postCO.setId(post.getId());
+					postCO.setShortContent(post.getShortContent());
+					postCO.setTitle(post.getTitle());
+					postCO.setUrl(post.getUrl());
+					postCO.setAvatarPost(post.getAvatarPost());
+					postCO.setContent(post.getContent());
+					postCO.setCategories(post.getCategories());
+					postCO.setEditor(post.getEditor());
+					postCO.setAuthor(post.getAuthor());
+					postCO.setCreatedDate(post.getCreatedDate());
+					postCO.setUpdatedDate(post.getUpdatedDate());
+					postCO.setPublishedDate(post.getPublishedDate());
+					postCO.setStatus(post.getStatus());
+					postCO.setApprovedUser(post.getApprovedUser());
+					postCO.setUnapprovedUser(post.getUnapprovedUser());
+					listComment = commentService.getComments(post.getId());
+					postCO.setComments(listComment);
+					list.add(postCO);
+					postCO = new PostCO();
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ResponseEntity<Object>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * Api tra ve danh sach bai viet theo keyword, moi lan duoc goi se lay 10 bai ke
+	 * tu index truyen vao
+	 * 
+	 * @param startIndex
+	 * @return
+	 */
+	@RequestMapping(value = { "/post/search/{keyword}/{startIndex}" }, method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<Object> searchPostByKeyword(@PathVariable String keyword,
+			@PathVariable int startIndex) {
+
+		List<Post> listResult = new ArrayList<Post>();
+		List<PostCO> list = new ArrayList<PostCO>();
+		PostCO postCO = new PostCO();
+		List<Comment> listComment = new ArrayList<Comment>();
+
+		if (keyword != null) {
+			keyword = keyword.toLowerCase().trim();
+		}
+
+		try {
+			listResult = postService.getPostByKeyword(keyword, startIndex);
 			if (listResult != null && listResult.size() > 0) {
 				for (Post post : listResult) {
 					postCO.setId(post.getId());

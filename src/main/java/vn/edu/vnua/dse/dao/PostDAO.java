@@ -123,4 +123,18 @@ public interface PostDAO {
 	 * @return
 	 */
 	public Post getPostById(int id);
+	
+	/**
+	 * Lay danh sach bai viet da duyet theo id.
+	 * 
+	 * @return
+	 */
+	public List<Post> getListPostById(String arrayPostId);
+	
+	/**
+	 * Lay danh sach bai theo keyword
+	 * 
+	 * @return
+	 */
+	public List<Post> getPostByKeyword(String keyword, int startIndex);
 }

@@ -307,4 +307,41 @@ public class PostServiceImpl implements PostService {
 		return post;
 	}
 
+	/*
+	 * (non-Javadoc) Lay danh sach bai viet da duyet theo id.
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getListPostById(java.lang.String)
+	 */
+	@Override
+	public List<Post> getListPostById(String arrayPostId) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			logger.debug("GET getListPostById Start");
+			listResult = postDao.getListPostById(arrayPostId);
+			logger.debug("GET ALL getListPostById End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach bai theo keyword
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getPostByKeyword(java.lang.String,
+	 * int)
+	 */
+	@Override
+	public List<Post> getPostByKeyword(String keyword, int startIndex) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			logger.debug("GET getPostByKeyword Post Start");
+			listResult = postDao.getPostByKeyword(keyword, startIndex);
+			logger.debug("GET ALL getPostByKeyword End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
 }

@@ -1,5 +1,5 @@
 INSERT INTO tuyensinhapi.video (
-	url
+	video_youtube_id
 	, title
 	, short_content
 	, editor
@@ -7,9 +7,10 @@ INSERT INTO tuyensinhapi.video (
 	, created_date
 	, published_date
 	, status
+	, avatar_video
 )
 VALUES (
-	:url
+	:videoYoutubeId
 	, :title
 	, :shortContent
 	, :editor
@@ -17,4 +18,5 @@ VALUES (
 	, now()
 	, :publishedDate
 	, 0
+	, :avatarVideo
 )

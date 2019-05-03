@@ -84,6 +84,11 @@ public class CommonConst {
 		 * cau sql lay ra bai viet theo id
 		 */
 		public static final String GET_POST_BY_ID = "sqlfiles/getPostById.sql";
+		
+		/**
+		 * cau sql lay ra 10 bai viet theo keyword va index
+		 */
+		public static final String SEARCH_POST = "sqlfiles/searchPost.sql";
 
 		/**
 		 * cau sql xóa 1 bai viet trong bang post theo id bai viet

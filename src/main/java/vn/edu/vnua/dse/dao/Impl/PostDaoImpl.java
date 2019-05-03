@@ -379,4 +379,47 @@ public class PostDaoImpl implements PostDAO {
 		return listResult == null ? null : listResult.get(0);
 	}
 
+	/*
+	 * (non-Javadoc) Lay danh sach bai viet da duyet theo id.
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getListPostById(java.lang.String)
+	 */
+	@Override
+	public List<Post> getListPostById(String arrayPostId) {
+		List<Post> listResult = new ArrayList<Post>();
+
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Post Where id in (" + arrayPostId + ")");
+			System.out.println("FROM tuyensinhapi.post Where id in (" + arrayPostId + ")");
+			listResult = query.list();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach bai theo keyword
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getPostByKeyword(java.lang.String, int)
+	 */
+	@Override
+	public List<Post> getPostByKeyword(String keyword, int startIndex) {
+		List<Post> listResult = new ArrayList<Post>();
+
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.SEARCH_POST);
+			Query query = session.createQuery(sql);
+			query.setParameter("keyword", "%".concat(keyword).concat("%"));
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Post>) query.list();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
 }

@@ -91,8 +91,8 @@ public class Comment implements Serializable {
 	}
 
 	@Column(name = "created_date")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCreatedDate() {
 		return createdDate;
 	}

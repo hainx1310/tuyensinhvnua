@@ -157,7 +157,7 @@ public class Post implements Serializable {
 
 	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -168,7 +168,7 @@ public class Post implements Serializable {
 
 	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}
@@ -187,8 +187,7 @@ public class Post implements Serializable {
 	}
 
 	@Column(name = "published_date")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getPublishedDate() {
 		return publishedDate;
 	}

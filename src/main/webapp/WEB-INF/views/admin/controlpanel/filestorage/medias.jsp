@@ -144,13 +144,20 @@
 										<table
 											style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
 											<tr>
+												<td>Ảnh đại diện video:</td>
+												<td><button style="margin-left: 10px" type="button"
+														class="btn btn-success"
+														onclick="BrowseServer( 'Images:/')">Tải ảnh lên</button></td>
+											</tr>
+											<tr>
 												<td>Tiêu đề:</td>
 												<td><input type="text" id="title" name="title"
 													size="50%" autofocus="autofocus"></td>
 											</tr>
 											<tr>
-												<td>Link youtube:</td>
-												<td><input type="text" id="url" name="url" size="50%"></td>
+												<td>ID video youtube:</td>
+												<td><input type="text" id="videoYoutubeId"
+													name="videoYoutubeId" size="50%"></td>
 											</tr>
 											<tr>
 												<td>Kích hoạt:</td>

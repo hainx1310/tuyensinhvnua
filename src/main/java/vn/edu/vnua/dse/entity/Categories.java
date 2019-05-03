@@ -72,7 +72,7 @@ public class Categories implements Serializable {
 
 	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -92,7 +92,7 @@ public class Categories implements Serializable {
 
 	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}

@@ -85,12 +85,13 @@ public class VideoDaoImpl implements VideoDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.CREATE_VIDEO);
 			Query query = session.createSQLQuery(sql);
-			query.setParameter("url", video.getUrl());
+			query.setParameter("videoYoutubeId", video.getVideoYoutubeId());
 			query.setParameter("title", video.getTitle());
 			query.setParameter("shortContent", video.getShortContent());
 			query.setParameter("editor", video.getEditor());
 			query.setParameter("author", video.getAuthor());
 			query.setParameter("publishedDate", video.getPublishedDate());
+			query.setParameter("avatarVideo", video.getAvatarVideo());
 
 			query.executeUpdate();
 		} catch (Exception ex) {
@@ -110,12 +111,14 @@ public class VideoDaoImpl implements VideoDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.UPDATE_VIDEO);
 			Query query = session.createSQLQuery(sql);
-			query.setParameter("url", video.getUrl());
+			query.setParameter("videoYoutubeId", video.getVideoYoutubeId());
 			query.setParameter("title", video.getTitle());
 			query.setParameter("shortContent", video.getShortContent());
 			query.setParameter("publishedDate", video.getPublishedDate());
 			query.setParameter("updatedUser", video.getUpdatedUser());
 			query.setParameter("id", video.getId());
+			query.setParameter("avatarVideo", video.getAvatarVideo());
+			
 			query.executeUpdate();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
@@ -194,7 +197,7 @@ public class VideoDaoImpl implements VideoDAO {
 		List<Video> listResult = new ArrayList<Video>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Video WHERE status = :status");
+			Query query = session.createQuery("FROM Video WHERE status = :status order by publishedDate desc");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Video>) query.list();

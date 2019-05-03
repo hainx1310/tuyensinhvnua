@@ -20,7 +20,7 @@ public class Video implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-	private String url;
+	private String videoYoutubeId;
 	private String title;
 	private String shortContent;
 	private String editor;
@@ -30,16 +30,18 @@ public class Video implements Serializable {
 	private String updatedUser;
 	private Date publishedDate;
 	private boolean status;
+	private String avatarVideo;
 
 	public Video() {
 
 	}
 
-	public Video(int id, String url, String title, String shortContent, String editor, String author, Date createdDate,
-			Date updatedDate, String updatedUser, Date publishedDate, boolean status) {
+	public Video(int id, String videoYoutubeId, String title, String shortContent, String editor, String author,
+			Date createdDate, Date updatedDate, String updatedUser, Date publishedDate, boolean status,
+			String avatarVideo) {
 		super();
 		this.id = id;
-		this.url = url;
+		this.videoYoutubeId = videoYoutubeId;
 		this.title = title;
 		this.shortContent = shortContent;
 		this.editor = editor;
@@ -49,6 +51,7 @@ public class Video implements Serializable {
 		this.updatedUser = updatedUser;
 		this.publishedDate = publishedDate;
 		this.status = status;
+		this.avatarVideo = avatarVideo;
 	}
 
 	@Id
@@ -62,13 +65,13 @@ public class Video implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "url", length = 255)
-	public String getUrl() {
-		return url;
+	@Column(name = "video_youtube_id", length = 255)
+	public String getVideoYoutubeId() {
+		return videoYoutubeId;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setVideoYoutubeId(String videoYoutubeId) {
+		this.videoYoutubeId = videoYoutubeId;
 	}
 
 	@Column(name = "title", length = 255)
@@ -109,7 +112,7 @@ public class Video implements Serializable {
 
 	@Column(name = "created_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -120,7 +123,7 @@ public class Video implements Serializable {
 
 	@Column(name = "updated_date")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}
@@ -139,8 +142,8 @@ public class Video implements Serializable {
 	}
 
 	@Column(name = "published_date")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getPublishedDate() {
 		return publishedDate;
 	}
@@ -156,6 +159,15 @@ public class Video implements Serializable {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Column(name = "avatar_video", length = 255)
+	public String getAvatarVideo() {
+		return avatarVideo;
+	}
+
+	public void setAvatarVideo(String avatarVideo) {
+		this.avatarVideo = avatarVideo;
 	}
 
 }
