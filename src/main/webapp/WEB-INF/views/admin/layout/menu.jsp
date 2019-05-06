@@ -30,7 +30,7 @@
 			</a> <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li><a
 						href="${pageContext.request.contextPath}/admin/categories"><i
-							class="fa fa-list-ul"></i> Quản lý Chuyên mục</a></li>
+							class="fa fa-list-ul"></i><span>Quản lý Chuyên mục</span></a>
 				</sec:authorize>
 			<li class="treeview"><a href="#"> <i
 					class="fa fa-file-text-o"></i> <span>Quản lý Bài viết</span> <span
@@ -39,31 +39,31 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/post""><i
-							class="fa fa-pencil"></i> Viết bài mới</a></li>
+					<li><a href="${pageContext.request.contextPath}/post"><i
+							class="fa fa-pencil"></i><span>Viết bài mới</span></a></li>
 					<li><a href="${pageContext.request.contextPath}/pendingpost"><i
-							class="fa  fa-hourglass-2"></i> Bài chờ duyệt</a></li>
+							class="fa  fa-hourglass-2"></i><span>Bài chờ duyệt</span></a></li>
 
 					<li><a href="${pageContext.request.contextPath}/approvedpost"><i
-							class="fa fa-calendar"></i> Bài đã duyệt</a></li>
+							class="fa fa-calendar"></i><span>Bài đã duyệt</span></a></li>
 					<li><a href="${pageContext.request.contextPath}/postpublished"><i
-							class="fa fa-calendar-check-o"></i> Bài đã đăng</a></li>
+							class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
 				</ul></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="#" onclick="return BrowseServer( 'Images:/')"><i
-						class="fa fa-image"></i> Quản lý Ảnh</a></li>
+						class="fa fa-image"></i><span>Quản lý Ảnh</span></a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/medias"><i
-						class="fa fa-youtube-play"></i> Quản lý Video</a></li>
+						class="fa fa-youtube-play"></i><span>Quản lý Video</span></a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
-						class="fa fa-users"></i> Quản lý tài khoản</a></li>
+						class="fa fa-users"></i><span>Quản lý tài khoản</span></a></li>
 			</sec:authorize>
 			<li><a
 				href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
-					class="fa fa-bell-o"></i> Quản lý thông báo</a></li>
+					class="fa fa-bell-o"></i><span>Quản lý thông báo</span></a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
-					class="fa fa-commenting-o"></i> Quản lý bình luận</a></li>
+					class="fa fa-commenting-o"></i><span>Quản lý bình luận</span></a></li>
 		</ul>
 	</section>
 	<!-- /.sidebar -->
