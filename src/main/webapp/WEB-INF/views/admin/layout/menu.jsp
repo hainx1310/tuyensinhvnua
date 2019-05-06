@@ -25,12 +25,6 @@
 		</div>
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu tree" data-widget="tree">
-			<li><a href="${pageContext.request.contextPath}/profile"> <i
-					class="fa fa-info-circle"></i> <span> Thông tin cá nhân</span>
-			</a>
-			<li><a href="${pageContext.request.contextPath}/logout"> <i
-					class="fa  fa-power-off"></i> <span> Đăng xuất</span>
-			</a>
 			<li><a href="${pageContext.request.contextPath}/home"> <i
 					class="fa fa-home"></i> <span>Trang chủ</span>
 			</a> <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -47,23 +41,13 @@
 				<ul class="treeview-menu">
 					<li><a href="${pageContext.request.contextPath}/post""><i
 							class="fa fa-pencil"></i> Viết bài mới</a></li>
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<li><a
-							href="${pageContext.request.contextPath}/admin/pendingpost"><i
-								class="fa  fa-hourglass-2"></i> Bài chờ duyệt</a></li>
+					<li><a href="${pageContext.request.contextPath}/pendingpost"><i
+							class="fa  fa-hourglass-2"></i> Bài chờ duyệt</a></li>
 
-						<li><a
-							href="${pageContext.request.contextPath}/admin/approvedpost"><i
-								class="fa fa-calendar"></i> Bài đã duyệt</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/admin/postpublished"><i
-								class="fa fa-calendar-check-o"></i> Bài đã đăng</a></li>
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_EDITOR')">
-						<li><a
-							href="${pageContext.request.contextPath}/admin/pendingpost"><i
-								class="fa  fa-hourglass-2"></i> Bài đã viết</a></li>
-					</sec:authorize>
+					<li><a href="${pageContext.request.contextPath}/approvedpost"><i
+							class="fa fa-calendar"></i> Bài đã duyệt</a></li>
+					<li><a href="${pageContext.request.contextPath}/postpublished"><i
+							class="fa fa-calendar-check-o"></i> Bài đã đăng</a></li>
 				</ul></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="#" onclick="return BrowseServer( 'Images:/')"><i

@@ -10,10 +10,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.edu.vnua.dse.common.DateUtils;
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.entity.Post;
 import vn.edu.vnua.dse.service.CategoriesService;
@@ -43,6 +48,13 @@ public class PostController {
 		return "post";
 	}
 
+	/**
+	 * Controlelr them moi bai viet
+	 * 
+	 * @param post
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = { "/post" }, method = RequestMethod.POST)
 	public ModelAndView createdPost(Post post, HttpServletRequest request) {
 
@@ -80,44 +92,44 @@ public class PostController {
 	}
 
 	/**
+	 * Controller chuyen huong toi trang sua bai viet
 	 * 
 	 * @param postId
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/editpost{postId}", method = RequestMethod.GET)
-	public String editPost(int postId, Model model) {
-		// Get all catergories
+	@RequestMapping(value = "post/editpost", method = RequestMethod.GET)
+	public String editPost(int postId) {
+
+		return "redirect:" + "/post";
+	}
+
+	/**
+	 * Controller sua bai viet
+	 * 
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/updatepost", method = RequestMethod.GET)
+	public String editPost(int postId, ModelMap model) {
+
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
+		Post post = new Post();
+
 		try {
+			// Lay tat ca chuyen muc
 			listAllCatergories = categoriesService.getAllCategories(-1);
+			// lay bai viet theo id
+			post = postService.getPostById(postId);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		model.addAttribute("titleContent", "Thêm bài viết");
+		model.addAttribute("post", post);
 		model.addAttribute("listAllCatergories", listAllCatergories);
-		model.addAttribute("titleContent", "Sửa bài viêt");
-		model.addAttribute("title", "Tra cứu danh sách trúng tuyển và thủ tục nhập học");
-		model.addAttribute("content",
-				"<p style=\"text-align:justify\">Đội ngũ giảng vi&ecirc;n &ndash; chuy&ecirc;n gia &ndash; nh&agrave; khoa học lu&ocirc;n đ&oacute;ng vai tr&ograve; quan trọng trong qu&aacute; tr&igrave;nh ph&aacute;t triển của Học viện N&ocirc;ng nghiệp Việt Nam. 80% giảng vi&ecirc;n được đ&agrave;o tạo ch&iacute;nh quy v&agrave; tu nghiệp h&agrave;ng năm tại c&aacute;c nước ph&aacute;t triển như Mỹ, Ph&aacute;p, Đức, Bỉ, H&agrave; Lan, Nhật Bản, &Uacute;c&hellip; c&ugrave;ng với đ&oacute; l&agrave; rất nhiều giảng vi&ecirc;n quốc tế đang thỉnh giảng v&agrave; nghi&ecirc;n cứu khoa học tại Học viện N&ocirc;ng nghiệp Việt Nam.</p>\r\n"
-						+ " \r\n"
-						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/Picture5.png\" style=\"height:215px; width:350px\" /></p>\r\n"
-						+ " \r\n"
-						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/Picture6.png\" style=\"height:234px; width:350px\" /></p>\r\n"
-						+ " \r\n"
-						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/ncs-480x300.jpg\" style=\"height:219px; width:350px\" /></p>\r\n"
-						+ " \r\n"
-						+ " <p style=\"text-align:center\"><img alt=\"\" src=\"http://localhost:8080/tuyensinhhvnapi/resources/upload/images/thacsy-480x300.jpg\" style=\"height:219px; width:350px\" /></p>\r\n"
-						+ " \r\n"
-						+ " <p>Tổng số c&aacute;n bộ vi&ecirc;n chức đang l&agrave;m việc tại Học viện N&ocirc;ng nghiệp Việt Nam: 1.368 người.</p>\r\n"
-						+ " \r\n" + " <p>Trong đ&oacute;:</p>\r\n" + " \r\n" + " <ul>\r\n"
-						+ " 	<li>728 giảng vi&ecirc;n</li>\r\n" + " 	<li>Tr&ecirc;n 100 Gi&aacute;o sư, PGS</li>\r\n"
-						+ " 	<li>290 Tiến sĩ</li>\r\n"
-						+ " 	<li>105 Nh&agrave; gi&aacute;o nh&acirc;n d&acirc;n, Nh&agrave; gi&aacute;o ưu t&uacute;, Anh h&ugrave;ng lao động</li>\r\n"
-						+ " </ul>\r\n" + " ");
-		model.addAttribute("author", "tác giả bài viết");
-		return "post";
+
+		return "updatepost";
 	}
 
 	@RequestMapping(value = "/editpost{id}", method = RequestMethod.POST)
@@ -125,7 +137,13 @@ public class PostController {
 		return "home";
 	}
 
-	@RequestMapping(value = { "admin/pendingpost" }, method = RequestMethod.GET)
+	/**
+	 * Controller xua ly su kien click vao menu bai cho duyet
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = { "pendingpost" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
 		List<Post> listAllPendingPost = new ArrayList<Post>();
 		List<Post> listLimitPendingPost = new ArrayList<Post>();
@@ -145,19 +163,19 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPendingPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "admin/pendingpost";
+		return "pendingpost";
 	}
 
-	@RequestMapping(value = { "admin/approvedpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "approvedpost" }, method = RequestMethod.GET)
 	public String approvedPostPage(Model model) {
 		List<Post> listAllApprovedPost = new ArrayList<Post>();
 		List<Post> listLimitApprovedPost = new ArrayList<Post>();
 
 		try {
-			// lay danh sach 10 bai viet dang cho duyet moi nhat tu db
+			// lay danh sach tatc ca bai viet da tu db
 			listAllApprovedPost = postService.getApprovedPost();
 
-			// lay 10 bai viet dang cho duyet
+			// lay 10 bai viet da cho duyet
 			listLimitApprovedPost = postService.getLimitApprovedPost(0);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -168,10 +186,10 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllApprovedPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "admin/approvedpost";
+		return "approvedpost";
 	}
 
-	@RequestMapping(value = { "admin/postpublished" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "postpublished" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
 
 		List<Post> listAllPublishedPost = new ArrayList<Post>();
@@ -192,7 +210,7 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPublishedPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "admin/postpublished";
+		return "postpublished";
 	}
 
 	/**
@@ -215,7 +233,7 @@ public class PostController {
 		if (principal instanceof UserDetails) {
 			approvedUser = ((UserDetails) principal).getUsername();
 		}
-		
+
 		// update
 		try {
 			postService.approved(postId, approvedUser);
@@ -223,11 +241,11 @@ public class PostController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/admin/pendingpost";
+		return "redirect:/pendingpost";
 	}
-	
+
 	/**
-	 * Controller duyet bai viet
+	 * Controller go bai viet
 	 * 
 	 * @param postId
 	 * @return
@@ -246,7 +264,7 @@ public class PostController {
 		if (principal instanceof UserDetails) {
 			unapprovedUser = ((UserDetails) principal).getUsername();
 		}
-		
+
 		// go bai viet
 		try {
 			postService.unapproved(postId, unapprovedUser);
@@ -254,6 +272,78 @@ public class PostController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/admin/pendingpost";
+		return "redirect:/pendingpost";
 	}
+
+	/**
+	 * Controller sua bai viet
+	 * 
+	 * @param post
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = { "/updatedPost" }, method = RequestMethod.POST)
+	public ModelAndView updatedPost(@ModelAttribute("Post") Post post, BindingResult result,
+			HttpServletRequest request) {
+
+		// Get user hien tai trong he thong
+		String userCurrent;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			userCurrent = ((UserDetails) principal).getUsername();
+			post.setUpdatedUser(userCurrent);
+		}
+
+		// get categoriesId
+		int categoriesId = request.getParameter("categoriesId") != null
+				? Integer.parseInt(request.getParameter("categoriesId").toString())
+				: 0;
+
+		if (categoriesId == 0) {
+			return new ModelAndView("redirect:" + "/post");
+		}
+
+		// get categories by id
+		Categories categories = categoriesService.getCategoriresById(categoriesId);
+
+		// get publishedDate
+		String timestamp = request.getParameter("publishedDate");
+		post.setPublishedDate(DateUtils.stringToDateTime(timestamp));
+
+		post.setCategories(categories);
+		try {
+			postService.updatePost(post);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ModelAndView("redirect:" + "/pendingpost");
+	}
+
+	/**
+	 * lay noi dung bai viet theo id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/post/view", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String getContentPostById(int postId, HttpServletRequest request) {
+		// get postId
+		int id = request.getParameter("postId") != null ? Integer.parseInt(request.getParameter("postId").toString())
+				: 0;
+
+		// get post by id
+		Post post = new Post();
+
+		try {
+			post = postService.getPostById(id);
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
+		return post.getContent();
+	}
+
 }

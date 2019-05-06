@@ -47,9 +47,17 @@
 			value="/WEB-INF/views/admin/controlpanel/post/newpost.jsp" />
 	</definition>
 	<!-- End dinh nghia trang them moi bai viet -->
+	
+	<!-- Dinh nghia trang sua bai viet -->
+	<definition name="updatepost" extends="base.definition">
+		<put-attribute name="title" value="Sửa bài viết" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/controlpanel/post/updatepost.jsp" />
+	</definition>
+	<!-- End dinh nghia trang sua bai viet -->
 
 	<!-- Dinh nghia trang bai viet cho duyet -->
-	<definition name="admin/pendingpost" extends="base.definition">
+	<definition name="pendingpost" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đang chờ duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/pendingpost.jsp" />
@@ -57,7 +65,7 @@
 	<!-- End dinh nghia trang bai viet cho duyet -->
 
 	<!-- Dinh nghia trang bai viet da duyet -->
-	<definition name="admin/approvedpost" extends="base.definition">
+	<definition name="approvedpost" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/approvedpost.jsp" />
@@ -65,7 +73,7 @@
 	<!-- End dinh nghia trang bai viet da duyet -->
 
 	<!-- Dinh nghia trang bai viet da xuat ban -->
-	<definition name="admin/postpublished" extends="base.definition">
+	<definition name="postpublished" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã xuất bản" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/controlpanel/post/postpublished.jsp" />

@@ -71,8 +71,6 @@
 		<!-- Footer -->
 		<tiles:insertAttribute name="footer" />
 		<!-- End Footer -->
-
-		<div class="control-sidebar-bg"></div>
 	</div>
 
 	<div>

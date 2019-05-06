@@ -91,7 +91,7 @@ public class LoginController {
 
 		if (principal != null) {
 			model.addAttribute("message",
-					"Xin chào " + principal.getName() + ", <br> Bạn không có quyền truy cập trang này!");
+					"Xin chào, " + principal.getName() + "!, <br> Bạn không có quyền truy cập trang này!");
 		} else {
 			model.addAttribute("msg", "Bạn không có quyền truy cập trang này!");
 		}

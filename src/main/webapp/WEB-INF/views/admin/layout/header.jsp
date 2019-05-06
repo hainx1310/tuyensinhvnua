@@ -22,7 +22,8 @@
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="<%=request.getContextPath()%>/<sec:authentication property="principal.avatarUrl" />"
-						class="user-image" alt="User Image"> <span class="hidden-xs"><sec:authentication property="principal.name" /></span>
+						class="user-image" alt="User Image"> <span class="hidden-xs"><sec:authentication
+								property="principal.name" /></span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
@@ -38,12 +39,12 @@
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
-								<a href="#" class="btn btn-default btn-flat">Thông tin cá
-									nhân</a>
+								<a href="${pageContext.request.contextPath}/profile"
+									class="btn btn-default btn-flat">Thông tin cá nhân</a>
 							</div>
 							<div class="pull-right">
-								<a id="btn-logout" class="btn btn-default btn-flat">Đăng
-									xuất</a>
+								<a href="${pageContext.request.contextPath}/logout"
+									class="btn btn-default btn-flat">Đăng xuất</a>
 							</div>
 						</li>
 					</ul></li>

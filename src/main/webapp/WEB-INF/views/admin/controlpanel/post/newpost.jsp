@@ -99,8 +99,7 @@
 														<i class="fa fa-calendar"></i>
 													</div>
 													<input id="publishedDate" name="publishedDate" type="text"
-														class="form-control pull-right"
-														id="datepicker publishedDate">
+														class="form-control pull-right">
 												</div>
 												<!-- /.input group -->
 											</div>
@@ -115,7 +114,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<script src="resources/bower_components/ckeditor/ckeditor.js"></script>
 		<script src="resources/bower_components/ckfinder/ckfinder.js"></script>

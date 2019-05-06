@@ -50,7 +50,7 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" /> <span>Nhớ mật khẩu: </span><input
 						type="checkbox" name="remember-me" /><a id="quen-mk"
-						href="${contextPath}/registration">Quên mật khẩu</a> </br>
+						href="index">Quên mật khẩu</a> </br>
 					<div class="wrapper">
 						<c:if test="${not empty error }">
 							<span id="errormessage">${message}</span>

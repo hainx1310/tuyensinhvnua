@@ -18,6 +18,8 @@
 
 		<intercept-url pattern="/post"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<intercept-url pattern="/updatepost"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/home"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/profile"

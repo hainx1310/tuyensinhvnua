@@ -279,21 +279,6 @@ $('body').on('click', '.page-of-categories', function() {
 });
 
 /**
- * Sự kiện click vào đăng xuất
- * 
- * @returns
- */
-$('#btn-logout').on('click', function() {
-	$.ajax({
-		url : "logout",
-		type : "post",
-		success : function(value) {
-			window.location.href = "login";
-		}
-	});
-});
-
-/**
  * Hàm xử lý sự kiện người dùng nhấn đổi trạng thái user
  * 
  * @param userId
@@ -510,7 +495,7 @@ $("#btn-save-video").on("click", function() {
 function approvedPost(postId) {
 	$.ajax({
 		type : "post",
-		url : "pendingpost/approved",
+		url : "admin/pendingpost/approved",
 		data : {
 			postId : postId,
 		},
@@ -523,10 +508,16 @@ function approvedPost(postId) {
 	});
 }
 
-function unApprovedPost(postId){
+/**
+ * Phuong thuc go bai viet
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedPost(postId) {
 	$.ajax({
 		type : "post",
-		url : "pendingpost/unapproved",
+		url : "admin/pendingpost/unapproved",
 		data : {
 			postId : postId,
 		},
@@ -538,3 +529,55 @@ function unApprovedPost(postId){
 		}
 	});
 }
+
+function editPost(postId) {
+
+	$.ajax({
+		type : "get",
+		url : "post/editpost",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.href = "updatepost?postId=" + postId;
+		},
+		error : function(e) {
+		}
+	});
+}
+
+/**
+ * su kien khi bam xem bai viet
+ * 
+ * @returns
+ */
+function viewPost(postId, title) {
+
+	$.ajax({
+		type : "get",
+		url : "post/view",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			$("#modal-view-post h4").text(title);
+			$('#modal-view-post .modal-body').append(
+					'<div id = "post-content"> ' + response + ' </div>');
+		},
+		error : function(e) {
+		}
+	});
+	$('#modal-view-post').modal({
+		show : 'true'
+	});
+};
+
+/**
+ * Reset data modal xem bai viet sau khi bi an
+ * 
+ * @returns
+ */
+$("#modal-view-post").on("hidden.bs.modal", function() {
+	$("#modal-view-post h4").text("");
+	$('#modal-view-post .modal-body #post-content').remove();
+});

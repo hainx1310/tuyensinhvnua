@@ -2,7 +2,7 @@ UPDATE tuyensinhapi.post
 SET 
 	short_content = :shortContent
 	, title = :title
-	, url = :title
+	, url = :url
 	, avatar_post = :avatarPost
 	, content = :content
 	, categories_id =:categoriesId

@@ -4,6 +4,13 @@
 
 <div id="wrapper-content">
 	<div id="container-content">
-		<h3 style="color: red; text-align: center;">${message}</h3>
+		<div style="height: 500px;">
+			<h3
+				style="color: red; text-align: center; position: relative; top: 50%; transform: translateY(-50%);">${message}
+				<br> <a href="${pageContext.request.contextPath}/home">Quay
+					lại trang chủ</a>
+			</h3>
+
+		</div>
 	</div>
 </div>

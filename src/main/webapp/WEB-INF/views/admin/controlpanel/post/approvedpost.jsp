@@ -76,11 +76,32 @@
 															value="${listApprovedPost.get(i-1).getPublishedDate()}"></c:out></td>
 													<td><c:out
 															value="${listApprovedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a href="post">Xem</a> | <a href="#">Sửa</a></td>
+													<td><a href="#"
+														onclick="viewPost('${listApprovedPost.get(i-1).getId()}', '${listApprovedPost.get(i-1).getTitle()}')"
+														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+														href="#" class="fa fa-pencil" title="Sửa bài viết"
+														onclick="editPost('${listApprovedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<div class="modal fade" id="modal-view-post">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4></h4>
+												</div>
+												<div class="modal-body"></div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
 								</c:if>
 							</div>
 						</div>

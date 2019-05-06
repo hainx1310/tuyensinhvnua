@@ -52,3 +52,7 @@
 #modal-cahngeStatus-categories .modal-dialog {
 	width: 200px;
 }
+
+#modal-view-post .modal-dialog {
+	width: 80%;
+}

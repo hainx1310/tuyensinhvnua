@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -55,7 +57,7 @@
 												<th>STT</th>
 												<th>Tiêu đề</th>
 												<th>Chuyên mục</th>
-												<th>Ngày đăng</th>
+												<th>Thời gian đăng bài</th>
 												<th>Tác giả</th>
 												<th>Người duyệt</th>
 												<th></th>
@@ -76,13 +78,36 @@
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a href="#">Xem</a> | <a href="post">Sửa</a> | <a
-														href="#"
-														onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')">Gỡ</a></td>
+													<td><a href="#" class="fa fa-eye"
+														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
+														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+														href="#" class="fa fa-pencil" title="Sửa bài viết"
+														onclick="editPost('${listPublishedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+															access="hasRole('ROLE_ADMIN')">
+															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
+																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
+														</sec:authorize></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<div class="modal fade" id="modal-view-post">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4></h4>
+												</div>
+												<div class="modal-body"></div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
 								</c:if>
 							</div>
 						</div>
