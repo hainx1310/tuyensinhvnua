@@ -22,7 +22,7 @@ import vn.edu.vnua.dse.entity.User;
 @SuppressWarnings("unchecked")
 public class UserDaoImpl implements UserDAO {
 
-	private static final Logger logger = Logger.getLogger(CategoriesDaoImpl.class.getName());
+	private static final Logger logger = Logger.getLogger(UserDaoImpl.class.getName());
 
 	@Autowired
 	protected SessionFactory sessionFactory;
@@ -67,7 +67,7 @@ public class UserDaoImpl implements UserDAO {
 			query.setParameter("username", user.getUsername());
 			query.setParameter("password", user.getPassword());
 			query.setParameter("passwordSalt", user.getPasswordSalt());
-			query.setParameter("role", user.isRole());
+			query.setParameter("role", user.getRole());
 			query.setParameter("createdUser", user.getCreatedUser());
 			query.setParameter("status", user.isStatus());
 			query.executeUpdate();
@@ -128,7 +128,7 @@ public class UserDaoImpl implements UserDAO {
 			Query query = session.createSQLQuery(sql);
 			query.setParameter("updated_user", user.getUpdatedUser());
 			query.setParameter("status", user.isStatus());
-			query.setParameter("role", user.isRole());
+			query.setParameter("role", user.getRole());
 			query.setParameter("id", user.getId());
 			query.executeUpdate();
 		} catch (Exception ex) {

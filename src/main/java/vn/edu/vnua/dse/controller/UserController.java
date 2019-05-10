@@ -51,13 +51,16 @@ public class UserController {
 		}
 
 		// get type role
-		boolean role;
-		role = request.getParameter("role") != null ? Integer.parseInt(request.getParameter("role")) == 1 ? true : false
-				: false;
-		user.setRole(role);
-
+		if (!"ROLE_ADMIN".equals(user.getRole()) || !"ROLE_EDITOR".equals(user.getRole())
+				|| !"ROLE_COLLABORARATORS".equals(user.getRole())) {
+			user.setRole("ROLE_COLLABORARATORS");
+		} else {
+			user.setRole(request.getParameter("role"));
+		}
+		
 		// random salt
 		String salt = "randomString";
+		
 		// ma hoa mk
 		user.setPasswordSalt(salt);
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
@@ -197,7 +200,7 @@ public class UserController {
 			html += "<td id=\"user-username\" class=\"sorting_1\">" + item.getUsername() + "</td>";
 			html += "<td id=\"user-email\">" + item.getEmail() + "</td>";
 			html += "<td id=\"user-status\">" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
-			html += "<td id=\"user-role\">" + (item.isRole() == true ? "Quản trị viên" : "Biên tập viên") + "</td>";
+			html += "<td id=\"user-role\">" + item.getRoleName() + "</td>";
 			html += "<td id=\"user-created-date\">" + (item.getCreatedDate() == null ? "" : item.getCreatedDate())
 					+ "</td>";
 			html += "<td id=\"user-created-user\">" + (item.getCreatedUser()) + "</td>";
@@ -209,7 +212,7 @@ public class UserController {
 					+ item.isStatus() + ")' href='#' "
 					+ (item.isStatus() == true ? "class=\"fa fa-toggle-on\"" : "class=\"fa fa-toggle-off\"")
 					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateUser("
-					+ item.getId() + ", \"" + item.getUsername() + "\", " + item.isRole() + ", " + item.isStatus()
+					+ item.getId() + ", \"" + item.getUsername() + "\", \"" + item.getRoleName() + "\", " + item.isStatus()
 					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
 					+ "onclick='openModalDeleteUser(" + item.getId() + ", \"" + item.getUsername() + "\")' "
 					+ "href=\"#\" class = \"fa fa fa-trash-o\"></a></td>";

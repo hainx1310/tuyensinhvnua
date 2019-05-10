@@ -30,7 +30,7 @@ public class VideoAPI {
 	public ResponseEntity<List<Video>> listAllUsers(@PathVariable int startIndex) {
 		List<Video> listUser = new ArrayList<Video>();
 		try {
-			listUser = videoService.getLimitedVideo(startIndex);
+			listUser = videoService.getLimitVideoIsActive(startIndex);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

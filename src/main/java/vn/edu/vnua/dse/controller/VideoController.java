@@ -10,17 +10,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.edu.vnua.dse.common.DateUtils;
 import vn.edu.vnua.dse.entity.Video;
 import vn.edu.vnua.dse.service.VideoService;
 
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/video")
 public class VideoController {
 	@Autowired
 	private VideoService videoService;
@@ -31,7 +34,7 @@ public class VideoController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/medias", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getAllCategorires(Model model) {
 
 		List<Video> listAllVideo = new ArrayList<Video>();
@@ -50,7 +53,7 @@ public class VideoController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
 
-		return "admin/medias";
+		return "video";
 	}
 
 	/**
@@ -59,8 +62,9 @@ public class VideoController {
 	 * @param Video
 	 * @return
 	 */
-	@RequestMapping(value = "/AddVideo", method = RequestMethod.POST)
-	public ModelAndView createVideo(Video video) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public ModelAndView createVideo(HttpServletRequest request, @ModelAttribute("Video") Video video,
+			BindingResult result) {
 		String username;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -69,13 +73,20 @@ public class VideoController {
 			video.setEditor(username);
 		}
 
+		// get avatar video by video id youtube
+		String avatar = "https://i.ytimg.com/vi/".concat(video.getVideoYoutubeId()).concat("/hqdefault.jpg");
+		video.setAvatarVideo(avatar);
+
+		// get publishedDate
+		video.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+
 		try {
 			videoService.addVideo(video);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/admin/medias");
+		return new ModelAndView("redirect:" + "/video");
 	}
 
 	/**
@@ -83,8 +94,9 @@ public class VideoController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/EditVideo", method = RequestMethod.POST)
-	public ModelAndView updateVideo(Video video) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView updateVideo(HttpServletRequest request, @ModelAttribute("Video") Video video,
+			BindingResult result) {
 
 		// Get username
 		String username;
@@ -94,12 +106,19 @@ public class VideoController {
 			video.setUpdatedUser(username);
 		}
 
+		// get avatar video by video id youtube
+		String avatar = "https://i.ytimg.com/vi/".concat(video.getVideoYoutubeId()).concat("/hqdefault.jpg");
+		video.setAvatarVideo(avatar);
+
+		// get publishedDate
+		video.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+
 		try {
 			videoService.updateVideo(video);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/medias");
+		return new ModelAndView("redirect:" + "/video");
 	}
 
 	/**
@@ -108,7 +127,7 @@ public class VideoController {
 	 * @param Video
 	 * @return
 	 */
-	@RequestMapping(value = "/DeleteVideo", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView deleteVideo(HttpServletRequest request) {
 		int videoId;
 		videoId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
@@ -117,7 +136,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/medias");
+		return new ModelAndView("redirect:" + "/video");
 	}
 
 	/**
@@ -125,7 +144,7 @@ public class VideoController {
 	 * 
 	 * @param request
 	 */
-	@RequestMapping(value = "/changeStatusVideo", method = RequestMethod.POST)
+	@RequestMapping(value = "/change-status", method = RequestMethod.POST)
 	public String changeStatusVideo(HttpServletRequest request) {
 		int videoId;
 		String username = null;
@@ -147,7 +166,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect:/admin/medias";
+		return "redirect:/video";
 	}
 
 	/**
@@ -170,28 +189,113 @@ public class VideoController {
 		}
 
 		for (Video item : listVideo) {
-//			html += "<tr role='row' class='odd'>";
-//			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
-//			html += "<td class=''>" + (i++) + "</td>";
-//			html += "<td id='Video-name' class='sorting_1'>" + item.getName() + "</td>";
-//			html += "<td id='Video-status'>" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
-//			html += "<td id='Video-created-date'>" + item.getCreatedDate() + "</td>";
-//			html += "<td id='Video-created-user'>" + (item.getCreatedUser() == null ? "" : item.getCreatedUser())
-//					+ "</td>";
-//			html += "<td id='Video-updated-date'>" + (item.getUpdatedDate() == null ? "" : item.getUpdatedDate())
-//					+ "</td>";
-//			html += "<td id='Video-updated-user'>" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
-//					+ "</td>";
-//			html += "<td><a id='changeStatusVideo' onclick='openModalChangeStatusVideo(" + item.getId() + ", "
-//					+ item.isStatus() + ")' href='#' class = "
-//					+ (item.isStatus() == true ? "\"fa fa-toggle-on\"" : "\"fa fa-toggle-off\"")
-//					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateVideo("
-//					+ item.getId() + ", \"" + item.getName() + "\", " + item.isStatus()
-//					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
-//					+ "onclick='openModalDeleteVideo(" + item.getId() + ", \"" + item.getName() + "\")' "
-//					+ "href=\"#\" class = \"fa fa-trash-o\"></a></td>";
-//			html += "</tr>";
+			// html += "<tr role='row' class='odd'>";
+			// html += "<td><input type=\"checkbox\" class=\"custom-control-input\"
+			// id=\"defaultUnchecked\"></td>";
+			// html += "<td class=''>" + (i++) + "</td>";
+			// html += "<td id='Video-name' class='sorting_1'>" + item.getName() + "</td>";
+			// html += "<td id='Video-status'>" + (item.isStatus() == true ? "Kích hoạt" :
+			// "Khóa") + "</td>";
+			// html += "<td id='Video-created-date'>" + item.getCreatedDate() + "</td>";
+			// html += "<td id='Video-created-user'>" + (item.getCreatedUser() == null ? ""
+			// : item.getCreatedUser())
+			// + "</td>";
+			// html += "<td id='Video-updated-date'>" + (item.getUpdatedDate() == null ? ""
+			// : item.getUpdatedDate())
+			// + "</td>";
+			// html += "<td id='Video-updated-user'>" + (item.getUpdatedUser() == null ? ""
+			// : item.getUpdatedUser())
+			// + "</td>";
+			// html += "<td><a id='changeStatusVideo' onclick='openModalChangeStatusVideo("
+			// + item.getId() + ", "
+			// + item.isStatus() + ")' href='#' class = "
+			// + (item.isStatus() == true ? "\"fa fa-toggle-on\"" : "\"fa fa-toggle-off\"")
+			// + "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+			// onclick='openModalUpdateVideo("
+			// + item.getId() + ", \"" + item.getName() + "\", " + item.isStatus()
+			// + ")' href=\"#\" class = \"fa
+			// fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
+			// + "onclick='openModalDeleteVideo(" + item.getId() + ", \"" + item.getName() +
+			// "\")' "
+			// + "href=\"#\" class = \"fa fa-trash-o\"></a></td>";
+			// html += "</tr>";
 		}
 		return html + (i - 1);
+	}
+
+	/**
+	 * Controller xua ly su kien click vao menu video cho duyet
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = { "/pending" }, method = RequestMethod.GET)
+	public String pendingPosttPage(Model model) {
+		List<Video> listAllPendingVideo = new ArrayList<Video>();
+		List<Video> listLimitPendingPost = new ArrayList<Video>();
+
+		try {
+			// lay tat ca danh sach video dang cho duyet
+			listAllPendingVideo = videoService.getAllVideo();
+
+			// lay 10 bai viet dang cho duyet
+			listLimitPendingPost = videoService.getLimitedVideo(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllPendingVideo.size() / 10.0);
+
+		model.addAttribute("listPendingVideo", listLimitPendingPost);
+		model.addAttribute("totalRecord", listAllPendingVideo.size());
+		model.addAttribute("numberPage", numberPage);
+
+		return "video/pending";
+	}
+
+	@RequestMapping(value = { "/approved" }, method = RequestMethod.GET)
+	public String approvedPostPage(Model model) {
+		// List<Post> listAllApprovedPost = new ArrayList<Post>();
+		// List<Post> listLimitApprovedPost = new ArrayList<Post>();
+
+		// try {
+		// // lay danh sach tatc ca bai viet da tu db
+		// listAllApprovedPost = postService.getApprovedPost();
+		//
+		// // lay 10 bai viet da cho duyet
+		// listLimitApprovedPost = postService.getLimitApprovedPost(0);
+		// } catch (Exception e) {
+		// throw new RuntimeException(e);
+		// }
+		// int numberPage = (int) Math.ceil(listAllApprovedPost.size() / 10.0);
+		//
+		// model.addAttribute("listApprovedPost", listLimitApprovedPost);
+		// model.addAttribute("totalRecord", listAllApprovedPost.size());
+		// model.addAttribute("numberPage", numberPage);
+
+		return "video/approved";
+	}
+
+	@RequestMapping(value = { "published" }, method = RequestMethod.GET)
+	public String postPublishedPage(Model model) {
+
+		// List<Post> listAllPublishedPost = new ArrayList<Post>();
+		// List<Post> listLimitPublishedPost = new ArrayList<Post>();
+		//
+		// try {
+		// // lay danh sach 10 bai viet da xuat ban moi nhat tu db
+		// listAllPublishedPost = videoService.getPostPublished();
+		//
+		// // lay 10 bai viet da xuat ban
+		// listLimitPublishedPost = postService.getLimitPostPublished(0);
+		// } catch (Exception e) {
+		// throw new RuntimeException(e);
+		// }
+		// int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
+		//
+		// model.addAttribute("listPublishedPost", listLimitPublishedPost);
+		// model.addAttribute("totalRecord", listAllPublishedPost.size());
+		// model.addAttribute("numberPage", numberPage);
+
+		return "video/published";
 	}
 }

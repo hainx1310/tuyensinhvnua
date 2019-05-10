@@ -16,13 +16,12 @@ import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.CommonUtils;
 import vn.edu.vnua.dse.dao.CommentDAO;
 import vn.edu.vnua.dse.entity.Comment;
-import vn.edu.vnua.dse.service.Impl.CategoriesServiceImpl;
 
 @Repository
 @Transactional
 public class CommentDaoImpl implements CommentDAO {
 
-	private static final Logger logger = Logger.getLogger(CategoriesServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(CommentDaoImpl.class);
 
 	@Autowired
 	protected SessionFactory sessionFactory;

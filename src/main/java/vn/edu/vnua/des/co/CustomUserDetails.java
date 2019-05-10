@@ -31,7 +31,7 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		final Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
-		String roleName = user.isRole() == true ? "ROLE_ADMIN" : "ROLE_EDITOR";
+		String roleName = user.getRole();
 		grantedAuthorities.add(new SimpleGrantedAuthority(roleName));
 
 		return grantedAuthorities;
@@ -76,7 +76,21 @@ public class CustomUserDetails implements UserDetails {
 	}
 
 	public String getRoleName() {
-		return user.getRoleName();
+		String roleName = "";
+		switch (user.getRole()) {
+		case "ROLE_ADMIN":
+			roleName = "Quản trị viên";
+			break;
+		case "ROLE_EDITOR":
+			roleName = "Biên tập viên";
+			break;
+		case "ROLE_COLLABORARATORS":
+			roleName = "Cộng tác viên";
+			break;
+		default:
+			roleName = "Cộng tác viên";
+		}
+		return roleName;
 	}
 
 }

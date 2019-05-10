@@ -16,14 +16,13 @@ import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.CommonUtils;
 import vn.edu.vnua.dse.dao.PostDAO;
 import vn.edu.vnua.dse.entity.Post;
-import vn.edu.vnua.dse.service.Impl.CategoriesServiceImpl;
 
 @Repository
 @Transactional
 @SuppressWarnings("unchecked")
 public class PostDaoImpl implements PostDAO {
 
-	private static final Logger logger = Logger.getLogger(CategoriesServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(PostDaoImpl.class);
 
 	@Autowired
 	protected SessionFactory sessionFactory;

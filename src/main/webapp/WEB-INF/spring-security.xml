@@ -16,15 +16,24 @@
 		<intercept-url pattern="/logout" access="permitAll()" />
 		<intercept-url pattern="/resources/**" access="permitAll()" />
 
-		<intercept-url pattern="/post"
-			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/updatepost"
-			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/home"
-			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/profile"
-			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')" />
+		<!-- Cau hinh cac trang quyen danh rieng cho admin -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- Cau hinh cac trang quyen danh reing cho editor -->
+		<intercept-url pattern="/editor/**" access="hasRole('ROLE_EDITOR')" />
+
+		<!-- Cau hinh cac trang quyen editor, COLLABORARATORS -->
+		<intercept-url pattern="/post/**"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
+		<intercept-url pattern="/video/**"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
+			
+		<!-- Cau hinh cac quyen chung danh cho ca 3 quyen-->
+		<intercept-url pattern="/home"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_COLLABORARATORS')" />
+		<intercept-url pattern="/profile"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_COLLABORARATORS')" />
+
 
 		<access-denied-handler error-page="/403" />
 

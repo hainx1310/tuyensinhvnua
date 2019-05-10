@@ -37,8 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (listUser != null && listUser.size() > 0) {
 			user = listUser.get(0);
 			Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-			String roleName = user.isRole() == true ? "ROLE_ADMIN" : "ROLE_EDITOR";
-			grantedAuthorities.add(new SimpleGrantedAuthority(roleName));
+			grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 			userDetails = new CustomUserDetails(user);
 			return userDetails;
 		}

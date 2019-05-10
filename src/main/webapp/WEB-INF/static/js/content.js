@@ -169,9 +169,11 @@ function openModalDeleteCategories(categoriesId, categoriesName) {
 	$('#modal-confirm-delete').modal({
 		show : 'true'
 	});
-	$('#modal-confirm-delete .modal-body').append(
-			'<p>Bạn muốn xóa chuyên mục <strong>' + categoriesName
-					+ '</strong> không?</p>');
+	$('#modal-confirm-delete .modal-body')
+			.append(
+					'<p><strong>Xác nhận</strong></p><p>Bạn chắc chắn muốn xóa chuyên mục <strong>'
+							+ categoriesName
+							+ '</strong>?</p><p><strong>Tất cả bài viết của chuyên mục này cũng sẽ bị xóa</strong></p>');
 	$('#modal-confirm-delete .modal-body').append(
 			"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = "
 					+ categoriesId + " />");
@@ -180,7 +182,7 @@ function openModalDeleteCategories(categoriesId, categoriesName) {
 }
 
 /**
- * Sự kiện reset form sua chuyen muc
+ * Sự kiện reset form xoa chuyen muc
  * 
  * @returns
  */
@@ -325,8 +327,13 @@ function openModalUpdateUser(userId, username, role, status) {
 	$('#userId').hide();
 
 	$('#modal-update-user #username').text(username);
-	role === true ? $("#modal-update-user #select_role").val("1") : $(
-			"#modal-update-user #select_role").val("0");
+	if (role === 'Quản trị viên') {
+		$("#modal-update-user #select_role").val("ROLE_ADMIN");
+	} else if (role === 'Biên tập viên') {
+		$("#modal-update-user #select_role").val("ROLE_EDITOR");
+	} else {
+		$("#modal-update-user #select_role").val("ROLE_COLLABORARATORS");
+	}
 	$('#modal-update-user #user_is_active').prop('checked', status);
 
 }
@@ -356,8 +363,8 @@ function openModalDeleteUser(userId, username) {
 		show : 'true'
 	});
 	$('#modal-confirm-delete .modal-body').append(
-			'<p>Bạn muốn xóa thành viên <strong>' + username
-					+ '</strong> không?</p>');
+			'<p><strong>Xác nhận</strong></p><p>Bạn có chắc muốn xóa thành viên <strong>'
+					+ username + '</strong>?</p>');
 	$('#modal-confirm-delete .modal-body').append(
 			"<input name = \"id\" id = \"userId\" type = \"text\" value = "
 					+ userId + " />");
@@ -495,7 +502,7 @@ $("#btn-save-video").on("click", function() {
 function approvedPost(postId) {
 	$.ajax({
 		type : "post",
-		url : "admin/pendingpost/approved",
+		url : "editor/post/pending/approved",
 		data : {
 			postId : postId,
 		},
@@ -517,7 +524,7 @@ function approvedPost(postId) {
 function unApprovedPost(postId) {
 	$.ajax({
 		type : "post",
-		url : "admin/pendingpost/unapproved",
+		url : "editor/post/pending/unapproved",
 		data : {
 			postId : postId,
 		},
@@ -534,12 +541,12 @@ function editPost(postId) {
 
 	$.ajax({
 		type : "get",
-		url : "post/editpost",
+		url : "edit",
 		data : {
 			postId : postId,
 		},
 		success : function(response) {
-			location.href = "updatepost?postId=" + postId;
+			location.href = "update?postId=" + postId;
 		},
 		error : function(e) {
 		}
@@ -555,7 +562,7 @@ function viewPost(postId, title) {
 
 	$.ajax({
 		type : "get",
-		url : "post/view",
+		url : "view",
 		data : {
 			postId : postId,
 		},
@@ -580,4 +587,179 @@ function viewPost(postId, title) {
 $("#modal-view-post").on("hidden.bs.modal", function() {
 	$("#modal-view-post h4").text("");
 	$('#modal-view-post .modal-body #post-content').remove();
+});
+
+/**
+ * Hàm mở modal xác nhận xóa bài viết
+ * 
+ * @param categoriesId
+ * @param categoriesName
+ * @returns
+ */
+function openModalDeletePost(postId, title) {
+	// show modal
+	$('#modal-confirm-delete').modal({
+		show : 'true'
+	});
+	$('#modal-confirm-delete .modal-body').append(
+			'<strong> <p>Xác nhận </strong>'
+					+ '<p>Bạn chắc chắn muốn xóa bài viết <strong>' + title
+					+ '</strong>?</p>');
+	$('#modal-confirm-delete .modal-body').append(
+			"<input name = \"id\" id = \"postId\" type = \"text\" value = "
+					+ postId + " />");
+
+	$('#modal-confirm-delete #postId').hide();
+}
+
+/**
+ * Sự kiện reset form xóa bài viết
+ * 
+ * @returns
+ */
+$("#modal-confirm-delete").on("hidden.bs.modal", function() {
+	$('#modal-confirm-delete #postId').remove();
+	$('#modal-confirm-delete p').remove();
+});
+
+// Date picker
+/*
+ * $(function() { $('#datepicker').datetimepicker({ locale : 'vi' }); });
+ * $('#datepicker').datetimepicker({ autoclose : true })
+ */
+$(function() {
+	var bindDatePicker = function() {
+		$("#datepicker").datetimepicker({
+			locale : 'vi',
+			format : 'DD-MM-YYYY HH:mm:ss.S',
+			icons : {
+				time : "fa fa-clock-o",
+				date : "fa fa-calendar",
+				up : "fa fa-arrow-up",
+				down : "fa fa-arrow-down"
+			}
+		}).find('input:first').on("blur", function() {
+			// check if the date is correct. We can accept dd-mm-yyyy and
+			// yyyy-mm-dd.
+			// update the format if it's yyyy-mm-dd
+			var date = parseDate($(this).val());
+
+			if (!isValidDate(date)) {
+				// create date based on momentjs (we have that)
+				date = moment().format('DD-MM-YYYY HH:mm:ss.S');
+			}
+
+			$(this).val(date);
+		});
+	}
+
+	var isValidDate = function(value, format) {
+		format = format || false;
+		// lets parse the date to the best of our knowledge
+		if (format) {
+			value = parseDate(value);
+		}
+
+		var timestamp = Date.parse(value);
+
+		return isNaN(timestamp) == false;
+	}
+
+	var parseDate = function(value) {
+		var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+		if (m)
+			value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-'
+					+ ("00" + m[1]).slice(-2);
+
+		return value;
+	}
+
+	bindDatePicker();
+});
+
+$(function() {
+	var bindDatePicker = function() {
+		$("#datepicker-update").datetimepicker({
+			locale : 'vi',
+			format : 'DD-MM-YYYY HH:mm:ss.S',
+			icons : {
+				time : "fa fa-clock-o",
+				date : "fa fa-calendar",
+				up : "fa fa-arrow-up",
+				down : "fa fa-arrow-down"
+			}
+		}).find('input:first').on("blur", function() {
+			// check if the date is correct. We can accept dd-mm-yyyy and
+			// yyyy-mm-dd.
+			// update the format if it's yyyy-mm-dd
+			var date = parseDate($(this).val());
+
+			if (!isValidDate(date)) {
+				// create date based on momentjs (we have that)
+				date = moment().format('DD-MM-YYYY HH:mm:ss.S');
+			}
+
+			$(this).val(date);
+		});
+	}
+
+	var isValidDate = function(value, format) {
+		format = format || false;
+		// lets parse the date to the best of our knowledge
+		if (format) {
+			value = parseDate(value);
+		}
+
+		var timestamp = Date.parse(value);
+
+		return isNaN(timestamp) == false;
+	}
+
+	var parseDate = function(value) {
+		var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+		if (m)
+			value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-'
+					+ ("00" + m[1]).slice(-2);
+
+		return value;
+	}
+
+	bindDatePicker();
+});
+
+/**
+ * ham sua video
+ * 
+ * @param categoriesId
+ * @param name
+ * @param status
+ * @returns
+ */
+function openModalUpdateVideo(id, videoYoutubeId, title, publishedDate) {
+	// show modal
+	$('#modal-update-video').modal({
+		show : 'true'
+	});
+
+	$('#modal-update-video .modal-body').append(
+			"<input name = \"id\" id = \"id\" type = \"text\" value = " + id
+					+ " />");
+	$('#id').hide();
+
+	$('#modal-update-video #title').val(title);
+	$('#modal-update-video #videoYoutubeId').val(videoYoutubeId);
+	$('#modal-update-video #datepicker-update').val(publishedDate);
+}
+
+/**
+ * Sự kiện reset form sua video
+ * 
+ * @returns
+ */
+$("#modal-update-video").on("hidden.bs.modal", function() {
+	$("#modal-update-video #title").val("");
+	$("#modal-update-video #videoYoutubeId").val("");
+	$('#modal-update-video #datepicker-update').val("");
+	// clear input id
+	$('#modal-update-video #id').remove();
 });

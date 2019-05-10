@@ -15,7 +15,7 @@ import vn.edu.vnua.dse.service.CommentService;
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
 
-	private static final Logger logger = Logger.getLogger(CategoriesServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(CommentServiceImpl.class);
 
 	@Autowired
 	private CommentDAO commentDao;

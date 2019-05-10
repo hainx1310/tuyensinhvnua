@@ -5,15 +5,12 @@
 <tiles-definitions>
 
 	<!-- Dinh nghia layout -->
-	<definition name="base.definition" template="/WEB-INF/views/admin/layout/layout.jsp">
+	<definition name="base.definition" template="/WEB-INF/views/layout/layout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header"
-			value="/WEB-INF/views/admin/layout/header.jsp" />
-		<put-attribute name="menu"
-			value="/WEB-INF/views/admin/layout/menu.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/layout/menu.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/admin/layout/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
 	</definition>
 	<!-- End dinh nghia layout -->
 
@@ -36,47 +33,46 @@
 	<definition name="profile" extends="base.definition">
 		<put-attribute name="title" value="Thông tin cá nhân" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/user/profile.jsp" />
+			value="/WEB-INF/views/admin/user/profile.jsp" />
 	</definition>
 	<!-- End dinh nghia trang profile -->
 
 	<!-- Dinh nghia trang them moi bai viet -->
-	<definition name="post" extends="base.definition">
+	<definition name="post/add" extends="base.definition">
 		<put-attribute name="title" value="Thêm bài viết" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/post/newpost.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/editor/post/add.jsp" />
 	</definition>
 	<!-- End dinh nghia trang them moi bai viet -->
-	
+
 	<!-- Dinh nghia trang sua bai viet -->
-	<definition name="updatepost" extends="base.definition">
+	<definition name="post/update" extends="base.definition">
 		<put-attribute name="title" value="Sửa bài viết" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/post/updatepost.jsp" />
+			value="/WEB-INF/views/editor/post/update.jsp" />
 	</definition>
 	<!-- End dinh nghia trang sua bai viet -->
 
 	<!-- Dinh nghia trang bai viet cho duyet -->
-	<definition name="pendingpost" extends="base.definition">
+	<definition name="post/pending" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đang chờ duyệt" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/post/pendingpost.jsp" />
+			value="/WEB-INF/views/editor/post/pending.jsp" />
 	</definition>
 	<!-- End dinh nghia trang bai viet cho duyet -->
 
 	<!-- Dinh nghia trang bai viet da duyet -->
-	<definition name="approvedpost" extends="base.definition">
+	<definition name="post/approved" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã duyệt" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/post/approvedpost.jsp" />
+			value="/WEB-INF/views/editor/post/approved.jsp" />
 	</definition>
 	<!-- End dinh nghia trang bai viet da duyet -->
 
 	<!-- Dinh nghia trang bai viet da xuat ban -->
-	<definition name="postpublished" extends="base.definition">
+	<definition name="post/published" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã xuất bản" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/post/postpublished.jsp" />
+			value="/WEB-INF/views/editor/post/published.jsp" />
 	</definition>
 	<!-- End dinh nghia trang bai viet da xuat ban -->
 
@@ -84,39 +80,46 @@
 	<definition name="admin/categories" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Chuyên mục" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/categories/categories.jsp" />
+			value="/WEB-INF/views/admin/categories/categories.jsp" />
 	</definition>
 	<!-- End dinh nghia trang quan ly chuyen muc -->
 
 	<!-- Dinh nghia trang quan ly Video -->
-	<definition name="admin/medias" extends="base.definition">
+	<definition name="video" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Video" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/filestorage/medias.jsp" />
+			value="/WEB-INF/views/editor/video/video.jsp" />
 	</definition>
 	<!-- End dinh nghia trang quan ly Video -->
 
-	<!-- Dinh nghia trang quan ly Hinh anh -->
-	<definition name="admin/images" extends="base.definition">
-		<put-attribute name="title" value="Quản lý Ảnh" />
+	<!-- Dinh nghia trang Video cho duyet -->
+	<definition name="video/pending" extends="base.definition">
+		<put-attribute name="title" value="Video đang chờ duyệt" />
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/filestorage/images.jsp" />
+			value="/WEB-INF/views/editor/video/pending.jsp" />
 	</definition>
-	<!-- End dinh nghia trang quan ly Hinh anh -->
+	<!-- End dinh nghia trang Video cho duyet -->
+
+	<!-- Dinh nghia trang Video da duyet -->
+	<definition name="video/approved" extends="base.definition">
+		<put-attribute name="title" value="Video đã duyệt" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/video/approved.jsp" />
+	</definition>
+	<!-- End dinh nghia trang Video da duyet -->
+
+	<!-- Dinh nghia trang bai viet da xuat ban -->
+	<definition name="video/published" extends="base.definition">
+		<put-attribute name="title" value="Video đã xuất bản" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/video/published.jsp" />
+	</definition>
+	<!-- End dinh nghia trang Video da xuat ban -->
 
 	<!-- Dinh nghia trang quan ly Thanh vien -->
 	<definition name="admin/user" extends="base.definition">
 		<put-attribute name="title" value="Quản lý thành viên" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/user/user.jsp" />
-	</definition>
-	<!-- End dinh nghia trang quan ly Quyen -->
-
-	<!-- Dinh nghia trang quan ly Thanh vien -->
-	<definition name="admin/role" extends="base.definition">
-		<put-attribute name="title" value="Quản lý quyền" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/admin/controlpanel/role/role.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/user/user.jsp" />
 	</definition>
 	<!-- End dinh nghia trang quan ly Quyen -->
 

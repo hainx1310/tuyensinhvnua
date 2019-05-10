@@ -20,9 +20,9 @@
 					<!-- Thong ke -->
 					<div id="thongke">
 						<h4>Thống kê</h4>
-						<a href="${pageContext.request.contextPath}/pendingpost">(${pendingPosts})
+						<a href="${pageContext.request.contextPath}/post/pending">(${pendingPosts})
 							Bài chờ duyệt</a>, <a
-							href="${pageContext.request.contextPath}/approvedpost">(${approvedPosts})
+							href="${pageContext.request.contextPath}/post/approved">(${approvedPosts})
 							Bài đã duyệt</a>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 													class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 													href="#" class="fa fa-pencil" title="Sửa bài viết"
 													onclick="editPost('${listPublishedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
-														access="hasRole('ROLE_ADMIN')">
+														access="hasRole('ROLE_EDITOR')">
 														<a href="#" class="fa fa-remove" title="Gỡ bài viết"
 															onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
 													</sec:authorize></td>

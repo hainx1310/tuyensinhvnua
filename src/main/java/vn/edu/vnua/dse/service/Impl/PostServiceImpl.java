@@ -15,7 +15,7 @@ import vn.edu.vnua.dse.service.PostService;
 @Service("postService")
 public class PostServiceImpl implements PostService {
 
-	private static final Logger logger = Logger.getLogger(CategoriesServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(PostServiceImpl.class);
 
 	@Autowired
 	private PostDAO postDao;

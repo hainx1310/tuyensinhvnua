@@ -25,6 +25,7 @@ import vn.edu.vnua.dse.service.CategoriesService;
 import vn.edu.vnua.dse.service.PostService;
 
 @Controller
+@RequestMapping(value = "/post")
 public class PostController {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
-	@RequestMapping(value = { "/post" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
 	public String newpostPage(Model model) {
 		// Get all catergories
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
@@ -45,7 +46,7 @@ public class PostController {
 
 		model.addAttribute("titleContent", "Thêm bài viết");
 		model.addAttribute("listAllCatergories", listAllCatergories);
-		return "post";
+		return "post/add";
 	}
 
 	/**
@@ -55,8 +56,9 @@ public class PostController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = { "/post" }, method = RequestMethod.POST)
-	public ModelAndView createdPost(Post post, HttpServletRequest request) {
+	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
+	public ModelAndView createdPost(@ModelAttribute("Post") Post post, BindingResult result,
+			HttpServletRequest request) {
 
 		// Get username
 		String author;
@@ -73,22 +75,24 @@ public class PostController {
 				: 0;
 
 		if (categoriesId == 0) {
-			return new ModelAndView("redirect:/post");
+			return new ModelAndView("redirect:/post/add");
 		}
 
 		// get categories by id
 		Categories categories = categoriesService.getCategoriresById(categoriesId);
-
-		// Xy ly url
-
 		post.setCategories(categories);
+
+		// get publisedDate
+		post.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+
+		// them
 		try {
 			postService.createdPost(post);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:/home");
+		return new ModelAndView("redirect:/post/add");
 	}
 
 	/**
@@ -98,10 +102,10 @@ public class PostController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "post/editpost", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String editPost(int postId) {
 
-		return "redirect:" + "/post";
+		return "redirect:" + "/post/add";
 	}
 
 	/**
@@ -111,7 +115,7 @@ public class PostController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/updatepost", method = RequestMethod.GET)
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String editPost(int postId, ModelMap model) {
 
 		List<Categories> listAllCatergories = new ArrayList<Categories>();
@@ -129,12 +133,7 @@ public class PostController {
 		model.addAttribute("post", post);
 		model.addAttribute("listAllCatergories", listAllCatergories);
 
-		return "updatepost";
-	}
-
-	@RequestMapping(value = "/editpost{id}", method = RequestMethod.POST)
-	public String editPost() {
-		return "home";
+		return "post/update";
 	}
 
 	/**
@@ -143,7 +142,7 @@ public class PostController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = { "pendingpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/pending" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
 		List<Post> listAllPendingPost = new ArrayList<Post>();
 		List<Post> listLimitPendingPost = new ArrayList<Post>();
@@ -163,10 +162,10 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPendingPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "pendingpost";
+		return "post/pending";
 	}
 
-	@RequestMapping(value = { "approvedpost" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/approved" }, method = RequestMethod.GET)
 	public String approvedPostPage(Model model) {
 		List<Post> listAllApprovedPost = new ArrayList<Post>();
 		List<Post> listLimitApprovedPost = new ArrayList<Post>();
@@ -186,10 +185,10 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllApprovedPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "approvedpost";
+		return "post/approved";
 	}
 
-	@RequestMapping(value = { "postpublished" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/published" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
 
 		List<Post> listAllPublishedPost = new ArrayList<Post>();
@@ -210,16 +209,16 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPublishedPost.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "postpublished";
+		return "post/published";
 	}
 
 	/**
-	 * Controller duyet bai viet
+	 * Controller duyet bai viet, chi chap nhan quyen editor
 	 * 
 	 * @param postId
 	 * @return
 	 */
-	@RequestMapping(value = { "admin/pendingpost/approved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "editor/post/pending/approved" }, method = RequestMethod.POST)
 	public String approved(HttpServletRequest request) {
 
 		// get postId
@@ -241,16 +240,16 @@ public class PostController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/pendingpost";
+		return "redirect:post/pending";
 	}
 
 	/**
-	 * Controller go bai viet
+	 * Controller go bai viet, chi chap nhan quyen editor
 	 * 
 	 * @param postId
 	 * @return
 	 */
-	@RequestMapping(value = { "admin/pendingpost/unapproved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "editor/post/pending/unapproved" }, method = RequestMethod.POST)
 	public String unapproved(HttpServletRequest request) {
 
 		// get postId
@@ -272,7 +271,7 @@ public class PostController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/pendingpost";
+		return "redirect:/post/pending";
 	}
 
 	/**
@@ -283,7 +282,7 @@ public class PostController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = { "/updatedPost" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/updated" }, method = RequestMethod.POST)
 	public ModelAndView updatedPost(@ModelAttribute("Post") Post post, BindingResult result,
 			HttpServletRequest request) {
 
@@ -301,7 +300,7 @@ public class PostController {
 				: 0;
 
 		if (categoriesId == 0) {
-			return new ModelAndView("redirect:" + "/post");
+			return new ModelAndView("redirect:" + "/post/add");
 		}
 
 		// get categories by id
@@ -318,7 +317,7 @@ public class PostController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/pendingpost");
+		return new ModelAndView("redirect:" + "/post/pending");
 	}
 
 	/**
@@ -327,7 +326,7 @@ public class PostController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/post/view", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@RequestMapping(value = "/view", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getContentPostById(int postId, HttpServletRequest request) {
 		// get postId

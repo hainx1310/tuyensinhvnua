@@ -35,8 +35,7 @@ public class User implements Serializable {
 	private boolean status;
 	private String resetPasswordCode;
 	private String avatarUrl;
-	private boolean role;
-	private String roleName;
+	private String role;
 
 	public User() {
 
@@ -44,7 +43,7 @@ public class User implements Serializable {
 
 	public User(int id, String name, String email, String username, String password, String passwordSalt,
 			String passwordHash, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
-			String updatedUser, boolean status, String resetPasswordCode, String avatarUrl, boolean role) {
+			String updatedUser, boolean status, String resetPasswordCode, String avatarUrl, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -214,17 +213,32 @@ public class User implements Serializable {
 		this.avatarUrl = avatarUrl;
 	}
 
-	@Column(name = "role")
-	public boolean isRole() {
+	@Column(name = "role", length = 50)
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(boolean role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
 	@Transient
 	public String getRoleName() {
-		return this.isRole() == true ? "Quản trị viên" : "Biên tập viên";
+		String roleName = "";
+		switch (this.role) {
+		case "ROLE_ADMIN":
+			roleName = "Quản trị viên";
+			break;
+		case "ROLE_EDITOR":
+			roleName = "Biên tập viên";
+			break;
+		case "ROLE_COLLABORARATORS":
+			roleName = "Cộng tác viên";
+			break;
+		default:
+			roleName = "Cộng tác viên";
+		}
+		return roleName;
 	}
+
 }
