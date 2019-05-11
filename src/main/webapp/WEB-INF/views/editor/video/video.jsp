@@ -2,6 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="edit" value="${pageContext.request.contextPath}/video/edit" />
+<c:set var="add" value="${pageContext.request.contextPath}/video/add" />
+<c:set var="delete" value="${pageContext.request.contextPath}/video/delete" />
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -82,7 +84,7 @@
 															onclick='openModalUpdateVideo(${listVideo.get(i-1).getId()}, "${listVideo.get(i-1).getVideoYoutubeId()}", "${listVideo.get(i-1).getTitle()}", "${listVideo.get(i-1).getPublishedDate()}")'
 															href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 															title="Xóa video"
-															onclick='openModalDeleteCategories(${listVideo.get(i-1).getId()}, "${listVideo.get(i-1).getTitle()}")'
+															onclick='openModalDeleteVideo(${listVideo.get(i-1).getId()}, "${listVideo.get(i-1).getTitle()}")'
 															href="#" class="fa fa-trash-o"></a></td>
 													</tr>
 												</c:forEach>
@@ -133,7 +135,7 @@
 									</button>
 									<h4>Thêm video mới</h4>
 								</div>
-								<form action="video/add" method="post">
+								<form action="${add}" method="post">
 									<div class="modal-body">
 										<table
 											style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
@@ -230,13 +232,13 @@
 					<div class="modal fade" id="modal-confirm-delete">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="DeleteCategories" method="post">
+								<form action="${delete}" method="post">
 									<div class="modal-body"></div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default pull-left"
-											data-dismiss="modal">Không</button>
+											data-dismiss="modal">Hủy bỏ</button>
 										<button id="btn-delete-categories" type="submit"
-											class="btn btn-primary">Có</button>
+											class="btn btn-primary">Đồng ý</button>
 									</div>
 								</form>
 							</div>

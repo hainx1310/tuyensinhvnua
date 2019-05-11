@@ -1,5 +1,11 @@
 package vn.edu.vnua.dse.common;
 
+/**
+ * Class chứa các hằng số dùng trong toàn bộ hệ thống
+ * 
+ * @author HaiNX
+ *
+ */
 public class CommonConst {
 
 	/**
@@ -79,12 +85,12 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca bai viet
 		 */
 		public static final String GET_ALL_POST = "sqlfiles/getListPost.sql";
-		
+
 		/**
 		 * cau sql lay ra bai viet theo id
 		 */
 		public static final String GET_POST_BY_ID = "sqlfiles/getPostById.sql";
-		
+
 		/**
 		 * cau sql lay ra 10 bai viet theo keyword va index
 		 */
@@ -104,12 +110,12 @@ public class CommonConst {
 		 * cau sql update bai viet
 		 */
 		public static final String UPDATE_POST = "sqlfiles/updatePost.sql";
-		
+
 		/**
 		 * cau sql duyet bai viet
 		 */
 		public static final String APPROVED_POST = "sqlfiles/approvedPost.sql";
-		
+
 		/**
 		 * cau sql go bai viet
 		 */
@@ -158,6 +164,26 @@ public class CommonConst {
 		public static final String GET_ALL_VIDEO = "sqlfiles/getAllVideo.sql";
 
 		/**
+		 * cau sql lay ra danh sach tat ca video dang cho duyet
+		 */
+		public static final String GET_ALL_VIDEO_PENDING = "sqlfiles/getAllPendingVideo.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca video da duoc duyet
+		 */
+		public static final String GET_ALL_VIDEO_APPROVED = "sqlfiles/getAllAprrovedVideo.sql";
+
+		/**
+		 * cau sql lay ra danh sach tat ca video da duoc dang
+		 */
+		public static final String GET_ALL_VIDEO_PUBLISHED = "sqlfiles/getAllPublishedVideo.sql";
+
+		/**
+		 * cau sql lay ra video theo id
+		 */
+		public static final String GET_VIDEO_BY_ID = "sqlfiles/getVideoById.sql";
+
+		/**
 		 * cau sql them moi mot video
 		 */
 		public static final String CREATE_VIDEO = "sqlfiles/createVideo.sql";
@@ -181,7 +207,7 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca video
 		 */
 		public static final String GET_ALL_VIDEO_IS_ACTIVE = "sqlfiles/getAllVideoIsActive.sql";
-		
+
 		/**
 		 * cau sql lay ra danh sach binh luan theo id bai viet
 		 */
@@ -192,5 +218,39 @@ public class CommonConst {
 		 */
 		public static final String CREATE_COMMENT = "sqlfiles/createComment.sql";
 
+		/**
+		 * cau sql duyet video
+		 */
+		public static final String APPROVED_VIDEO = "sqlfiles/approvedVideo.sql";
+
+		/**
+		 * cau sql go video
+		 */
+		public static final String UNAPPROVED_VIDEO = "sqlfiles/unapprovedVideo.sql";
+
+	}
+
+	/**
+	 * Class chứa tên quyền
+	 * 
+	 * @author HaiNX
+	 *
+	 */
+	public class ROLE_NAME {
+
+		/**
+		 * Quyen quan tri vien
+		 */
+		public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+		/**
+		 * Quyen bien tap vien
+		 */
+		public static final String ROLE_EDITOR = "ROLE_EDITOR";
+
+		/**
+		 * Quyen cong tac vien
+		 */
+		public static final String ROLE_COLLABORARATORS = "ROLE_COLLABORARATORS";
 	}
 }

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<c:set var="edit" value="${pageContext.request.contextPath}/video/edit" />
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -48,40 +51,57 @@
 										aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
+												<td><input type="checkbox" class="custom-control-input"
+													id="defaultUnchecked"></td>
 												<th>Tiêu đề</th>
-												<th>Chuyên mục</th>
+												<th>Video youtube Id</th>
 												<th>Tác giả</th>
 												<th>Ngày sửa</th>
-												<th>Ngày đăng</th>
+												<th>Thời gian đăng</th>
 												<th>Người duyệt</th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="i" begin="1" end="${listApprovedPost.size()}">
+											<c:forEach var="i" begin="1"
+												end="${listApprovedVideo.size()}">
 												<tr role="row" class="odd">
-													<td class=""><c:out
-															value="${listApprovedPost.get(i-1).getTitle()}"></c:out></td>
+													<td><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked">
+													</td>
+													<td class=""><a title="Nhấn để xem video"
+														target="_blank"
+														href="https://www.youtube.com/watch?v=${listApprovedVideo.get(i-1).getVideoYoutubeId()}">
+															<c:out value="${listApprovedVideo.get(i-1).getTitle()}"></c:out>
+													</a></td>
 													<td class="sorting_1"><c:out
-															value="${listApprovedPost.get(i-1).getCategories().getName()}"></c:out></td>
+															value="${listApprovedVideo.get(i-1).getVideoYoutubeId()}"></c:out>
+													</td>
 													<td><c:out
-															value="${listApprovedPost.get(i-1).getAuthor()}"></c:out></td>
+															value="${listApprovedVideo.get(i-1).getAuthor()}"></c:out>
+													</td>
 													<td><c:out
-															value="${listApprovedPost.get(i-1).getUpdatedDate()}"></c:out></td>
+															value="${listApprovedVideo.get(i-1).getUpdatedDate()}"></c:out>
+													</td>
 													<td><c:out
-															value="${listApprovedPost.get(i-1).getPublishedDate()}"></c:out></td>
+															value="${listApprovedVideo.get(i-1).getPublishedDate()}"></c:out>
+													</td>
 													<td><c:out
-															value="${listApprovedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a href="#"
-														onclick="viewPost('${listApprovedPost.get(i-1).getId()}', '${listApprovedPost.get(i-1).getTitle()}')"
-														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-pencil" title="Sửa bài viết"
-														onclick="editPost('${listApprovedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+															value="${listApprovedVideo.get(i-1).getApprovedUser()}"></c:out>
+													</td>
+													<td><a title="Sửa video"
+														onclick='openModalUpdateVideo(${listApprovedVideo.get(i-1).getId()}, "${listApprovedVideo.get(i-1).getVideoYoutubeId()}", "${listApprovedVideo.get(i-1).getTitle()}", "${listApprovedVideo.get(i-1).getPublishedDate()}")'
+														href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+															access="hasRole('ROLE_EDITOR')">
+															<a href="#" class="fa fa-remove" title="Gỡ video"
+																onclick="unApprovedVideo('${listApprovedVideo.get(i-1).getId()}')"></a>
+														</sec:authorize></td>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="modal fade" id="modal-view-post">
+									<div class="modal fade" id="modal-update-video">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -89,15 +109,48 @@
 														aria-label="Close">
 														<span aria-hidden="true">&times;</span>
 													</button>
-													<h4></h4>
+													<h4>Cập nhật video</h4>
 												</div>
-												<div class="modal-body"></div>
+												<form action="${edit}" method="post">
+													<div class="modal-body">
+														<table
+															style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
+															<tr>
+																<td>Tiêu đề:</td>
+																<td><input type="text" id="title" name="title"
+																	size="50%" autofocus="autofocus"></td>
+															</tr>
+															<tr>
+																<td>ID video youtube:</td>
+																<td><input type="text" id="videoYoutubeId"
+																	name="videoYoutubeId" size="50%"></td>
+															</tr>
+															<tr>
+																<td>Thời gian đăng video:</td>
+																<td>
+																	<div class="input-group date">
+																		<div class="input-group-addon">
+																			<i class="fa fa-calendar"></i>
+																		</div>
+																		<input type="text" class="form-control pull-right"
+																			id="datepicker-update" name="publishedDate">
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default pull-left"
+															data-dismiss="modal">Hủy</button>
+														<button id="btn-save-update" type="submit"
+															class="btn btn-primary">Lưu</button>
+													</div>
+												</form>
 											</div>
 											<!-- /.modal-content -->
 										</div>
 										<!-- /.modal-dialog -->
 									</div>
-									<!-- /.modal -->
 								</c:if>
 							</div>
 						</div>

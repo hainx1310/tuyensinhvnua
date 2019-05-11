@@ -163,4 +163,164 @@ public class VideoServiceImpl implements VideoService {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getPendingVideo()
+	 */
+	@Override
+	public List<Video> getPendingVideo() {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getPendingVideo Start");
+			listResult = videoDao.getPendingVideo();
+			logger.debug("GET getPendingVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getLimitPendingVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitPendingVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getLimitPendingVideo Start");
+			listResult = videoDao.getLimitPendingVideo(startIndex);
+			logger.debug("GET getLimitPendingVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video da duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getApprovedVideo()
+	 */
+	@Override
+	public List<Video> getApprovedVideo() {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getApprovedVideo Start");
+			listResult = videoDao.getApprovedVideo();
+			logger.debug("GET getApprovedVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video da duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getLimitApprovedVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitApprovedVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getLimitApprovedVideo Start");
+			listResult = videoDao.getLimitApprovedVideo(startIndex);
+			logger.debug("GET getLimitApprovedVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video da dang
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getPublishedVideo()
+	 */
+	@Override
+	public List<Video> getPublishedVideo() {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getPublishedVideo Start");
+			listResult = videoDao.getPublishedVideo();
+			logger.debug("GET getPublishedVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video da dang
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getLimitPublishedVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitPublishedVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getLimitPublishedVideo Start");
+			listResult = videoDao.getLimitPublishedVideo(startIndex);
+			logger.debug("GET getLimitPublishedVideo End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc lay video theo id
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getVideoById(int)
+	 */
+	@Override
+	public Video getVideoById(int id) {
+		Video video = new Video();
+		try {
+			logger.debug("GET getVideoById Start");
+			video = videoDao.getVideoById(id);
+			logger.debug("GET getVideoById End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return video;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc duyet video
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int videoId, String approvedUser) {
+		try {
+			logger.debug("approved Video Start");
+			videoDao.approved(videoId, approvedUser);
+			logger.debug("approved Video End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc go video
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int videoId, String unapprovedUser) {
+		try {
+			logger.debug("unapproved Video Start");
+			videoDao.unapproved(videoId, unapprovedUser);
+			logger.debug("unapproved Video End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
 }

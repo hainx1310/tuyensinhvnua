@@ -1,6 +1,6 @@
 SELECT 
     *
 FROM
-    tuyensinhapi.post
+    tuyensinhapi.video
 WHERE
     status = 1 AND published_date > NOW()

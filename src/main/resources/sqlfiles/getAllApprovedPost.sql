@@ -1,2 +1,6 @@
-SELECT * FROM tuyensinhapi.post
-WHERE status = 1 and published_date > now()
+SELECT 
+    *
+FROM
+    tuyensinhapi.post
+WHERE
+    status = 1 AND published_date > NOW()

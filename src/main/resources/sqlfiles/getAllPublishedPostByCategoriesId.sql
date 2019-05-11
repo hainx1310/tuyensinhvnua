@@ -1,3 +1,8 @@
-SELECT * FROM tuyensinhapi.post
-WHERE status = 1 and published_date <= now() and categories_id =:categoriesId
-ORDER BY published_date desc
+SELECT 
+    *
+FROM
+    tuyensinhapi.post
+WHERE
+    status = 1 AND published_date <= NOW()
+        AND categories_id = :categoriesId
+ORDER BY published_date DESC

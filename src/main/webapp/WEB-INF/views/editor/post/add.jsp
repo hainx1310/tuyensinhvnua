@@ -96,8 +96,7 @@
 										<div>
 											<br>
 											<div class="form-group">
-												<label>Thời gian đăng bài</label>
-
+												<label>Thời gian đăng bài</label> <br>
 												<div class="input-group date">
 													<div class="input-group-addon">
 														<i class="fa fa-calendar"></i>

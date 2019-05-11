@@ -31,6 +31,8 @@ public class Video implements Serializable {
 	private Date publishedDate;
 	private boolean status;
 	private String avatarVideo;
+	private String approvedUser;
+	private String unApprovedUser;
 
 	public Video() {
 
@@ -38,7 +40,7 @@ public class Video implements Serializable {
 
 	public Video(int id, String videoYoutubeId, String title, String shortContent, String editor, String author,
 			Date createdDate, Date updatedDate, String updatedUser, Date publishedDate, boolean status,
-			String avatarVideo) {
+			String avatarVideo, String approvedUser, String unApprovedUser) {
 		super();
 		this.id = id;
 		this.videoYoutubeId = videoYoutubeId;
@@ -52,6 +54,8 @@ public class Video implements Serializable {
 		this.publishedDate = publishedDate;
 		this.status = status;
 		this.avatarVideo = avatarVideo;
+		this.approvedUser = approvedUser;
+		this.unApprovedUser = unApprovedUser;
 	}
 
 	@Id
@@ -168,6 +172,24 @@ public class Video implements Serializable {
 
 	public void setAvatarVideo(String avatarVideo) {
 		this.avatarVideo = avatarVideo;
+	}
+
+	@Column(name = "approved_user", length = 50)
+	public String getApprovedUser() {
+		return approvedUser;
+	}
+
+	public void setApprovedUser(String approvedUser) {
+		this.approvedUser = approvedUser;
+	}
+
+	@Column(name = "unapproved_user", length = 50)
+	public String getUnApprovedUser() {
+		return unApprovedUser;
+	}
+
+	public void setUnApprovedUser(String unApprovedUser) {
+		this.unApprovedUser = unApprovedUser;
 	}
 
 }

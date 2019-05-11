@@ -353,8 +353,8 @@ $("#modal-update-user").on("hidden.bs.modal", function() {
 /**
  * Hàm mở modal xác nhận xóa user
  * 
- * @param categoriesId
- * @param categoriesName
+ * @param userId
+ * @param username
  * @returns
  */
 function openModalDeleteUser(userId, username) {
@@ -371,6 +371,16 @@ function openModalDeleteUser(userId, username) {
 
 	$('#modal-confirm-delete #userId').hide();
 }
+
+/**
+ * Sự kiện reset form xoa user
+ * 
+ * @returns
+ */
+$("#modal-delete-categories").on("hidden.bs.modal", function() {
+	$('#modal-delete-categories #userId').remove();
+	$('#modal-delete-categories p').remove();
+});
 
 /**
  * Hàm sự kiện nhập keyword lọc theo username
@@ -762,4 +772,79 @@ $("#modal-update-video").on("hidden.bs.modal", function() {
 	$('#modal-update-video #datepicker-update').val("");
 	// clear input id
 	$('#modal-update-video #id').remove();
+});
+
+/**
+ * Phuong thuc xu ly su kien nguoi dung click duyet bai viet
+ * 
+ * @returns
+ */
+function approvedVideo(videoId) {
+	$.ajax({
+		type : "post",
+		url : "editor/video/pending/approved",
+		data : {
+			videoId : videoId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
+
+/**
+ * Phuong thuc go bai viet
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedVideo(videoId) {
+	$.ajax({
+		type : "post",
+		url : "editor/video/pending/unapproved",
+		data : {
+			videoId : videoId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
+
+/**
+ * Hàm mở modal xác nhận xóa user
+ * 
+ * @param userId
+ * @param username
+ * @returns
+ */
+function openModalDeleteVideo(videoId, title) {
+	// show modal
+	$('#modal-confirm-delete').modal({
+		show : 'true'
+	});
+	$('#modal-confirm-delete .modal-body').append(
+			'<p><strong>Xác nhận</strong></p><p>Bạn có chắc muốn xóa video <strong>'
+					+ title + '</strong>?</p>');
+	$('#modal-confirm-delete .modal-body').append(
+			"<input name = \"id\" id = \"videoId\" type = \"text\" value = "
+					+ videoId + " />");
+
+	$('#modal-confirm-delete #videoId').hide();
+}
+
+/**
+ * Sự kiện reset form xoa user
+ * 
+ * @returns
+ */
+$("#modal-delete-categories").on("hidden.bs.modal", function() {
+	$('#modal-delete-categories #userId').remove();
+	$('#modal-delete-categories p').remove();
 });

@@ -18,15 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.DateUtils;
+import vn.edu.vnua.dse.entity.User;
 import vn.edu.vnua.dse.entity.Video;
+import vn.edu.vnua.dse.service.UserService;
 import vn.edu.vnua.dse.service.VideoService;
 
 @Controller
 @RequestMapping(value = "/video")
 public class VideoController {
+
 	@Autowired
 	private VideoService videoService;
+
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * Controller lấy ra danh sách tất cả video dang duoc kich hoat
@@ -86,7 +93,7 @@ public class VideoController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/video");
+		return new ModelAndView("redirect:/video");
 	}
 
 	/**
@@ -118,7 +125,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/video");
+		return new ModelAndView("redirect:/video");
 	}
 
 	/**
@@ -136,7 +143,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/video");
+		return new ModelAndView("redirect:/video");
 	}
 
 	/**
@@ -232,20 +239,20 @@ public class VideoController {
 	@RequestMapping(value = { "/pending" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
 		List<Video> listAllPendingVideo = new ArrayList<Video>();
-		List<Video> listLimitPendingPost = new ArrayList<Video>();
+		List<Video> listLimitPendingVideo = new ArrayList<Video>();
 
 		try {
 			// lay tat ca danh sach video dang cho duyet
-			listAllPendingVideo = videoService.getAllVideo();
+			listAllPendingVideo = videoService.getPendingVideo();
 
-			// lay 10 bai viet dang cho duyet
-			listLimitPendingPost = videoService.getLimitedVideo(0);
+			// lay 10 video dang cho duyet
+			listLimitPendingVideo = videoService.getLimitPendingVideo(0);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		int numberPage = (int) Math.ceil(listAllPendingVideo.size() / 10.0);
 
-		model.addAttribute("listPendingVideo", listLimitPendingPost);
+		model.addAttribute("listPendingVideo", listLimitPendingVideo);
 		model.addAttribute("totalRecord", listAllPendingVideo.size());
 		model.addAttribute("numberPage", numberPage);
 
@@ -253,24 +260,24 @@ public class VideoController {
 	}
 
 	@RequestMapping(value = { "/approved" }, method = RequestMethod.GET)
-	public String approvedPostPage(Model model) {
-		// List<Post> listAllApprovedPost = new ArrayList<Post>();
-		// List<Post> listLimitApprovedPost = new ArrayList<Post>();
+	public String approvedVideoPage(Model model) {
+		List<Video> listAllApprovedVideo = new ArrayList<Video>();
+		List<Video> listLimitApprovedVideo = new ArrayList<Video>();
 
-		// try {
-		// // lay danh sach tatc ca bai viet da tu db
-		// listAllApprovedPost = postService.getApprovedPost();
-		//
-		// // lay 10 bai viet da cho duyet
-		// listLimitApprovedPost = postService.getLimitApprovedPost(0);
-		// } catch (Exception e) {
-		// throw new RuntimeException(e);
-		// }
-		// int numberPage = (int) Math.ceil(listAllApprovedPost.size() / 10.0);
-		//
-		// model.addAttribute("listApprovedPost", listLimitApprovedPost);
-		// model.addAttribute("totalRecord", listAllApprovedPost.size());
-		// model.addAttribute("numberPage", numberPage);
+		try {
+			// lay danh sach tat ca video da duyet tu db
+			listAllApprovedVideo = videoService.getApprovedVideo();
+
+			// lay 10 video da duyet
+			listLimitApprovedVideo = videoService.getLimitApprovedVideo(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllApprovedVideo.size() / 10.0);
+
+		model.addAttribute("listApprovedVideo", listLimitApprovedVideo);
+		model.addAttribute("totalRecord", listAllApprovedVideo.size());
+		model.addAttribute("numberPage", numberPage);
 
 		return "video/approved";
 	}
@@ -278,24 +285,98 @@ public class VideoController {
 	@RequestMapping(value = { "published" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
 
-		// List<Post> listAllPublishedPost = new ArrayList<Post>();
-		// List<Post> listLimitPublishedPost = new ArrayList<Post>();
-		//
-		// try {
-		// // lay danh sach 10 bai viet da xuat ban moi nhat tu db
-		// listAllPublishedPost = videoService.getPostPublished();
-		//
-		// // lay 10 bai viet da xuat ban
-		// listLimitPublishedPost = postService.getLimitPostPublished(0);
-		// } catch (Exception e) {
-		// throw new RuntimeException(e);
-		// }
-		// int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
-		//
-		// model.addAttribute("listPublishedPost", listLimitPublishedPost);
-		// model.addAttribute("totalRecord", listAllPublishedPost.size());
-		// model.addAttribute("numberPage", numberPage);
+		List<Video> listAllPublishedVideo = new ArrayList<Video>();
+		List<Video> listLimitPublishedVideo = new ArrayList<Video>();
+
+		try {
+			// lay danh sach 10 video da xuat ban moi nhat tu db
+			listAllPublishedVideo = videoService.getPublishedVideo();
+
+			// lay 10 bai video xuat ban
+			listLimitPublishedVideo = videoService.getLimitPublishedVideo(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllPublishedVideo.size() / 10.0);
+
+		model.addAttribute("listPublishedVideo", listLimitPublishedVideo);
+		model.addAttribute("totalRecord", listAllPublishedVideo.size());
+		model.addAttribute("numberPage", numberPage);
 
 		return "video/published";
+	}
+
+	/**
+	 * Controller duyet video, chi chap nhan quyen editor
+	 * 
+	 * @param postId
+	 * @return
+	 */
+	@RequestMapping(value = { "editor/video/pending/approved" }, method = RequestMethod.POST)
+	public String approved(HttpServletRequest request) {
+
+		// Get user
+		String approvedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			approvedUser = ((UserDetails) principal).getUsername();
+		}
+
+		// check role user
+		User user = new User();
+		try {
+			user = userService.getUserByUsername(approvedUser).get(0);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+
+				// get videoId
+				int videoId = request.getParameter("videoId") != null
+						? Integer.parseInt(request.getParameter("videoId").toString())
+						: 0;
+
+				// duyet bai viet
+				videoService.approved(videoId, approvedUser);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return request.getRequestURL().toString();
+	}
+
+	/**
+	 * Controller go video, chi chap nhan quyen editor
+	 * 
+	 * @param postId
+	 * @return
+	 */
+	@RequestMapping(value = { "editor/video/pending/unapproved" }, method = RequestMethod.POST)
+	public String unapproved(HttpServletRequest request) {
+
+		// Get user
+		String unapprovedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			unapprovedUser = ((UserDetails) principal).getUsername();
+		}
+
+		// check role user
+		User user = new User();
+		try {
+			user = userService.getUserByUsername(unapprovedUser).get(0);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+
+				// get videoId
+				int videoId = request.getParameter("videoId") != null
+						? Integer.parseInt(request.getParameter("videoId").toString())
+						: 0;
+
+				// go bai viet
+				videoService.unapproved(videoId, unapprovedUser);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return request.getRequestURL().toString();
 	}
 }

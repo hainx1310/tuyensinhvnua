@@ -208,4 +208,194 @@ public class VideoDaoImpl implements VideoDAO {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getPendingVideo()
+	 */
+	@Override
+	public List<Video> getPendingVideo() {
+		List<Video> listVideo = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_VIDEO_PENDING);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Video.class);
+			listVideo = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listVideo;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getLimitPendingVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitPendingVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Video Where status = 0");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video da duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getApprovedVideo()
+	 */
+	@Override
+	public List<Video> getApprovedVideo() {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_VIDEO_APPROVED);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Video.class);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video da duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getLimitApprovedVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitApprovedVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session
+					.createQuery("FROM Video WHERE status = 1 AND publishedDate > NOW() ORDER BY publishedDate DESC");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video da dang
+	 * 
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getPublishedVideo()
+	 */
+	@Override
+	public List<Video> getPublishedVideo() {
+		List<Video> listVideo = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_VIDEO_PUBLISHED);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Video.class);
+			listVideo = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listVideo;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video da dang
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getLimitPublishedVideo(int)
+	 */
+	@Override
+	public List<Video> getLimitPublishedVideo(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session
+					.createQuery("FROM Video WHERE status = 1 AND publishedDate <= NOW() ORDER BY publishedDate DESC");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc lay video theo id
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getVideoById(int)
+	 */
+	@Override
+	public Video getVideoById(int id) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_VIDEO_BY_ID);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Video.class);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult == null ? null : listResult.get(0);
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc duyet video
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int videoId, String approvedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.APPROVED_VIDEO);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("approvedUser", approvedUser);
+			query.setParameter("id", videoId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc go video
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int videoId, String unapprovedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.UNAPPROVED_VIDEO);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("unapprovedUser", unapprovedUser);
+			query.setParameter("id", videoId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
 }

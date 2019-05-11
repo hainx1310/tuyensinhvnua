@@ -145,7 +145,7 @@
 		var content = CKEDITOR.instances['frmContent'].getData();
 		var avatarPost = $('#avatarPost').attr('src');
 		var categoriesId = $('input[name=categoriesId]:checked').val();
-		var publishedDate = document.getElementById("publishedDate").value;
+		var publishedDate = document.getElementById("datepicker").value;
 		var url = document.getElementById("url").value;
 		$.ajax({
 			type : "post",

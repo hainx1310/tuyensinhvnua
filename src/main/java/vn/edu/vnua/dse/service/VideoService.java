@@ -62,4 +62,68 @@ public interface VideoService {
 	 */
 	public List<Video> getLimitVideoIsActive(int startIndex);
 
+	/**
+	 * Lay danh sach tat ca video dang cho duyet
+	 * 
+	 * @return
+	 */
+	public List<Video> getPendingVideo();
+
+	/**
+	 * Lay danh sach 10 video dang cho duyet
+	 * 
+	 * @return
+	 */
+	public List<Video> getLimitPendingVideo(int startIndex);
+
+	/**
+	 * Lay danh sach tat ca video da duyet
+	 * 
+	 * @return
+	 */
+	public List<Video> getApprovedVideo();
+
+	/**
+	 * Lay danh sach 10 video da duyet
+	 * 
+	 * @return
+	 */
+	public List<Video> getLimitApprovedVideo(int startIndex);
+
+	/**
+	 * Lay danh sach tat ca video da dang
+	 * 
+	 * @return
+	 */
+	public List<Video> getPublishedVideo();
+
+	/**
+	 * Lay danh sach 10 video da dang
+	 * 
+	 * @return
+	 */
+	public List<Video> getLimitPublishedVideo(int startIndex);
+
+	/**
+	 * Phuong thuc lay video theo id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Video getVideoById(int id);
+
+	/**
+	 * Phuong thuc duyet video
+	 * 
+	 * @param videoId
+	 */
+	public void approved(int videoId, String approvedUser);
+
+	/**
+	 * Phuong thuc go video
+	 * 
+	 * @param videoId
+	 */
+	public void unapproved(int videoId, String unapprovedUser);
+
 }
