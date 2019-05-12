@@ -214,6 +214,16 @@ public class CommonConst {
 		public static final String GET_COMMENT_BY_POST_ID = "sqlfiles/getCommentByPostId.sql";
 
 		/**
+		 * cau sql lay ra danh sach tat ca binh luan da duoc duyet
+		 */
+		public static final String GET_ALL_COMMENT_APPROVED = "sqlfiles/getAllCommentAprroved.sql";
+
+		/**
+		 * cau sql lay ra danh sach binh luan chua duoc duyet
+		 */
+		public static final String GET_ALL_COMMENT_PENDING = "sqlfiles/getAllCommentPending.sql";
+
+		/**
 		 * cau sql them moi binh luan
 		 */
 		public static final String CREATE_COMMENT = "sqlfiles/createComment.sql";
@@ -227,6 +237,16 @@ public class CommonConst {
 		 * cau sql go video
 		 */
 		public static final String UNAPPROVED_VIDEO = "sqlfiles/unapprovedVideo.sql";
+		
+		/**
+		 * cau sql duyet binh luan
+		 */
+		public static final String APPROVED_COMMENT = "sqlfiles/approvedComment.sql";
+
+		/**
+		 * cau sql go binh luan
+		 */
+		public static final String UNAPPROVED_COMMENT = "sqlfiles/unapprovedComment.sql";
 
 	}
 

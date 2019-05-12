@@ -119,7 +119,7 @@
 												<form action="post/delete" method="post">
 													<div class="modal-body"></div>
 													<div class="modal-footer">
-														<button type="button" class="btn btn-default pull-left"
+														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Hủy bỏ</button>
 														<button id="btn-delete-pots" type="submit"
 															class="btn btn-primary">Đồng ý</button>

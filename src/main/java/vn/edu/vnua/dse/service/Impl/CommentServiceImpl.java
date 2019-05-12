@@ -57,4 +57,90 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
+	@Override
+	public List<Comment> getAllCommentAprroved() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getAllCommentAprroved Start");
+			listResult = commentDao.getAllCommentAprroved();
+			logger.debug("Service getAllCommentAprroved End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	@Override
+	public List<Comment> getAllCommentPending() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getAllCommentPending Start");
+			listResult = commentDao.getAllCommentPending();
+			logger.debug("Service getAllCommentPending End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	@Override
+	public List<Comment> getLimitCommentAprroved(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getLimitCommentAprroved Start");
+			listResult = commentDao.getLimitCommentAprroved(startIndex);
+			logger.debug("Service getLimitCommentAprroved End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	@Override
+	public List<Comment> getLimitCommentPending(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getLimitCommentPending Start");
+			listResult = commentDao.getLimitCommentPending(startIndex);
+			logger.debug("Service getLimitCommentPending End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc duyet comment
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int commentId, String approvedUser) {
+		try {
+			logger.debug("approved Comment Start");
+			commentDao.approved(commentId, approvedUser);
+			logger.debug("approved Comment End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc go comment
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int commentId, String unapprovedUser) {
+		try {
+			logger.debug("unapproved Comment Start");
+			commentDao.approved(commentId, unapprovedUser);
+			logger.debug("unapproved Comment End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
 }

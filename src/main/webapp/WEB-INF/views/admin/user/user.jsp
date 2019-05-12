@@ -42,7 +42,8 @@
 											role="grid" aria-describedby="example2_info">
 											<thead>
 												<tr role="row">
-													<th></th>
+													<th><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked"></th>
 													<th>STT</th>
 													<th>Tên đăng nhập</th>
 													<th>Email</th>
@@ -177,7 +178,8 @@
 															<option selected="selected">---Chọn quyền--</option>
 															<option value="ROLE_ADMIN">Quản trị viên</option>
 															<option value="ROLE_EDITOR">Biên tập viên</option>
-															<option value="ROLE_COLLABORARATORS">Cộng tác viên</option>
+															<option value="ROLE_COLLABORARATORS">Cộng tác
+																viên</option>
 														</select>
 													</div></td>
 											</tr>
@@ -232,7 +234,8 @@
 															<option selected="selected">---Chọn quyền--</option>
 															<option value="ROLE_ADMIN">Quản trị viên</option>
 															<option value="ROLE_EDITOR">Biên tập viên</option>
-															<option value="ROLE_COLLABORARATORS">Cộng tác viên</option>
+															<option value="ROLE_COLLABORARATORS">Cộng tác
+																viên</option>
 														</select>
 													</div></td>
 											</tr>

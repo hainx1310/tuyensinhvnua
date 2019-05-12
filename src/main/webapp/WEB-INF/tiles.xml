@@ -130,4 +130,20 @@
 	</definition>
 	<!-- End dinh nghia trang 403 -->
 
+	<!-- Dinh nghia trang quan ly binh luan -->
+	<definition name="comment" extends="base.definition">
+		<put-attribute name="title" value="Thông tin cá nhân" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/comment/comment.jsp" />
+	</definition>
+	<!-- End dinh nghia trang quan ly binh luan -->
+
+	<!-- Dinh nghia trang quan ly thong bao -->
+	<definition name="notification" extends="base.definition">
+		<put-attribute name="title" value="Thông tin cá nhân" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/notification/notification.jsp" />
+	</definition>
+	<!-- End dinh nghia trang quan ly thong bao -->
+
 </tiles-definitions>

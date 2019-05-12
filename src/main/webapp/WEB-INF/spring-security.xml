@@ -18,7 +18,7 @@
 
 		<!-- Cau hinh cac trang quyen danh rieng cho admin -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-		
+
 		<!-- Cau hinh cac trang quyen danh reing cho editor -->
 		<intercept-url pattern="/editor/**" access="hasRole('ROLE_EDITOR')" />
 
@@ -27,8 +27,12 @@
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
 		<intercept-url pattern="/video/**"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
-			
-		<!-- Cau hinh cac quyen chung danh cho ca 3 quyen-->
+		<intercept-url pattern="/comment/**"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
+		<intercept-url pattern="/notification/**"
+			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')" />
+
+		<!-- Cau hinh cac quyen chung danh cho ca 3 quyen -->
 		<intercept-url pattern="/home"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_COLLABORARATORS')" />
 		<intercept-url pattern="/profile"

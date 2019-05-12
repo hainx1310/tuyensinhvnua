@@ -309,7 +309,6 @@ public class VideoController {
 	/**
 	 * Controller duyet video, chi chap nhan quyen editor
 	 * 
-	 * @param postId
 	 * @return
 	 */
 	@RequestMapping(value = { "editor/video/pending/approved" }, method = RequestMethod.POST)
@@ -333,7 +332,7 @@ public class VideoController {
 						? Integer.parseInt(request.getParameter("videoId").toString())
 						: 0;
 
-				// duyet bai viet
+				// duyet video
 				videoService.approved(videoId, approvedUser);
 			}
 		} catch (Exception e) {
@@ -346,7 +345,6 @@ public class VideoController {
 	/**
 	 * Controller go video, chi chap nhan quyen editor
 	 * 
-	 * @param postId
 	 * @return
 	 */
 	@RequestMapping(value = { "editor/video/pending/unapproved" }, method = RequestMethod.POST)
@@ -370,7 +368,7 @@ public class VideoController {
 						? Integer.parseInt(request.getParameter("videoId").toString())
 						: 0;
 
-				// go bai viet
+				// go video
 				videoService.unapproved(videoId, unapprovedUser);
 			}
 		} catch (Exception e) {

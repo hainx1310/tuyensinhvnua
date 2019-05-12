@@ -109,7 +109,8 @@
 										</div>
 									</div>
 								</div>
-								<input style="margin-top: 10px; margin-left: 10px" type="button"
+								<input class="btn btn-primary"
+									style="margin-top: 10px; margin-left: 10px" type="button"
 									value="Gửi bài" onclick='createdPost()' />
 							</div>
 						</div>

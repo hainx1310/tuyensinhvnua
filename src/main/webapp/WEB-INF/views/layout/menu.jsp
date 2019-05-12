@@ -50,7 +50,7 @@
 
 							<li><a
 								href="${pageContext.request.contextPath}/post/approved"><i
-									class="fa fa-calendar"></i><span>Bài đã duyệt</span></a></li>
+									class="fa fa-calendar"></i><span>Bài chờ đăng</span></a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/post/published"><i
 									class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
@@ -71,7 +71,7 @@
 
 							<li><a
 								href="${pageContext.request.contextPath}/video/approved"><i
-									class="fa fa-calendar"></i><span>Video đã duyệt</span></a></li>
+									class="fa fa-calendar"></i><span>Video chờ đăng</span></a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/video/published"><i
 									class="fa fa-calendar-check-o"></i><span>Video đã đăng</span></a></li>
@@ -81,11 +81,11 @@
 							class="fa fa-image"></i><span>Hình ảnh</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
+						href="${pageContext.request.contextPath}/comment"><i
 							class="fa fa-commenting-o"></i><span>Quản lý bình luận</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
+						href="${pageContext.request.contextPath}/notification"><i
 							class="fa fa-bell-o"></i><span>Quản lý thông báo</span></a></li>
 				</sec:authorize>
 		</ul>

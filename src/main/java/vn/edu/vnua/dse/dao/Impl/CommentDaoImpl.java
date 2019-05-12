@@ -19,6 +19,7 @@ import vn.edu.vnua.dse.entity.Comment;
 
 @Repository
 @Transactional
+@SuppressWarnings("unchecked")
 public class CommentDaoImpl implements CommentDAO {
 
 	private static final Logger logger = Logger.getLogger(CommentDaoImpl.class);
@@ -36,7 +37,6 @@ public class CommentDaoImpl implements CommentDAO {
 	 * 
 	 * @see vn.edu.vnua.dse.dao.CommentDAO#getComments(int)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comment> getComments(int postId) {
 		List<Comment> listResult = new ArrayList<Comment>();
@@ -68,6 +68,128 @@ public class CommentDaoImpl implements CommentDAO {
 			query.setParameter("postId", comment.getpost().getId());
 			query.setParameter("name", comment.getName());
 			query.setParameter("comment", comment.getComment());
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan da dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getAllCommentAprroved()
+	 */
+	@Override
+	public List<Comment> getAllCommentAprroved() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_COMMENT_APPROVED);
+			Query query = session.createSQLQuery(sql).addEntity(Comment.class);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getAllCommentPending()
+	 */
+	@Override
+	public List<Comment> getAllCommentPending() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_COMMENT_PENDING);
+			Query query = session.createSQLQuery(sql).addEntity(Comment.class);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay 10 binh luan da dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getLimitCommentAprroved(int)
+	 */
+	@Override
+	public List<Comment> getLimitCommentAprroved(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Comment WHERE status = 1");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay 10 binh luan dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getLimitCommentPending(int)
+	 */
+	@Override
+	public List<Comment> getLimitCommentPending(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Comment WHERE status = 0");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(10);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc duyet comment
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#approved(int, java.lang.String)
+	 */
+	@Override
+	public void approved(int commentId, String approvedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.APPROVED_COMMENT);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("approvedUser", approvedUser);
+			query.setParameter("id", commentId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc go comment
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#unapproved(int, java.lang.String)
+	 */
+	@Override
+	public void unapproved(int commentId, String unapprovedUser) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.UNAPPROVED_COMMENT);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("unapprovedUser", unapprovedUser);
+			query.setParameter("id", commentId);
 			query.executeUpdate();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());

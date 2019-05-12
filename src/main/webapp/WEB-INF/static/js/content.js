@@ -775,7 +775,7 @@ $("#modal-update-video").on("hidden.bs.modal", function() {
 });
 
 /**
- * Phuong thuc xu ly su kien nguoi dung click duyet bai viet
+ * Phuong thuc xu ly su kien nguoi dung click duyet video
  * 
  * @returns
  */
@@ -796,7 +796,7 @@ function approvedVideo(videoId) {
 }
 
 /**
- * Phuong thuc go bai viet
+ * Phuong thuc go video
  * 
  * @param postId
  * @returns
@@ -848,3 +848,46 @@ $("#modal-delete-categories").on("hidden.bs.modal", function() {
 	$('#modal-delete-categories #userId').remove();
 	$('#modal-delete-categories p').remove();
 });
+
+/**
+ * Phuong thuc xu ly su kien nguoi dung click duyet binh luan
+ * 
+ * @returns
+ */
+function approvedComment(commentId) {
+	$.ajax({
+		type : "post",
+		url : "editor/comment/approved",
+		data : {
+			commentId : commentId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
+
+/**
+ * Phuong thuc go video
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedComment(commentId) {
+	$.ajax({
+		type : "post",
+		url : "editor/comment/approved/unapproved",
+		data : {
+			commentId : commentId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
