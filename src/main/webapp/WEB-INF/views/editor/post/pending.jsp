@@ -86,7 +86,7 @@
 														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 														href="#" class="fa fa-pencil" title="Sửa bài viết"
 														onclick="editPost('${listPendingPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
-															access="hasRole('ROLE_EDITOR')">
+															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-trash-o" title="Xóa bài viết"
 																onclick="openModalDeletePost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<a href="#" class="fa fa-check" title="Duyệt bài viết"

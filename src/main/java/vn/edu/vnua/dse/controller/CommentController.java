@@ -49,7 +49,7 @@ public class CommentController {
 	}
 
 	/**
-	 * Controller duyet binh luan, chi chap nhan quyen editor
+	 * Controller duyet binh luan, chi chap nhan quyen editor va admin
 	 * 
 	 * @return
 	 */
@@ -67,7 +67,7 @@ public class CommentController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(approvedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int commentId = request.getParameter("commentId") != null
@@ -85,7 +85,7 @@ public class CommentController {
 	}
 
 	/**
-	 * Controller go binh luan, chi chap nhan quyen editor
+	 * Controller go binh luan, chi chap nhan quyen editor va admin
 	 * 
 	 * @return
 	 */
@@ -103,7 +103,7 @@ public class CommentController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(unapprovedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int commentId = request.getParameter("commentId") != null

@@ -307,7 +307,7 @@ public class VideoController {
 	}
 
 	/**
-	 * Controller duyet video, chi chap nhan quyen editor
+	 * Controller duyet video, chi chap nhan quyen editor va admin
 	 * 
 	 * @return
 	 */
@@ -325,7 +325,7 @@ public class VideoController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(approvedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int videoId = request.getParameter("videoId") != null
@@ -343,7 +343,7 @@ public class VideoController {
 	}
 
 	/**
-	 * Controller go video, chi chap nhan quyen editor
+	 * Controller go video, chi chap nhan quyen editor va admin
 	 * 
 	 * @return
 	 */
@@ -361,7 +361,7 @@ public class VideoController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(unapprovedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int videoId = request.getParameter("videoId") != null

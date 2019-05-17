@@ -82,7 +82,8 @@
 															value="${listPendingVideo.get(i-1).getCreatedDate()}"></c:out></td>
 													<td><c:out
 															value="${listPendingVideo.get(i-1).getPublishedDate()}"></c:out></td>
-													<td><sec:authorize access="hasRole('ROLE_EDITOR')">
+													<td><sec:authorize
+															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-check" title="Duyệt video"
 																onclick="approvedVideo('${listPendingVideo.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 														</sec:authorize><a title="Sửa video"
@@ -120,18 +121,21 @@
 																<td><input type="text" id="videoYoutubeId"
 																	name="videoYoutubeId" size="50%"></td>
 															</tr>
-															<tr>
-																<td>Thời gian đăng video:</td>
-																<td>
-																	<div class="input-group date">
-																		<div class="input-group-addon">
-																			<i class="fa fa-calendar"></i>
+															<sec:authorize
+																access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+																<tr>
+																	<td>Thời gian đăng video:</td>
+																	<td>
+																		<div class="input-group date">
+																			<div class="input-group-addon">
+																				<i class="fa fa-calendar"></i>
+																			</div>
+																			<input type="text" class="form-control pull-right"
+																				id="datepicker-update" name="publishedDate">
 																		</div>
-																		<input type="text" class="form-control pull-right"
-																			id="datepicker-update" name="publishedDate">
-																	</div>
-																</td>
-															</tr>
+																	</td>
+																</tr>
+															</sec:authorize>
 														</table>
 													</div>
 													<div class="modal-footer">

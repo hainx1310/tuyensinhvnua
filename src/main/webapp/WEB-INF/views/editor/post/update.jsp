@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -104,21 +106,23 @@
 												</c:forEach>
 											</div>
 										</div>
-
-										<div>
-											<br>
-											<div class="form-group">
-												<label>Thời gian đăng bài:</label><br>
-												<div class="input-group date">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
+										<sec:authorize
+											access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+											<div>
+												<br>
+												<div class="form-group">
+													<label>Thời gian đăng bài:</label><br>
+													<div class="input-group date">
+														<div class="input-group-addon">
+															<i class="fa fa-calendar"></i>
+														</div>
+														<input type="text" class="form-control pull-right"
+															id="datepicker" value="${post.getPublishedDate()}">
 													</div>
-													<input type="text" class="form-control pull-right"
-														id="datepicker" value="${post.getPublishedDate()}">
+													<!-- /.input group -->
 												</div>
-												<!-- /.input group -->
 											</div>
-										</div>
+										</sec:authorize>
 									</div>
 								</div>
 								<input style="margin-top: 10px; margin-left: 10px" type="button"

@@ -173,7 +173,7 @@ function openModalDeleteCategories(categoriesId, categoriesName) {
 			.append(
 					'<p><strong>Xác nhận</strong></p><p>Bạn chắc chắn muốn xóa chuyên mục <strong>'
 							+ categoriesName
-							+ '</strong>?</p><p><strong>Tất cả bài viết của chuyên mục này cũng sẽ bị xóa</strong></p>');
+							+ '</strong>?</p><p><strong>Tất cả bài viết của chuyên mục này sẽ được chuyển sang chuyên mục đã xóa</strong></p>');
 	$('#modal-confirm-delete .modal-body').append(
 			"<input name = \"id\" id = \"categoriesId\" type = \"text\" value = "
 					+ categoriesId + " />");
@@ -563,6 +563,23 @@ function editPost(postId) {
 	});
 }
 
+function editPostHome(postId) {
+
+	$.ajax({
+		type : "get",
+		url : "post/edit",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.href = "post/update?postId=" + postId;
+		},
+		error : function(e) {
+		}
+	});
+}
+
+
 /**
  * su kien khi bam xem bai viet
  * 
@@ -573,6 +590,33 @@ function viewPost(postId, title) {
 	$.ajax({
 		type : "get",
 		url : "view",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			$("#modal-view-post h4").text(title);
+			$('#modal-view-post .modal-body').append(
+					'<div id = "post-content"> ' + response + ' </div>');
+		},
+		error : function(e) {
+		}
+	});
+	$('#modal-view-post').modal({
+		show : 'true'
+	});
+};
+
+
+/**
+ * su kien khi bam xem bai viet
+ * 
+ * @returns
+ */
+function viewPostHome(postId, title) {
+
+	$.ajax({
+		type : "get",
+		url : "post/view",
 		data : {
 			postId : postId,
 		},

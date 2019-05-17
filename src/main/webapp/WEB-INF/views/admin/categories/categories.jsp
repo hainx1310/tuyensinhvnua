@@ -151,7 +151,7 @@
 										</table>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy</button>
 										<button id="btn-save" type="submit" class="btn btn-primary">Lưu</button>
 									</div>
@@ -191,7 +191,7 @@
 										</table>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy</button>
 										<button id="btn-save-update" type="submit"
 											class="btn btn-primary">Lưu</button>
@@ -209,7 +209,7 @@
 								<form action="DeleteCategories" method="post">
 									<div class="modal-body"></div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy bỏ</button>
 										<button id="btn-delete-categories" type="submit"
 											class="btn btn-primary">Đồng ý</button>

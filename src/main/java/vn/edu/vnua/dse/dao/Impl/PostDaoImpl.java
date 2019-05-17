@@ -389,8 +389,8 @@ public class PostDaoImpl implements PostDAO {
 
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Post Where id in (" + arrayPostId + ")");
-			System.out.println("FROM tuyensinhapi.post Where id in (" + arrayPostId + ")");
+			Query query = session
+					.createQuery("FROM Post Where id in (" + arrayPostId + ") ORDER BY FIELD(id, " + arrayPostId + ")");
 			listResult = query.list();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

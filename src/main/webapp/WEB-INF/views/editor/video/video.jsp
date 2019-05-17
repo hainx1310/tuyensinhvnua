@@ -2,6 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="add" value="${pageContext.request.contextPath}/video/add" />
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -25,25 +27,26 @@
 			<form role="form" action="${add}" method="post">
 				<div class="box-body">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Tiêu đề</label> <input
-							type="text" class="form-control" id="exampleInputEmail1"
-							name="title">
+						<label for="exampleInputEmail1">Tiêu đề</label> <input type="text"
+							class="form-control" id="exampleInputEmail1" name="title">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Id video youtube</label> <input
 							type="text" class="form-control" id="exampleInputPassword1"
 							name="videoYoutubeId">
 					</div>
-					<div class="form-group">
-						<label for="exampleInputPassword1">Thời gian đăng</label>
-						<div class="input-group date">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
+					<sec:authorize access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+						<div class="form-group">
+							<label for="exampleInputPassword1">Thời gian đăng</label>
+							<div class="input-group date">
+								<div class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="text" class="form-control pull-right"
+									id="datepicker" name="publishedDate">
 							</div>
-							<input type="text" class="form-control pull-right"
-								id="datepicker" name="publishedDate">
 						</div>
-					</div>
+					</sec:authorize>
 				</div>
 				<!-- /.box-body -->
 

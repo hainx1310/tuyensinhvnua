@@ -59,7 +59,10 @@
 												<th>Thời gian đăng</th>
 												<th>Tác giả</th>
 												<th>Người duyệt</th>
-												<th></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th></th>
+												</sec:authorize>
 											</tr>
 										</thead>
 										<tbody>
@@ -81,13 +84,12 @@
 															value="${listPublishedVideo.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedVideo.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a title="Sửa video"
-														onclick='openModalUpdateVideo(${listPublishedVideo.get(i-1).getId()}, "${listPublishedVideo.get(i-1).getVideoYoutubeId()}", "${listPublishedVideo.get(i-1).getTitle()}", "${listPublishedVideo.get(i-1).getPublishedDate()}")'
-														href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
-															access="hasRole('ROLE_EDITOR')">
-															<a href="#" class="fa fa-remove" title="Gỡ video"
-																onclick="unApprovedVideo('${listPublishedVideo.get(i-1).getId()}')"></a>
-														</sec:authorize></td>
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td><a href="#" class="fa fa-remove" title="Gỡ video"
+															onclick="unApprovedVideo('${listPublishedVideo.get(i-1).getId()}')"></a>
+														</td>
+													</sec:authorize>
 												</tr>
 											</c:forEach>
 										</tbody>

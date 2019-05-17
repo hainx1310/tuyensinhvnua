@@ -82,9 +82,7 @@
 															value="${listApprovedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<td><a href="#"
 														onclick="viewPost('${listApprovedPost.get(i-1).getId()}', '${listApprovedPost.get(i-1).getTitle()}')"
-														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-pencil" title="Sửa bài viết"
-														onclick="editPost('${listApprovedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 												</tr>
 											</c:forEach>
 										</tbody>

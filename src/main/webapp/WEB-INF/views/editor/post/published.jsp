@@ -82,14 +82,13 @@
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a href="#" class="fa fa-eye"
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+														href="#" class="fa fa-eye"
 														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
-														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-pencil" title="Sửa bài viết"
-														onclick="editPost('${listPublishedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
-															access="hasRole('ROLE_EDITOR')">
+														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
+																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>

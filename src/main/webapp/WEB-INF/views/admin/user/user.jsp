@@ -49,10 +49,8 @@
 													<th>Email</th>
 													<th>Trạng thái</th>
 													<th>Quyền</th>
-													<th>Ngày tạo</th>
-													<th>Người tạo</th>
-													<th>Ngày sửa</th>
-													<th>Người sửa</th>
+													<th>Số bài viết</th>
+													<th>Số video</th>
 													<th></th>
 												</tr>
 											</thead>
@@ -74,10 +72,6 @@
 																value="${listUser.get(i-1).getCreatedDate()}" /></td>
 														<td id="user-created-user"><c:out
 																value="${listUser.get(i-1).getCreatedUser()}" /></td>
-														<td id="user-udapted-date"><c:out
-																value="${listUser.get(i-1).getUpdatedDate()}" /></td>
-														<td id="user-udapted-user"><c:out
-																value="${listUser.get(i-1).getUpdatedUser()}" /></td>
 														<td><c:if
 																test="${listUser.get(i-1).isStatus()==true}">
 																<a id="changeStatusUser"
@@ -191,7 +185,7 @@
 										</table>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy</button>
 										<button id="btn-submit-user" type="submit"
 											class="btn btn-primary">Lưu</button>
@@ -247,7 +241,7 @@
 										</table>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy</button>
 										<button id="btn-submit-user" type="submit"
 											class="btn btn-primary">Lưu</button>
@@ -267,7 +261,7 @@
 								<form action="DeleteUser" method="post">
 									<div class="modal-body"></div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left"
+										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy bỏ</button>
 										<button id="btn-delete-categories" type="submit"
 											class="btn btn-primary">Đồng ý</button>

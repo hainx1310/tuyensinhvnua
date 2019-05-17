@@ -25,69 +25,79 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu tree" data-widget="tree">
 			<li><a href="${pageContext.request.contextPath}/home"> <i
-					class="fa fa-home"></i> <span>Trang chủ</span>
+					class="fa fa-home"></i> <span> Trang chủ</span>
 			</a> <!-- Menu admin --> <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li><a
 						href="${pageContext.request.contextPath}/admin/categories"><i
-							class="fa fa-list-ul"></i><span>Quản lý Chuyên mục</span></a>
+							class="fa fa-list-ul"></i><span> Quản lý chuyên mục</span></a>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
-							class="fa fa-users"></i><span>Quản lý tài khoản</span></a></li>
-				</sec:authorize> <!-- Menu editor --> <sec:authorize
-					access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS')">
-					<li class="treeview"><a href="#"> <i
-							class="fa fa-file-text-o"></i> <span>Quản lý Bài viết</span> <span
-							class="pull-right-container"> <i
-								class="fa fa-angle-left pull-right"></i>
-						</span>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="${pageContext.request.contextPath}/post/add"><i
-									class="fa fa-pencil"></i><span>Viết bài mới</span></a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/post/pending"><i
-									class="fa  fa-hourglass-2"></i><span>Bài chờ duyệt</span></a></li>
-
-							<li><a
-								href="${pageContext.request.contextPath}/post/approved"><i
-									class="fa fa-calendar"></i><span>Bài chờ đăng</span></a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/post/published"><i
-									class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
-						</ul></li>
-
-					<li class="treeview"><a href="#"> <i
-							class="fa fa-youtube-play"></i> <span>Quản lý Video</span> <span
-							class="pull-right-container"> <i
-								class="fa fa-angle-left pull-right"></i>
-						</span>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="${pageContext.request.contextPath}/video/"><i
-									class="fa fa-pencil"></i><span>Thêm mới</span></a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/video/pending"><i
-									class="fa  fa-hourglass-2"></i><span>Video chờ duyệt</span></a></li>
-
-							<li><a
-								href="${pageContext.request.contextPath}/video/approved"><i
-									class="fa fa-calendar"></i><span>Video chờ đăng</span></a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/video/published"><i
-									class="fa fa-calendar-check-o"></i><span>Video đã đăng</span></a></li>
-						</ul></li>
-
-					<li><a href="#" onclick="return BrowseServer( 'Images:/')"><i
-							class="fa fa-image"></i><span>Hình ảnh</span></a></li>
-
-					<li><a
-						href="${pageContext.request.contextPath}/comment"><i
-							class="fa fa-commenting-o"></i><span>Quản lý bình luận</span></a></li>
-
-					<li><a
-						href="${pageContext.request.contextPath}/notification"><i
-							class="fa fa-bell-o"></i><span>Quản lý thông báo</span></a></li>
+							class="fa fa-users"></i><span> Quản lý tài khoản</span></a></li>
 				</sec:authorize>
+			<li class="treeview"><a href="#"> <i
+					class="fa fa-file-text-o"></i> <span> Quản lý Bài viết</span> <span
+					class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><a href="${pageContext.request.contextPath}/post/add"><i
+							class="fa fa-pencil"></i><span> Viết bài mới</span></a></li>
+					<li><a href="${pageContext.request.contextPath}/post/pending"><i
+							class="fa  fa-hourglass-2"></i><span> Bài chờ duyệt</span></a></li>
+
+					<li><a href="${pageContext.request.contextPath}/post/approved"><i
+							class="fa fa-calendar"></i><span> Bài chờ đăng</span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/post/published"><i
+							class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
+				</ul></li>
+
+			<li class="treeview"><a href="#"> <i
+					class="fa fa-youtube-play"></i> <span> Quản lý Video</span> <span
+					class="pull-right-container"> <i
+						class="fa fa-angle-left pull-right"></i>
+				</span>
+			</a>
+				<ul class="treeview-menu">
+					<li><a href="${pageContext.request.contextPath}/video/"><i
+							class="fa fa-pencil"></i><span>Thêm mới</span></a></li>
+					<li><a href="${pageContext.request.contextPath}/video/pending"><i
+							class="fa  fa-hourglass-2"></i><span> Video chờ duyệt</span></a></li>
+
+					<li><a
+						href="${pageContext.request.contextPath}/video/approved"><i
+							class="fa fa-calendar"></i><span> Video chờ đăng</span></a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/video/published"><i
+							class="fa fa-calendar-check-o"></i><span> Video đã đăng</span></a></li>
+				</ul></li>
+			<sec:authorize access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+				<li class="treeview"><a href="#"> <i
+						class="fa fa-commenting-o"></i> <span> Quản lý bình luận</span> <span
+						class="pull-right-container"> <i
+							class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+					<ul class="treeview-menu">
+						<li><a href="${pageContext.request.contextPath}/comment"><i
+								class="fa fa-pencil"></i><span> Duyệt bình luận</span></a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/video/pending"><i
+								class="fa  fa-hourglass-2"></i><span> Bình luận đã được duyệt</span></a></li>
+
+						<li><a
+							href="${pageContext.request.contextPath}/video/approved"><i
+								class="fa fa-calendar"></i><span> Bình luận không được
+									duyệt</span></a></li>
+					</ul></li>
+
+				<li><a href="${pageContext.request.contextPath}/notification"><i
+						class="fa fa-bell-o"></i><span>Gửi thông báo</span></a></li>
+
+				<li><a href="#" onclick="return BrowseServer( 'Images:/')"><i
+						class="fa fa-image"></i><span> Thư viện</span></a></li>
+			</sec:authorize>
 		</ul>
 	</section>
 	<!-- /.sidebar -->
