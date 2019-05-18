@@ -75,6 +75,14 @@
 			value="/WEB-INF/views/editor/post/published.jsp" />
 	</definition>
 	<!-- End dinh nghia trang bai viet da xuat ban -->
+	
+	<!-- Dinh nghia trang bai viet da bi go -->
+	<definition name="post/unpublic" extends="base.definition">
+		<put-attribute name="title" value="Bài viết đã bị gỡ" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/post/unpublic.jsp" />
+	</definition>
+	<!-- End dinh nghia trang bai viet da bi go -->
 
 	<!-- Dinh nghia trang quan ly chuyen muc -->
 	<definition name="admin/categories" extends="base.definition">
@@ -113,6 +121,14 @@
 		<put-attribute name="title" value="Video đã xuất bản" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/published.jsp" />
+	</definition>
+	<!-- End dinh nghia trang Video da xuat ban -->
+	
+	<!-- Dinh nghia trang bai viet da bị gỡ -->
+	<definition name="video/published" extends="base.definition">
+		<put-attribute name="title" value="Video đã bị gỡ" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/video/unpublic.jsp" />
 	</definition>
 	<!-- End dinh nghia trang Video da xuat ban -->
 

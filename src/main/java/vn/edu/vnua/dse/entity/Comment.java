@@ -27,12 +27,15 @@ public class Comment implements Serializable {
 	private String comment;
 	private boolean status;
 	private Date createdDate;
+	private String approvedUser;
+	private String unUpprovedUser;
 
 	public Comment() {
 
 	}
 
-	public Comment(int id, Post post, String name, String comment, boolean status, Date createdDate) {
+	public Comment(int id, Post post, String name, String comment, boolean status, Date createdDate,
+			String approvedUser, String unUpprovedUser) {
 		super();
 		this.id = id;
 		this.post = post;
@@ -40,6 +43,8 @@ public class Comment implements Serializable {
 		this.comment = comment;
 		this.status = status;
 		this.createdDate = createdDate;
+		this.approvedUser = approvedUser;
+		this.unUpprovedUser = unUpprovedUser;
 	}
 
 	@Id
@@ -99,6 +104,24 @@ public class Comment implements Serializable {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	@Column(name = "approved_user", length = 50)
+	public String getApprovedUser() {
+		return approvedUser;
+	}
+
+	public void setApprovedUser(String approvedUser) {
+		this.approvedUser = approvedUser;
+	}
+
+	@Column(name = "unapproved_user", length = 50)
+	public String getUnUpprovedUser() {
+		return unUpprovedUser;
+	}
+
+	public void setUnUpprovedUser(String unUpprovedUser) {
+		this.unUpprovedUser = unUpprovedUser;
 	}
 
 }

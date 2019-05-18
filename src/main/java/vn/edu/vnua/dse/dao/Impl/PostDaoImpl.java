@@ -265,7 +265,7 @@ public class PostDaoImpl implements PostDAO {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			Query query = session
-					.createQuery("FROM Post WHERE status = 1 and published_date <= now() ORDER BY published_date desc");
+					.createQuery("FROM Post WHERE status = 1 and public = 1 and published_date <= now() ORDER BY published_date desc");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Post>) query.list();

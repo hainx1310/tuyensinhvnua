@@ -43,6 +43,8 @@ public class Post implements Serializable {
 	private String approvedUser;
 	private String unapprovedUser;
 	private Collection<Comment> comments;
+	private User user;
+	private boolean isPublic;
 
 	public Post() {
 
@@ -50,7 +52,8 @@ public class Post implements Serializable {
 
 	public Post(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, int status, String approvedUser, String unapprovedUser, Collection<Comment> comments) {
+			Date publishedDate, int status, String approvedUser, String unapprovedUser, Collection<Comment> comments,
+			User user, boolean isPublic) {
 		super();
 		this.id = id;
 		this.shortContent = shortContent;
@@ -69,6 +72,8 @@ public class Post implements Serializable {
 		this.approvedUser = approvedUser;
 		this.unapprovedUser = unapprovedUser;
 		this.comments = comments;
+		this.user = user;
+		this.isPublic = isPublic;
 	}
 
 	@Id
@@ -231,6 +236,25 @@ public class Post implements Serializable {
 
 	public void setComments(Collection<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Column(name = "public")
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 }

@@ -1,19 +1,24 @@
 package vn.edu.vnua.dse.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
@@ -36,6 +41,9 @@ public class User implements Serializable {
 	private String resetPasswordCode;
 	private String avatarUrl;
 	private String role;
+	private Collection<Post> post;
+	private Collection<Video> video;
+	private Collection<Notification> notification;
 
 	public User() {
 
@@ -43,7 +51,8 @@ public class User implements Serializable {
 
 	public User(int id, String name, String email, String username, String password, String passwordSalt,
 			String passwordHash, Date lastLogin, Date createdDate, String createdUser, Date updatedDate,
-			String updatedUser, boolean status, String resetPasswordCode, String avatarUrl, String role) {
+			String updatedUser, boolean status, String resetPasswordCode, String avatarUrl, String role,
+			Collection<Post> post, Collection<Video> video, Collection<Notification> notification) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -61,6 +70,9 @@ public class User implements Serializable {
 		this.resetPasswordCode = resetPasswordCode;
 		this.avatarUrl = avatarUrl;
 		this.role = role;
+		this.post = post;
+		this.video = video;
+		this.notification = notification;
 	}
 
 	public User(int id, String name, String email, String sdt) {
@@ -222,6 +234,36 @@ public class User implements Serializable {
 		this.role = role;
 	}
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	public Collection<Post> getPost() {
+		return post;
+	}
+
+	public void setPost(Collection<Post> post) {
+		this.post = post;
+	}
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	public Collection<Video> getVideo() {
+		return video;
+	}
+
+	public void setVideo(Collection<Video> video) {
+		this.video = video;
+	}
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	public Collection<Notification> getNotification() {
+		return notification;
+	}
+
+	public void setNotification(Collection<Notification> notification) {
+		this.notification = notification;
+	}
+
 	@Transient
 	public String getRoleName() {
 		String roleName = "";

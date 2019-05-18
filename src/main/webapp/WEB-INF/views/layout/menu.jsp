@@ -51,6 +51,10 @@
 					<li><a
 						href="${pageContext.request.contextPath}/post/published"><i
 							class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
+
+					<li><a
+						href="${pageContext.request.contextPath}/post/published"><i
+							class="fa fa-calendar-check-o"></i><span>Bài đã gỡ</span></a></li>
 				</ul></li>
 
 			<li class="treeview"><a href="#"> <i
@@ -71,6 +75,10 @@
 					<li><a
 						href="${pageContext.request.contextPath}/video/published"><i
 							class="fa fa-calendar-check-o"></i><span> Video đã đăng</span></a></li>
+
+					<li><a
+						href="${pageContext.request.contextPath}/video/published"><i
+							class="fa fa-calendar-check-o"></i><span> Video đã gỡ</span></a></li>
 				</ul></li>
 			<sec:authorize access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 				<li class="treeview"><a href="#"> <i
@@ -84,7 +92,8 @@
 								class="fa fa-pencil"></i><span> Duyệt bình luận</span></a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/video/pending"><i
-								class="fa  fa-hourglass-2"></i><span> Bình luận đã được duyệt</span></a></li>
+								class="fa  fa-hourglass-2"></i><span> Bình luận đã được
+									duyệt</span></a></li>
 
 						<li><a
 							href="${pageContext.request.contextPath}/video/approved"><i

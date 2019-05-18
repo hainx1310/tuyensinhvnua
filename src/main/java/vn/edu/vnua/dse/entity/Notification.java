@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,18 +26,21 @@ public class Notification implements Serializable {
 	private String message;
 	private String createdUser;
 	private Date createdDate;
+	private User user;
 
 	public Notification() {
 
 	}
 
-	public Notification(int id, String title, String message, String createdUser, Date createdDate) {
+	public Notification(int id, String title, String message, String createdUser, Date createdDate, int userId,
+			User user) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.message = message;
 		this.createdUser = createdUser;
 		this.createdDate = createdDate;
+		this.user = user;
 	}
 
 	@Id
@@ -85,6 +90,16 @@ public class Notification implements Serializable {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

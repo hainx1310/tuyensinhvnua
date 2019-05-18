@@ -21,7 +21,6 @@
 			<list>
 				<value>vn.edu.vnua.dse.entity.Categories</value>
 				<value>vn.edu.vnua.dse.entity.Comment</value>
-				<value>vn.edu.vnua.dse.entity.File</value>
 				<value>vn.edu.vnua.dse.entity.Notification</value>
 				<value>vn.edu.vnua.dse.entity.Post</value>
 				<value>vn.edu.vnua.dse.entity.User</value>

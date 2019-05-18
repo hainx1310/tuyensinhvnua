@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +35,8 @@ public class Video implements Serializable {
 	private String avatarVideo;
 	private String approvedUser;
 	private String unApprovedUser;
+	private User user;
+	private boolean isPublic;
 
 	public Video() {
 
@@ -40,7 +44,7 @@ public class Video implements Serializable {
 
 	public Video(int id, String videoYoutubeId, String title, String shortContent, String editor, String author,
 			Date createdDate, Date updatedDate, String updatedUser, Date publishedDate, boolean status,
-			String avatarVideo, String approvedUser, String unApprovedUser) {
+			String avatarVideo, String approvedUser, String unApprovedUser, User user, boolean isPublic) {
 		super();
 		this.id = id;
 		this.videoYoutubeId = videoYoutubeId;
@@ -56,6 +60,7 @@ public class Video implements Serializable {
 		this.avatarVideo = avatarVideo;
 		this.approvedUser = approvedUser;
 		this.unApprovedUser = unApprovedUser;
+		this.isPublic = isPublic;
 	}
 
 	@Id
@@ -190,6 +195,25 @@ public class Video implements Serializable {
 
 	public void setUnApprovedUser(String unApprovedUser) {
 		this.unApprovedUser = unApprovedUser;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Column(name = "public")
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 }
