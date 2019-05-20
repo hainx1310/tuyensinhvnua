@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.dao.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -63,7 +64,7 @@ public class VideoDaoImpl implements VideoDAO {
 		List<Video> listLitmitdVideo = new ArrayList<Video>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Video");
+			Query query = session.createQuery("FROM Video WHERE public = 1");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listLitmitdVideo = (List<Video>) query.list();
@@ -85,6 +86,7 @@ public class VideoDaoImpl implements VideoDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.CREATE_VIDEO);
 			Query query = session.createSQLQuery(sql);
+			query.setParameter("status", video.isStatus());
 			query.setParameter("videoYoutubeId", video.getVideoYoutubeId());
 			query.setParameter("title", video.getTitle());
 			query.setParameter("shortContent", video.getShortContent());
@@ -92,7 +94,8 @@ public class VideoDaoImpl implements VideoDAO {
 			query.setParameter("author", video.getAuthor());
 			query.setParameter("publishedDate", video.getPublishedDate());
 			query.setParameter("avatarVideo", video.getAvatarVideo());
-
+			query.setParameter("userId", video.getUser().getId());
+			
 			query.executeUpdate();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
@@ -281,8 +284,8 @@ public class VideoDaoImpl implements VideoDAO {
 		List<Video> listResult = new ArrayList<Video>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session
-					.createQuery("FROM Video WHERE status = 1 AND publishedDate > NOW() ORDER BY publishedDate DESC");
+			Query query = session.createQuery(
+					"FROM Video WHERE status = 1 AND public = 1 AND publishedDate > NOW() ORDER BY publishedDate DESC");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Video>) query.list();
@@ -325,8 +328,8 @@ public class VideoDaoImpl implements VideoDAO {
 		List<Video> listResult = new ArrayList<Video>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session
-					.createQuery("FROM Video WHERE status = 1 AND publishedDate <= NOW() ORDER BY publishedDate DESC");
+			Query query = session.createQuery(
+					"FROM Video WHERE status = 1 AND public = 1 AND publishedDate <= NOW() ORDER BY publishedDate DESC");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Video>) query.list();
@@ -364,12 +367,13 @@ public class VideoDaoImpl implements VideoDAO {
 	 * @see vn.edu.vnua.dse.dao.VideoDAO#approved(int, java.lang.String)
 	 */
 	@Override
-	public void approved(int videoId, String approvedUser) {
+	public void approved(int videoId, String approvedUser, Date publishedDate) {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.APPROVED_VIDEO);
 			Query query = session.createSQLQuery(sql);
 			query.setParameter("approvedUser", approvedUser);
+			query.setParameter("publishedDate", publishedDate);
 			query.setParameter("id", videoId);
 			query.executeUpdate();
 		} catch (Exception ex) {
@@ -396,6 +400,67 @@ public class VideoDaoImpl implements VideoDAO {
 			logger.error(ex.getMessage());
 			throw new RuntimeException(ex);
 		}
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc bo go video
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#publicVideo(int)
+	 */
+	@Override
+	public void publicVideo(int videoId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.PUBLIC_VIDEO);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("id", videoId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca cac video da bị go
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getVideounPublic()
+	 */
+	@Override
+	public List<Video> getVideounPublic() {
+		List<Video> listVideo = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_VIDEO_UNPUBLIC);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Video.class);
+			listVideo = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listVideo;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 5 video bị gỡ
+	 * 
+	 * @see vn.edu.vnua.dse.dao.VideoDAO#getLimitVideoUnPublic(int)
+	 */
+	@Override
+	public List<Video> getLimitVideoUnPublic(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Video WHERE public = 0");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(5);
+			listResult = (List<Video>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
 	}
 
 }

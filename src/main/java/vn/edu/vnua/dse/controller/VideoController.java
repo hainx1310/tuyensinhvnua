@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +43,7 @@ public class VideoController {
 	 * @return
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String getAllCategorires(Model model) {
+	public String getAllVideo(Model model) {
 
 		List<Video> listAllVideo = new ArrayList<Video>();
 		List<Video> listLimitVideo = new ArrayList<Video>();
@@ -72,7 +73,7 @@ public class VideoController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView createVideo(HttpServletRequest request, @ModelAttribute("Video") Video video,
 			BindingResult result) {
-		String username;
+		String username = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails) principal).getUsername();
@@ -84,15 +85,22 @@ public class VideoController {
 		String avatar = "https://i.ytimg.com/vi/".concat(video.getVideoYoutubeId()).concat("/hqdefault.jpg");
 		video.setAvatarVideo(avatar);
 
-		// get publishedDate
-		video.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
-
+		User user = new User();
 		try {
+			user = userService.getUserByUsername(username).get(0);
+			video.setUser(user);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+				video.setStatus(true);
+				video.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+			} else {
+				video.setStatus(false);
+			}
 			videoService.addVideo(video);
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 		return new ModelAndView("redirect:/video");
 	}
 
@@ -125,7 +133,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/video");
+		return new ModelAndView("redirect:/video/pending");
 	}
 
 	/**
@@ -143,7 +151,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/video");
+		return new ModelAndView("redirect:/video/pending");
 	}
 
 	/**
@@ -282,14 +290,14 @@ public class VideoController {
 		return "video/approved";
 	}
 
-	@RequestMapping(value = { "published" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/published" }, method = RequestMethod.GET)
 	public String postPublishedPage(Model model) {
 
 		List<Video> listAllPublishedVideo = new ArrayList<Video>();
 		List<Video> listLimitPublishedVideo = new ArrayList<Video>();
 
 		try {
-			// lay danh sach 10 video da xuat ban moi nhat tu db
+			// lay danh sach tat ca video da xuat ban moi nhat tu db
 			listAllPublishedVideo = videoService.getPublishedVideo();
 
 			// lay 10 bai video xuat ban
@@ -311,7 +319,7 @@ public class VideoController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = { "editor/video/pending/approved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/editor/approved" }, method = RequestMethod.POST)
 	public String approved(HttpServletRequest request) {
 
 		// Get user
@@ -325,21 +333,29 @@ public class VideoController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(approvedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int videoId = request.getParameter("videoId") != null
 						? Integer.parseInt(request.getParameter("videoId").toString())
 						: 0;
 
+				// set thoi gian dang video
+				Date publishedDate = request.getParameter("publishedDate") != null
+						? !"".equals(request.getParameter("publishedDate"))
+								? DateUtils.stringToDateTime(request.getParameter("publishedDate"))
+								: new Date()
+						: new Date();
+
 				// duyet video
-				videoService.approved(videoId, approvedUser);
+				videoService.approved(videoId, approvedUser, publishedDate);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return request.getRequestURL().toString();
+		return "redirect:/video/pending";
 	}
 
 	/**
@@ -347,7 +363,7 @@ public class VideoController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = { "editor/video/pending/unapproved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/editor/unapproved" }, method = RequestMethod.POST)
 	public String unapproved(HttpServletRequest request) {
 
 		// Get user
@@ -361,7 +377,8 @@ public class VideoController {
 		User user = new User();
 		try {
 			user = userService.getUserByUsername(unapprovedUser).get(0);
-			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)||user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
 				// get videoId
 				int videoId = request.getParameter("videoId") != null
@@ -377,4 +394,66 @@ public class VideoController {
 
 		return request.getRequestURL().toString();
 	}
+
+	/**
+	 * Controller bo go video, chi chap nhan quyen editor va admin
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = { "/editor/public" }, method = RequestMethod.POST)
+	public String unpublic(HttpServletRequest request) {
+
+		// Get user
+		String unapprovedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			unapprovedUser = ((UserDetails) principal).getUsername();
+		}
+
+		// check role user
+		User user = new User();
+		try {
+			user = userService.getUserByUsername(unapprovedUser).get(0);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+
+				// get videoId
+				int videoId = request.getParameter("videoId") != null
+						? Integer.parseInt(request.getParameter("videoId").toString())
+						: 0;
+
+				// bo go video
+				videoService.publicVideo(videoId);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "video/unpublic";
+	}
+
+	@RequestMapping(value = { "/unpublic" }, method = RequestMethod.GET)
+	public String unPublicVideo(Model model) {
+
+		List<Video> listAllVideo = new ArrayList<Video>();
+		List<Video> listLimitVideo = new ArrayList<Video>();
+
+		try {
+			// lay danh sach tat ca video da bi go moi nhat tu db
+			listAllVideo = videoService.getVideounPublic();
+
+			// lay 5 video da bi go
+			listLimitVideo = videoService.getLimitVideoUnPublic(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllVideo.size() / 5.0);
+
+		model.addAttribute("listVideoUnPublic", listLimitVideo);
+		model.addAttribute("totalRecord", listAllVideo.size());
+		model.addAttribute("numberPage", numberPage);
+
+		return "video/unpublic";
+	}
+
 }

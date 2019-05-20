@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.service;
 
+import java.util.Date;
 import java.util.List;
 
 import vn.edu.vnua.dse.entity.Video;
@@ -96,6 +97,13 @@ public interface VideoService {
 	 * @return
 	 */
 	public List<Video> getPublishedVideo();
+	
+	/**
+	 * Lay danh sach tat ca video da bi bi go
+	 * 
+	 * @return
+	 */
+	public List<Video> getVideounPublic();
 
 	/**
 	 * Lay danh sach 10 video da dang
@@ -104,6 +112,13 @@ public interface VideoService {
 	 */
 	public List<Video> getLimitPublishedVideo(int startIndex);
 
+	/**
+	 * Lay danh sach 10 video bị gỡ
+	 * 
+	 * @return
+	 */
+	public List<Video> getLimitVideoUnPublic(int startIndex);
+	
 	/**
 	 * Phuong thuc lay video theo id
 	 * 
@@ -117,7 +132,7 @@ public interface VideoService {
 	 * 
 	 * @param videoId
 	 */
-	public void approved(int videoId, String approvedUser);
+	public void approved(int videoId, String approvedUser, Date publishedDate);
 
 	/**
 	 * Phuong thuc go video
@@ -126,4 +141,10 @@ public interface VideoService {
 	 */
 	public void unapproved(int videoId, String unapprovedUser);
 
+	/**
+	 * Phuong thuc bo go video
+	 * 
+	 * @param videoId
+	 */
+	public void publicVideo(int videoId);
 }

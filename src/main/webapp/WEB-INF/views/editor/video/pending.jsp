@@ -4,6 +4,8 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <c:set var="edit" value="${pageContext.request.contextPath}/video/edit" />
+<c:set var="approved"
+	value="${pageContext.request.contextPath}/video/editor/approved" />
 <c:set var="delete"
 	value="${pageContext.request.contextPath}/video/delete" />
 
@@ -85,7 +87,7 @@
 													<td><sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-check" title="Duyệt video"
-																onclick="approvedVideo('${listPendingVideo.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+																onclick='openModalApprovedVideo(${listPendingVideo.get(i-1).getId()}, "${listPendingVideo.get(i-1).getVideoYoutubeId()}", "${listPendingVideo.get(i-1).getTitle()}")'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 														</sec:authorize><a title="Sửa video"
 														onclick='openModalUpdateVideo(${listPendingVideo.get(i-1).getId()}, "${listPendingVideo.get(i-1).getVideoYoutubeId()}", "${listPendingVideo.get(i-1).getTitle()}", "${listPendingVideo.get(i-1).getPublishedDate()}")'
 														href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -143,6 +145,50 @@
 															data-dismiss="modal">Hủy</button>
 														<button id="btn-save-update" type="submit"
 															class="btn btn-primary">Lưu</button>
+													</div>
+												</form>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+
+									<div class="modal fade" id="modal-approved-video">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4>Duyệt video</h4>
+												</div>
+												<form action="${approved}" method="post">
+													<div class="modal-body">
+														<table
+															style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
+															<sec:authorize
+																access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+																<tr>
+																	<td>Thêm thời gian đăng video:</td>
+																	<td>
+																		<div class="input-group date">
+																			<div class="input-group-addon">
+																				<i class="fa fa-calendar"></i>
+																			</div>
+																			<input type="text" class="form-control pull-right"
+																				id="datepicker-approved" name="publishedDate">
+																		</div>
+																	</td>
+																</tr>
+															</sec:authorize>
+														</table>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Hủy</button>
+														<button id="btn-save-approved" type="submit"
+															class="btn btn-primary">Duyệt</button>
 													</div>
 												</form>
 											</div>

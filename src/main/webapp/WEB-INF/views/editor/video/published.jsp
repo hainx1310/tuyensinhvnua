@@ -94,57 +94,6 @@
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="modal fade" id="modal-update-video">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-													<h4>Cập nhật video</h4>
-												</div>
-												<form action="${edit}" method="post">
-													<div class="modal-body">
-														<table
-															style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
-															<tr>
-																<td>Tiêu đề:</td>
-																<td><input type="text" id="title" name="title"
-																	size="50%" autofocus="autofocus"></td>
-															</tr>
-															<tr>
-																<td>ID video youtube:</td>
-																<td><input type="text" id="videoYoutubeId"
-																	name="videoYoutubeId" size="50%"></td>
-															</tr>
-															<tr>
-																<td>Thời gian đăng video:</td>
-																<td>
-																	<div class="input-group date">
-																		<div class="input-group-addon">
-																			<i class="fa fa-calendar"></i>
-																		</div>
-																		<input type="text" class="form-control pull-right"
-																			id="datepicker-update" name="publishedDate">
-																	</div>
-																</td>
-															</tr>
-														</table>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Hủy</button>
-														<button id="btn-save-update" type="submit"
-															class="btn btn-primary">Lưu</button>
-													</div>
-												</form>
-											</div>
-											<!-- /.modal-content -->
-										</div>
-										<!-- /.modal-dialog -->
-									</div>
-									<!-- /.modal -->
 								</c:if>
 							</div>
 						</div>

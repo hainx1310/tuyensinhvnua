@@ -1,1 +1,6 @@
-SELECT * FROM tuyensinhapi.video
+SELECT 
+    *
+FROM
+    tuyensinhapi.video
+WHERE
+    public = 1

@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -100,6 +101,13 @@ public interface VideoDAO {
 	 * @return
 	 */
 	public List<Video> getPublishedVideo();
+	
+	/**
+	 * Lay danh sach tat ca video da bi bi go
+	 * 
+	 * @return
+	 */
+	public List<Video> getVideounPublic();
 
 	/**
 	 * Lay danh sach 10 video da dang
@@ -107,6 +115,13 @@ public interface VideoDAO {
 	 * @return
 	 */
 	public List<Video> getLimitPublishedVideo(int startIndex);
+	
+	/**
+	 * Lay danh sach 10 video bị gỡ
+	 * 
+	 * @return
+	 */
+	public List<Video> getLimitVideoUnPublic(int startIndex);
 	
 	/**
 	 * Phuong thuc lay video theo id
@@ -121,7 +136,7 @@ public interface VideoDAO {
 	 * 
 	 * @param videoId
 	 */
-	public void approved(int videoId, String approvedUser);
+	public void approved(int videoId, String approvedUser, Date publishedDate);
 
 	/**
 	 * Phuong thuc go video
@@ -129,5 +144,12 @@ public interface VideoDAO {
 	 * @param videoId
 	 */
 	public void unapproved(int videoId, String unapprovedUser);
+	
+	/**
+	 * Phuong thuc bo go video
+	 * 
+	 * @param videoId
+	 */
+	public void publicVideo(int videoId);
 
 }

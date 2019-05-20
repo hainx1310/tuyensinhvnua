@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.service.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -295,10 +296,10 @@ public class VideoServiceImpl implements VideoService {
 	 * @see vn.edu.vnua.dse.service.VideoService#approved(int, java.lang.String)
 	 */
 	@Override
-	public void approved(int videoId, String approvedUser) {
+	public void approved(int videoId, String approvedUser, Date publishedDate) {
 		try {
 			logger.debug("approved Video Start");
-			videoDao.approved(videoId, approvedUser);
+			videoDao.approved(videoId, approvedUser, publishedDate);
 			logger.debug("approved Video End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -323,4 +324,57 @@ public class VideoServiceImpl implements VideoService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Phuong thuc bo go video
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#publicVideo(int)
+	 */
+	@Override
+	public void publicVideo(int videoId) {
+		try {
+			logger.debug("publicVideo Video Start");
+			videoDao.publicVideo(videoId);
+			logger.debug("publicVideo Video End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca video da bi bi go
+	 * 
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getVideounPublic()
+	 */
+	@Override
+	public List<Video> getVideounPublic() {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getVideounPublic Start");
+			listResult = videoDao.getVideounPublic();
+			logger.debug("GET getVideounPublic End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 video bị gỡ
+	 * 
+	 * @see vn.edu.vnua.dse.service.VideoService#getLimitVideoUnPublic(int)
+	 */
+	@Override
+	public List<Video> getLimitVideoUnPublic(int startIndex) {
+		List<Video> listResult = new ArrayList<Video>();
+		try {
+			logger.debug("GET getLimitVideoUnPublic Start");
+			listResult = videoDao.getLimitVideoUnPublic(startIndex);
+			logger.debug("GET getLimitVideoUnPublic End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
 }

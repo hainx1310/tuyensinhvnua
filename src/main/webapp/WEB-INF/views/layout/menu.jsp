@@ -77,7 +77,7 @@
 							class="fa fa-calendar-check-o"></i><span> Video đã đăng</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/video/published"><i
+						href="${pageContext.request.contextPath}/video/unpublic"><i
 							class="fa fa-calendar-check-o"></i><span> Video đã gỡ</span></a></li>
 				</ul></li>
 			<sec:authorize access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">

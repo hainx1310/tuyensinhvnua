@@ -177,6 +177,12 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca video da duoc dang
 		 */
 		public static final String GET_ALL_VIDEO_PUBLISHED = "sqlfiles/getAllPublishedVideo.sql";
+		
+		/**
+		 * cau sql lay ra danh sach tat ca video da bi go
+		 */
+		public static final String GET_ALL_VIDEO_UNPUBLIC = "sqlfiles/getAllVideoUnpublic.sql";
+
 
 		/**
 		 * cau sql lay ra video theo id
@@ -237,6 +243,11 @@ public class CommonConst {
 		 * cau sql go video
 		 */
 		public static final String UNAPPROVED_VIDEO = "sqlfiles/unapprovedVideo.sql";
+		
+		/**
+		 * cau sql bỏ go video
+		 */
+		public static final String PUBLIC_VIDEO = "sqlfiles/publicVideo.sql";
 		
 		/**
 		 * cau sql duyet binh luan

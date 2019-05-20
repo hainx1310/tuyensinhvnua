@@ -125,7 +125,7 @@
 	<!-- End dinh nghia trang Video da xuat ban -->
 	
 	<!-- Dinh nghia trang bai viet da bị gỡ -->
-	<definition name="video/published" extends="base.definition">
+	<definition name="video/unpublic" extends="base.definition">
 		<put-attribute name="title" value="Video đã bị gỡ" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/unpublic.jsp" />

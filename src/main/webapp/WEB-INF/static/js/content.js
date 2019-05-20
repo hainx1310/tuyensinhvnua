@@ -781,6 +781,56 @@ $(function() {
 	bindDatePicker();
 });
 
+$(function() {
+	var bindDatePicker = function() {
+		$("#datepicker-approved").datetimepicker({
+			locale : 'vi',
+			format : 'DD-MM-YYYY HH:mm:ss.S',
+			icons : {
+				time : "fa fa-clock-o",
+				date : "fa fa-calendar",
+				up : "fa fa-arrow-up",
+				down : "fa fa-arrow-down"
+			}
+		}).find('input:first').on("blur", function() {
+			// check if the date is correct. We can accept dd-mm-yyyy and
+			// yyyy-mm-dd.
+			// update the format if it's yyyy-mm-dd
+			var date = parseDate($(this).val());
+
+			if (!isValidDate(date)) {
+				// create date based on momentjs (we have that)
+				date = moment().format('DD-MM-YYYY HH:mm:ss.S');
+			}
+
+			$(this).val(date);
+		});
+	}
+
+	var isValidDate = function(value, format) {
+		format = format || false;
+		// lets parse the date to the best of our knowledge
+		if (format) {
+			value = parseDate(value);
+		}
+
+		var timestamp = Date.parse(value);
+
+		return isNaN(timestamp) == false;
+	}
+
+	var parseDate = function(value) {
+		var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+		if (m)
+			value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-'
+					+ ("00" + m[1]).slice(-2);
+
+		return value;
+	}
+
+	bindDatePicker();
+});
+
 /**
  * ham sua video
  * 
@@ -819,14 +869,51 @@ $("#modal-update-video").on("hidden.bs.modal", function() {
 });
 
 /**
- * Phuong thuc xu ly su kien nguoi dung click duyet video
+ * ham click duyet video
+ * 
+ * @param videoId
+ * @param name
+ * @param status
+ * @returns
+ */
+function openModalApprovedVideo(id, videoYoutubeId, title) {
+	// show modal
+	$('#modal-approved-video').modal({
+		show : 'true'
+	});
+
+	$('#modal-approved-video .modal-body').append(
+			"<input name = \"videoId\" id = \"videoId\" type = \"text\" value = " + id
+					+ " />");
+	$('#modal-approved-video #title').val(title);
+	$('#modal-approved-video #videoYoutubeId').val(videoYoutubeId);
+	
+	$('#modal-approved-video #videoId').hide();
+	$('#modal-approved-video #title').hide();
+	$('#modal-approved-video #videoYoutubeId').hide();
+}
+
+/**
+ * Sự kiện reset form duyet video
  * 
  * @returns
  */
-function approvedVideo(videoId) {
+$("#modal-approved-video").on("hidden.bs.modal", function() {
+	$("#modal-approved-video #title").remove();
+	$("#modal-approved-video #videoYoutubeId").remove();
+	$('#modal-approved-video #videoId').remove();
+});
+
+/**
+ * Phuong thuc go video
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedVideo(videoId) {
 	$.ajax({
 		type : "post",
-		url : "editor/video/pending/approved",
+		url : "editor/unapproved",
 		data : {
 			videoId : videoId,
 		},
@@ -840,15 +927,15 @@ function approvedVideo(videoId) {
 }
 
 /**
- * Phuong thuc go video
+ * Phuong thuc bỏ go video
  * 
  * @param postId
  * @returns
  */
-function unApprovedVideo(videoId) {
+function publicVideo(videoId) {
 	$.ajax({
 		type : "post",
-		url : "editor/video/pending/unapproved",
+		url : "editor/public",
 		data : {
 			videoId : videoId,
 		},
@@ -856,7 +943,7 @@ function unApprovedVideo(videoId) {
 			location.reload();
 		},
 		error : function(e) {
-			location.reload();
+			//location.reload();
 		}
 	});
 }

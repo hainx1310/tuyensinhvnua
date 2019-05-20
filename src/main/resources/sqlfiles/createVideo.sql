@@ -8,6 +8,8 @@ INSERT INTO tuyensinhapi.video (
 	, published_date
 	, status
 	, avatar_video
+	, public
+	, user_id
 )
 VALUES (
 	:videoYoutubeId
@@ -17,6 +19,8 @@ VALUES (
 	, :author
 	, now()
 	, :publishedDate
-	, 0
+	, :status
 	, :avatarVideo
+	, 1
+	, :userId
 )
