@@ -38,16 +38,30 @@ public interface CommentDAO {
 	 * @return
 	 */
 	public List<Comment> getAllCommentPending();
+	
+	/**
+	 * Lay tat ca danh sach binh luan khong dc duyet
+	 * 
+	 * @return
+	 */
+	public List<Comment> getAllCommentNotAprroved();
 
 	/**
-	 * Lay 10 binh luan da dc duyet
+	 * Lay 5 binh luan da dc duyet
 	 * 
 	 * @return
 	 */
 	public List<Comment> getLimitCommentAprroved(int startIndex);
+	
+	/**
+	 * Lay 5 binh luan khong dc duyet
+	 * 
+	 * @return
+	 */
+	public List<Comment> getLimitCommentNotAprroved(int startIndex);
 
 	/**
-	 * Lay 10 binh luan dang cho duyet
+	 * Lay 5 binh luan dang cho duyet
 	 * 
 	 * @return
 	 */

@@ -75,7 +75,7 @@
 			value="/WEB-INF/views/editor/post/published.jsp" />
 	</definition>
 	<!-- End dinh nghia trang bai viet da xuat ban -->
-	
+
 	<!-- Dinh nghia trang bai viet da bi go -->
 	<definition name="post/unpublic" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã bị gỡ" />
@@ -123,7 +123,7 @@
 			value="/WEB-INF/views/editor/video/published.jsp" />
 	</definition>
 	<!-- End dinh nghia trang Video da xuat ban -->
-	
+
 	<!-- Dinh nghia trang bai viet da bị gỡ -->
 	<definition name="video/unpublic" extends="base.definition">
 		<put-attribute name="title" value="Video đã bị gỡ" />
@@ -147,16 +147,32 @@
 	<!-- End dinh nghia trang 403 -->
 
 	<!-- Dinh nghia trang quan ly binh luan -->
-	<definition name="comment" extends="base.definition">
-		<put-attribute name="title" value="Thông tin cá nhân" />
+	<definition name="binh-luan/duyet-binh-luan" extends="base.definition">
+		<put-attribute name="title" value="Duyệt bình luận" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/comment/comment.jsp" />
 	</definition>
 	<!-- End dinh nghia trang quan ly binh luan -->
 
+	<!-- Dinh nghia trang binh luan da duyet -->
+	<definition name="binh-luan/da-duoc-duyet" extends="base.definition">
+		<put-attribute name="title" value="Bình luận đã được duyệt" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/comment/approved.jsp" />
+	</definition>
+	<!-- End dinh nghia trang binh luan da duyet -->
+
+	<!-- Dinh nghia trang binh luan khong duoc duyet -->
+	<definition name="binh-luan/khong-duoc-duyet" extends="base.definition">
+		<put-attribute name="title" value="Bình luận không được duyệt" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/editor/comment/notapproved.jsp" />
+	</definition>
+	<!-- End dinh nghia trang binh luan khong duoc duyet -->
+
 	<!-- Dinh nghia trang quan ly thong bao -->
 	<definition name="notification" extends="base.definition">
-		<put-attribute name="title" value="Thông tin cá nhân" />
+		<put-attribute name="title" value="Gửi thông báo" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/notification/notification.jsp" />
 	</definition>

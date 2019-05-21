@@ -116,7 +116,7 @@ public class CommentDaoImpl implements CommentDAO {
 	}
 
 	/*
-	 * (non-Javadoc) Lay 10 binh luan da dc duyet
+	 * (non-Javadoc) Lay 5 binh luan da dc duyet
 	 * 
 	 * @see vn.edu.vnua.dse.dao.CommentDAO#getLimitCommentAprroved(int)
 	 */
@@ -127,7 +127,7 @@ public class CommentDaoImpl implements CommentDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			Query query = session.createQuery("FROM Comment WHERE status = 1");
 			query.setFirstResult(startIndex);
-			query.setMaxResults(10);
+			query.setMaxResults(5);
 			listResult = (List<Comment>) query.list();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -137,7 +137,7 @@ public class CommentDaoImpl implements CommentDAO {
 	}
 
 	/*
-	 * (non-Javadoc) Lay 10 binh luan dang cho duyet
+	 * (non-Javadoc) Lay 5 binh luan dang cho duyet
 	 * 
 	 * @see vn.edu.vnua.dse.dao.CommentDAO#getLimitCommentPending(int)
 	 */
@@ -146,9 +146,9 @@ public class CommentDaoImpl implements CommentDAO {
 		List<Comment> listResult = new ArrayList<Comment>();
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Comment WHERE status = 0");
+			Query query = session.createQuery("FROM Comment WHERE status = 0 and is_checked = 0");
 			query.setFirstResult(startIndex);
-			query.setMaxResults(10);
+			query.setMaxResults(5);
 			listResult = (List<Comment>) query.list();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -195,6 +195,47 @@ public class CommentDaoImpl implements CommentDAO {
 			logger.error(ex.getMessage());
 			throw new RuntimeException(ex);
 		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan khong dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getAllCommentNotAprroved()
+	 */
+	@Override
+	public List<Comment> getAllCommentNotAprroved() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_COMMENT_NOT_APPROVED);
+			Query query = session.createSQLQuery(sql).addEntity(Comment.class);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay 5 binh luan khong dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.CommentDAO#getLimitCommentNotAprroved(int)
+	 */
+	@Override
+	public List<Comment> getLimitCommentNotAprroved(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Comment WHERE status = 0 and is_checked = 1");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(5);
+			listResult = (List<Comment>) query.list();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+		return listResult;
 	}
 
 }

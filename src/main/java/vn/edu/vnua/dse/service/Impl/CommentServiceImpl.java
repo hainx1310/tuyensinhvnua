@@ -57,6 +57,11 @@ public class CommentServiceImpl implements CommentService {
 		}
 	}
 
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan da dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getAllCommentAprroved()
+	 */
 	@Override
 	public List<Comment> getAllCommentAprroved() {
 		List<Comment> listResult = new ArrayList<Comment>();
@@ -70,6 +75,11 @@ public class CommentServiceImpl implements CommentService {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getAllCommentPending()
+	 */
 	@Override
 	public List<Comment> getAllCommentPending() {
 		List<Comment> listResult = new ArrayList<Comment>();
@@ -83,6 +93,11 @@ public class CommentServiceImpl implements CommentService {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Lay 5 binh luan da dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getLimitCommentAprroved(int)
+	 */
 	@Override
 	public List<Comment> getLimitCommentAprroved(int startIndex) {
 		List<Comment> listResult = new ArrayList<Comment>();
@@ -96,6 +111,11 @@ public class CommentServiceImpl implements CommentService {
 		return listResult;
 	}
 
+	/*
+	 * (non-Javadoc) Lay 5 binh luan dang cho duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getLimitCommentPending(int)
+	 */
 	@Override
 	public List<Comment> getLimitCommentPending(int startIndex) {
 		List<Comment> listResult = new ArrayList<Comment>();
@@ -135,12 +155,48 @@ public class CommentServiceImpl implements CommentService {
 	public void unapproved(int commentId, String unapprovedUser) {
 		try {
 			logger.debug("unapproved Comment Start");
-			commentDao.approved(commentId, unapprovedUser);
+			commentDao.unapproved(commentId, unapprovedUser);
 			logger.debug("unapproved Comment End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay tat ca danh sach binh luan khong dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getAllCommentNotAprroved()
+	 */
+	@Override
+	public List<Comment> getAllCommentNotAprroved() {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getAllCommentNotAprroved Start");
+			listResult = commentDao.getAllCommentNotAprroved();
+			logger.debug("Service getAllCommentNotAprroved End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay 5 binh luan khong dc duyet
+	 * 
+	 * @see vn.edu.vnua.dse.service.CommentService#getLimitCommentNotAprroved(int)
+	 */
+	@Override
+	public List<Comment> getLimitCommentNotAprroved(int startIndex) {
+		List<Comment> listResult = new ArrayList<Comment>();
+		try {
+			logger.debug("Service getLimitCommentNotAprroved Start");
+			listResult = commentDao.getLimitCommentNotAprroved(startIndex);
+			logger.debug("Service getLimitCommentNotAprroved End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
 	}
 
 }

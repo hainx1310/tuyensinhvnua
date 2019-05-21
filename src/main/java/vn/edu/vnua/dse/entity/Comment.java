@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,13 +30,14 @@ public class Comment implements Serializable {
 	private Date createdDate;
 	private String approvedUser;
 	private String unUpprovedUser;
+	private boolean isChecked;
 
 	public Comment() {
 
 	}
 
 	public Comment(int id, Post post, String name, String comment, boolean status, Date createdDate,
-			String approvedUser, String unUpprovedUser) {
+			String approvedUser, String unUpprovedUser, boolean isChecked) {
 		super();
 		this.id = id;
 		this.post = post;
@@ -45,6 +47,7 @@ public class Comment implements Serializable {
 		this.createdDate = createdDate;
 		this.approvedUser = approvedUser;
 		this.unUpprovedUser = unUpprovedUser;
+		this.isChecked = isChecked;
 	}
 
 	@Id
@@ -122,6 +125,23 @@ public class Comment implements Serializable {
 
 	public void setUnUpprovedUser(String unUpprovedUser) {
 		this.unUpprovedUser = unUpprovedUser;
+	}
+
+	@Column(name = "is_checked")
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
+	}
+
+	@Transient
+	public String showCreatedDate() {
+		return this.createdDate.toString().substring(8, 10).concat("-")
+				.concat(this.createdDate.toString().substring(5, 7)).concat("-")
+				.concat(this.createdDate.toString().substring(0, 4))
+				.concat(this.createdDate.toString().substring(10, this.createdDate.toString().length()));
 	}
 
 }

@@ -9,12 +9,12 @@
 	<div id="container-content">
 		<section class="content-header">
 			<h1>
-				Duyệt bình luận <small>Tuyển sinh HVN</small>
+				Bình luận đã được duyệt<small>Tuyển sinh HVN</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/home"><i
 						class="fa fa-home"></i> Trang chủ</a></li>
-				<li class="active">Duyệt bình luận</li>
+				<li class="active">Bình luận đã được duyệt</li>
 			</ol>
 			<br>
 		</section>
@@ -53,7 +53,7 @@
 													<th>Nội dung bình luận</th>
 													<th>Người bình luận</th>
 													<th>Thời gian bình luận</th>
-													<th>Duyệt</th>
+													<th>Bỏ duyệt</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -70,9 +70,8 @@
 																value="${listComment.get(i-1).getName()}" /></td>
 														<td id="user-role"><c:out
 																value="${listComment.get(i-1).getCreatedDate()}" /></td>
-														<td><a href="#" class="fa fa-check" title="Duyệt"
-															onclick="approvedComment('${listComment.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-															href="#" class="fa fa-remove" title="Không duyệt"
+														<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+															href="#" class="fa fa-remove" title="Bỏ duyệt"
 															onclick="unApprovedComment('${listComment.get(i-1).getId()}')"></a></td>
 													</tr>
 												</c:forEach>

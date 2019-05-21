@@ -27,6 +27,13 @@ public interface CommentService {
 	 * @return
 	 */
 	public List<Comment> getAllCommentAprroved();
+	
+	/**
+	 * Lay tat ca danh sach binh luan khong dc duyet
+	 * 
+	 * @return
+	 */
+	public List<Comment> getAllCommentNotAprroved();
 
 	/**
 	 * Lay tat ca danh sach binh luan dang cho duyet
@@ -36,14 +43,21 @@ public interface CommentService {
 	public List<Comment> getAllCommentPending();
 
 	/**
-	 * Lay 10 binh luan da dc duyet
+	 * Lay 5 binh luan da dc duyet
 	 * 
 	 * @return
 	 */
 	public List<Comment> getLimitCommentAprroved(int startIndex);
+	
+	/**
+	 * Lay 5 binh luan khong dc duyet
+	 * 
+	 * @return
+	 */
+	public List<Comment> getLimitCommentNotAprroved(int startIndex);
 
 	/**
-	 * Lay 10 binh luan dang cho duyet
+	 * Lay 5 binh luan dang cho duyet
 	 * 
 	 * @return
 	 */

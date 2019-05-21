@@ -1065,7 +1065,7 @@ $("#modal-delete-categories").on("hidden.bs.modal", function() {
 function approvedComment(commentId) {
 	$.ajax({
 		type : "post",
-		url : "editor/comment/approved",
+		url : "editor/approved",
 		data : {
 			commentId : commentId,
 		},
@@ -1087,7 +1087,7 @@ function approvedComment(commentId) {
 function unApprovedComment(commentId) {
 	$.ajax({
 		type : "post",
-		url : "editor/comment/approved/unapproved",
+		url : "editor/unapproved",
 		data : {
 			commentId : commentId,
 		},
@@ -1095,7 +1095,7 @@ function unApprovedComment(commentId) {
 			location.reload();
 		},
 		error : function(e) {
-			location.reload();
+			//location.reload();
 		}
 	});
 }

@@ -233,6 +233,11 @@ public class CommonConst {
 		 * cau sql lay ra danh sach tat ca binh luan da duoc duyet
 		 */
 		public static final String GET_ALL_COMMENT_APPROVED = "sqlfiles/getAllCommentAprroved.sql";
+		
+		/**
+		 * cau sql lay ra danh sach tat ca binh luan khong duoc duyet
+		 */
+		public static final String GET_ALL_COMMENT_NOT_APPROVED = "sqlfiles/getAllCommentNotAprroved.sql";
 
 		/**
 		 * cau sql lay ra danh sach binh luan chua duoc duyet

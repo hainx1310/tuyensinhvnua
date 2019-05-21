@@ -88,15 +88,15 @@
 					</span>
 				</a>
 					<ul class="treeview-menu">
-						<li><a href="${pageContext.request.contextPath}/comment"><i
+						<li><a href="${pageContext.request.contextPath}/binh-luan/duyet-binh-luan"><i
 								class="fa fa-pencil"></i><span> Duyệt bình luận</span></a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/video/pending"><i
+							href="${pageContext.request.contextPath}/binh-luan/da-duoc-duyet"><i
 								class="fa  fa-hourglass-2"></i><span> Bình luận đã được
 									duyệt</span></a></li>
 
 						<li><a
-							href="${pageContext.request.contextPath}/video/approved"><i
+							href="${pageContext.request.contextPath}/binh-luan/khong-duoc-duyet"><i
 								class="fa fa-calendar"></i><span> Bình luận không được
 									duyệt</span></a></li>
 					</ul></li>

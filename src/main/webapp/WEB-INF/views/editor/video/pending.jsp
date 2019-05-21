@@ -61,7 +61,6 @@
 												<th>Id youtube video</th>
 												<th>Tác giả</th>
 												<th>Ngày tạo</th>
-												<th>Thời gian đăng</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -82,8 +81,6 @@
 															value="${listPendingVideo.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPendingVideo.get(i-1).getCreatedDate()}"></c:out></td>
-													<td><c:out
-															value="${listPendingVideo.get(i-1).getPublishedDate()}"></c:out></td>
 													<td><sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-check" title="Duyệt video"
