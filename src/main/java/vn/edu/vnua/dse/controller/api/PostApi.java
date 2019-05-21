@@ -57,7 +57,7 @@ public class PostApi {
 					postCO.setCreatedDate(post.getCreatedDate());
 					postCO.setUpdatedDate(post.getUpdatedDate());
 					postCO.setPublishedDate(post.getPublishedDate());
-					postCO.setStatus(post.getStatus());
+					postCO.setStatus(post.isStatus());
 					postCO.setApprovedUser(post.getApprovedUser());
 					postCO.setUnapprovedUser(post.getUnapprovedUser());
 					listComment = commentService.getComments(post.getId());
@@ -103,7 +103,7 @@ public class PostApi {
 					postCO.setCreatedDate(post.getCreatedDate());
 					postCO.setUpdatedDate(post.getUpdatedDate());
 					postCO.setPublishedDate(post.getPublishedDate());
-					postCO.setStatus(post.getStatus());
+					postCO.setStatus(post.isStatus());
 					postCO.setApprovedUser(post.getApprovedUser());
 					postCO.setUnapprovedUser(post.getUnapprovedUser());
 					listComment = commentService.getComments(post.getId());
@@ -150,7 +150,7 @@ public class PostApi {
 					postCO.setCreatedDate(post.getCreatedDate());
 					postCO.setUpdatedDate(post.getUpdatedDate());
 					postCO.setPublishedDate(post.getPublishedDate());
-					postCO.setStatus(post.getStatus());
+					postCO.setStatus(post.isStatus());
 					postCO.setApprovedUser(post.getApprovedUser());
 					postCO.setUnapprovedUser(post.getUnapprovedUser());
 					listComment = commentService.getComments(post.getId());
@@ -194,7 +194,7 @@ public class PostApi {
 					postCO.setCreatedDate(post.getCreatedDate());
 					postCO.setUpdatedDate(post.getUpdatedDate());
 					postCO.setPublishedDate(post.getPublishedDate());
-					postCO.setStatus(post.getStatus());
+					postCO.setStatus(post.isStatus());
 					postCO.setApprovedUser(post.getApprovedUser());
 					postCO.setUnapprovedUser(post.getUnapprovedUser());
 					listComment = commentService.getComments(post.getId());
@@ -246,7 +246,7 @@ public class PostApi {
 					postCO.setCreatedDate(post.getCreatedDate());
 					postCO.setUpdatedDate(post.getUpdatedDate());
 					postCO.setPublishedDate(post.getPublishedDate());
-					postCO.setStatus(post.getStatus());
+					postCO.setStatus(post.isStatus());
 					postCO.setApprovedUser(post.getApprovedUser());
 					postCO.setUnapprovedUser(post.getUnapprovedUser());
 					listComment = commentService.getComments(post.getId());

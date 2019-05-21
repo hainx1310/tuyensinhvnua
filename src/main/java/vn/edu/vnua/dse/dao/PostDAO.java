@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -107,7 +108,7 @@ public interface PostDAO {
 	 * 
 	 * @param postId
 	 */
-	public void approved(int postId, String approvedUser);
+	public void approved(int postId, String approvedUser, Date publishedDate);
 
 	/**
 	 * Phuong thuc go bai viet
@@ -123,18 +124,39 @@ public interface PostDAO {
 	 * @return
 	 */
 	public Post getPostById(int id);
-	
+
 	/**
 	 * Lay danh sach bai viet da duyet theo id.
 	 * 
 	 * @return
 	 */
 	public List<Post> getListPostById(String arrayPostId);
-	
+
 	/**
 	 * Lay danh sach bai theo keyword
 	 * 
 	 * @return
 	 */
 	public List<Post> getPostByKeyword(String keyword, int startIndex);
+
+	/**
+	 * Lay danh sach tat ca bai viet da bi bi go
+	 * 
+	 * @return
+	 */
+	public List<Post> getPostUnPublic();
+
+	/**
+	 * Lay danh sach 10 bai viet bị gỡ
+	 * 
+	 * @return
+	 */
+	public List<Post> getLimitPostUnPublic(int startIndex);
+
+	/**
+	 * Phuong thuc bo go bai viet
+	 * 
+	 * @param postId
+	 */
+	public void publicPost(int postId);
 }

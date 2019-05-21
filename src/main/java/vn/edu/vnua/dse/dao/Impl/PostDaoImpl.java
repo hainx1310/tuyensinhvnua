@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.dao.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,6 +53,8 @@ public class PostDaoImpl implements PostDAO {
 			query.setParameter("editor", post.getEditor());
 			query.setParameter("author", post.getAuthor());
 			query.setParameter("publishedDate", post.getPublishedDate());
+			query.setParameter("status", post.isStatus());
+			query.setParameter("userId", post.getUser().getId());
 			query.executeUpdate();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
@@ -264,8 +267,8 @@ public class PostDaoImpl implements PostDAO {
 
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session
-					.createQuery("FROM Post WHERE status = 1 and public = 1 and published_date <= now() ORDER BY published_date desc");
+			Query query = session.createQuery(
+					"FROM Post WHERE status = 1 and public = 1 and published_date <= now() ORDER BY published_date desc");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Post>) query.list();
@@ -307,7 +310,7 @@ public class PostDaoImpl implements PostDAO {
 
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session.createQuery("FROM Post WHERE status = 1 and publishedDate > now()");
+			Query query = session.createQuery("FROM Post WHERE status = 1 and public = 1 and publishedDate > now()");
 			query.setFirstResult(startIndex);
 			query.setMaxResults(10);
 			listResult = (List<Post>) query.list();
@@ -323,12 +326,13 @@ public class PostDaoImpl implements PostDAO {
 	 * @see vn.edu.vnua.dse.dao.PostDAO#approved(int, java.lang.String)
 	 */
 	@Override
-	public void approved(int postId, String approvedUser) {
+	public void approved(int postId, String approvedUser, Date publishedDate) {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.APPROVED_POST);
 			Query query = session.createSQLQuery(sql);
 			query.setParameter("approvedUser", approvedUser);
+			query.setParameter("publishedDate", publishedDate);
 			query.setParameter("id", postId);
 			query.executeUpdate();
 		} catch (Exception ex) {
@@ -389,8 +393,8 @@ public class PostDaoImpl implements PostDAO {
 
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			Query query = session
-					.createQuery("FROM Post Where id in (" + arrayPostId + ") ORDER BY FIELD(id, " + arrayPostId + ")");
+			Query query = session.createQuery("FROM Post Where id in (" + arrayPostId
+					+ ") and public = 1 ORDER BY FIELD(id, " + arrayPostId + ")");
 			listResult = query.list();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -419,6 +423,67 @@ public class PostDaoImpl implements PostDAO {
 			throw new RuntimeException(e);
 		}
 		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca bai viet da bi bi go
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getPostUnPublic()
+	 */
+	@Override
+	public List<Post> getPostUnPublic() {
+		List<Post> listPost = new ArrayList<Post>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_ALL_POST_UNPUBLIC);
+			Query query;
+			query = session.createSQLQuery(sql).addEntity(Post.class);
+			listPost = (List<Post>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listPost;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 5 bai viet bị gỡ
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getLimitPostUnPublic(int)
+	 */
+	@Override
+	public List<Post> getLimitPostUnPublic(int startIndex) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery("FROM Post WHERE public = 0");
+			query.setFirstResult(startIndex);
+			query.setMaxResults(5);
+			listResult = (List<Post>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc bo go bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#publicVideo(int)
+	 */
+	@Override
+	public void publicPost(int postId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.PUBLIC_POST);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("id", postId);
+			query.executeUpdate();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
 	}
 
 }

@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <div id="wrapper-content">
 	<div id="container-content">
 		<section class="content-header">
 			<h1>
-				Bài đã duyệt <small>Tuyển sinh HVN</small>
+				Bài chờ đăng <small>Tuyển sinh HVN</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/home"><i
 						class="fa fa-home"></i> Trang chủ</a></li>
 				<li class="active">Bài viết</li>
-				<li><a href="">Bài đã duyệt</a></li>
+				<li><a href="">Bài chờ đăng</a></li>
 			</ol>
 			<br>
 		</section>
@@ -20,7 +22,7 @@
 		<div style="margin-left: 10px; margin-right: 10px;">
 			<!-- Thong ke -->
 			<div id="thongke">
-				<h4>Bài đã duyệt</h4>
+				<h4>Bài chờ đăng</h4>
 				<div id="filter">
 					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
 						id="input-search-name-categories"
@@ -58,7 +60,7 @@
 												<th>Chuyên mục</th>
 												<th>Tác giả</th>
 												<th>Ngày sửa</th>
-												<th>Ngày đăng</th>
+												<th>Thời gian đăng</th>
 												<th>Người duyệt</th>
 												<th></th>
 											</tr>
@@ -77,12 +79,16 @@
 													<td><c:out
 															value="${listApprovedPost.get(i-1).getUpdatedDate()}"></c:out></td>
 													<td><c:out
-															value="${listApprovedPost.get(i-1).getPublishedDate()}"></c:out></td>
+															value="${listApprovedPost.get(i-1).showPublishedDate()}"></c:out></td>
 													<td><c:out
 															value="${listApprovedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<td><a href="#"
 														onclick="viewPost('${listApprovedPost.get(i-1).getId()}', '${listApprovedPost.get(i-1).getTitle()}')"
-														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
+																onclick="unApprovedPost('${listApprovedPost.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+														</sec:authorize></td>
 												</tr>
 											</c:forEach>
 										</tbody>

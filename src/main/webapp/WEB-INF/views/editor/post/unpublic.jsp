@@ -8,13 +8,13 @@
 	<div id="container-content">
 		<section class="content-header">
 			<h1>
-				Bài đã đăng <small>Tuyển sinh HVN</small>
+				Bài đã bị gỡ <small>Tuyển sinh HVN</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/home"><i
 						class="fa fa-home"></i> Trang chủ</a></li>
 				<li class="active">Bài viết</li>
-				<li><a href="">Bài đã đăng</a></li>
+				<li><a href="">Bài đã bị gỡ</a></li>
 			</ol>
 			<br>
 		</section>
@@ -22,7 +22,7 @@
 		<div style="margin-left: 10px; margin-right: 10px;">
 			<!-- Thong ke -->
 			<div id="thongke">
-				<h4>Bài đã đăng</h4>
+				<h4>Bài đã bị gỡ</h4>
 				<div id="filter">
 					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
 						id="input-search-name-categories"
@@ -59,36 +59,35 @@
 												<th>STT</th>
 												<th>Tiêu đề</th>
 												<th>Chuyên mục</th>
-												<th>Thời gian đăng bài</th>
+												<th>Thời gian đăng</th>
 												<th>Tác giả</th>
-												<th>Người duyệt</th>
+												<th>Người gỡ</th>
 												<th></th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="i" begin="1"
-												end="${listPublishedPost.size()}">
+											<c:forEach var="i" begin="1" end="${listPostUnPublic.size()}">
 												<tr role="row" class="odd">
 													<td><input type="checkbox"
 														class="custom-control-input" id="defaultUnchecked"></td>
 													<td><c:out value="${i }"></c:out></td>
 													<td class=""><c:out
-															value="${listPublishedPost.get(i-1).getTitle()}"></c:out></td>
+															value="${listPostUnPublic.get(i-1).getTitle()}"></c:out></td>
 													<td class="sorting_1"><c:out
-															value="${listPublishedPost.get(i-1).getCategories().getName()}"></c:out></td>
+															value="${listPostUnPublic.get(i-1).getCategories().getName()}"></c:out></td>
 													<td><c:out
-															value="${listPublishedPost.get(i-1).getPublishedDate()}"></c:out></td>
+															value="${listPostUnPublic.get(i-1).showPublishedDate()}"></c:out></td>
 													<td><c:out
-															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
+															value="${listPostUnPublic.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
-															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
+															value="${listPostUnPublic.get(i-1).getUnapprovedUser()}"></c:out></td>
 													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 														href="#" class="fa fa-eye"
-														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
+														onclick="viewPost('${listPostUnPublic.get(i-1).getId()}', '${listPostUnPublic.get(i-1).getTitle()}')"
 														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+															<a href="#" class="fa fa-remove" title="Bỏ gỡ bài viết"
+																onclick="publicPost('${listPostUnPublic.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>
@@ -121,7 +120,7 @@
 									<div class="dataTables_info" id="show-data-of-page"
 										role="status" aria-live="polite">
 										Hiển thị <span id="recored-start">1</span> đến <span
-											id="recored-end">${listPublishedPost.size()}</span> trong số
+											id="recored-end">${listPostUnPublic.size()}</span> trong số
 										<c:out value="${totalRecord}" />
 										mục
 									</div>

@@ -10,6 +10,8 @@ INSERT INTO tuyensinhapi.post (
 	, created_date
 	, published_date
 	, status
+	, public
+	, user_id
 )
 VALUES (:shortContent
 	, :title
@@ -21,5 +23,7 @@ VALUES (:shortContent
 	, :author
 	, now()
 	, :publishedDate
-	, 0
+	, :status
+	, 1
+	, :userId
 )

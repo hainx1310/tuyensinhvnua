@@ -53,7 +53,7 @@
 							class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/post/published"><i
+						href="${pageContext.request.contextPath}/post/unpublic"><i
 							class="fa fa-calendar-check-o"></i><span>Bài đã gỡ</span></a></li>
 				</ul></li>
 

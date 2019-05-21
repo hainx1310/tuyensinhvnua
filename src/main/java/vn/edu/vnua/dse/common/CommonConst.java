@@ -147,6 +147,16 @@ public class CommonConst {
 		 * muc
 		 */
 		public static final String GET_LIMIT_PUBLISHED_POST_BY_CATEGORIES_ID = "sqlfiles/getLimitPublishedPostByCategoriesId.sql";
+		
+		/**
+		 * cau sql lay ra danh sach tat ca bai viet da bi go
+		 */
+		public static final String GET_ALL_POST_UNPUBLIC = "sqlfiles/getAllPostUnpublic.sql";
+		
+		/**
+		 * cau sql bỏ go bai viet
+		 */
+		public static final String PUBLIC_POST = "sqlfiles/publicPost.sql";
 
 		/**
 		 * cau sql lay so luong bai viet theo tac gia

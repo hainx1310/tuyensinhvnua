@@ -77,7 +77,7 @@
 													<td class="sorting_1"><c:out
 															value="${listPublishedPost.get(i-1).getCategories().getName()}"></c:out></td>
 													<td><c:out
-															value="${listPublishedPost.get(i-1).getPublishedDate()}"></c:out></td>
+															value="${listPublishedPost.get(i-1).showPublishedDate()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out

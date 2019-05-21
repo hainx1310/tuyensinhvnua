@@ -24,7 +24,7 @@ public class PostCO implements Serializable {
 	private Date updatedDate;
 	private String updatedUser;
 	private Date publishedDate;
-	private int status;
+	private boolean status;
 	private String approvedUser;
 	private String unapprovedUser;
 	private Collection<Comment> comments;
@@ -35,7 +35,7 @@ public class PostCO implements Serializable {
 
 	public PostCO(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, int status, String approvedUser, String unapprovedUser, Collection<Comment> comments) {
+			Date publishedDate, boolean status, String approvedUser, String unapprovedUser, Collection<Comment> comments) {
 		super();
 		this.id = id;
 		this.shortContent = shortContent;
@@ -160,11 +160,11 @@ public class PostCO implements Serializable {
 		this.publishedDate = publishedDate;
 	}
 
-	public int getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 

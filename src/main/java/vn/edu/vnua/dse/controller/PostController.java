@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.edu.vnua.dse.common.Common;
+import vn.edu.vnua.dse.common.CommonConst;
+import vn.edu.vnua.dse.common.CommonUtils;
 import vn.edu.vnua.dse.common.DateUtils;
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.entity.Post;
+import vn.edu.vnua.dse.entity.User;
 import vn.edu.vnua.dse.service.CategoriesService;
 import vn.edu.vnua.dse.service.PostService;
+import vn.edu.vnua.dse.service.UserService;
 
 @Controller
 @RequestMapping(value = "/post")
@@ -33,6 +39,9 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
+
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
 	public String newpostPage(Model model) {
@@ -61,7 +70,7 @@ public class PostController {
 			HttpServletRequest request) {
 
 		// Get username
-		String author;
+		String author = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			author = ((UserDetails) principal).getUsername();
@@ -82,11 +91,18 @@ public class PostController {
 		Categories categories = categoriesService.getCategoriresById(categoriesId);
 		post.setCategories(categories);
 
-		// get publisedDate
-		post.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
-
 		// them
+		User user = new User();
 		try {
+			user = userService.getUserByUsername(author).get(0);
+			post.setUser(user);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+				post.setStatus(true);
+				post.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+			} else {
+				post.setStatus(false);
+			}
 			postService.createdPost(post);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -171,10 +187,10 @@ public class PostController {
 		List<Post> listLimitApprovedPost = new ArrayList<Post>();
 
 		try {
-			// lay danh sach tatc ca bai viet da tu db
+			// lay danh sach tatc ca bai viet dang cho duyet tu db
 			listAllApprovedPost = postService.getApprovedPost();
 
-			// lay 10 bai viet da cho duyet
+			// lay 10 bai viet dang cho duyet
 			listLimitApprovedPost = postService.getLimitApprovedPost(0);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -218,24 +234,37 @@ public class PostController {
 	 * @param postId
 	 * @return
 	 */
-	@RequestMapping(value = { "editor/post/pending/approved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "editor/approved" }, method = RequestMethod.POST)
 	public String approved(HttpServletRequest request) {
 
-		// get postId
-		int postId = request.getParameter("postId") != null
-				? Integer.parseInt(request.getParameter("postId").toString())
-				: 0;
-
 		// Get user
+		User user = new User();
 		String approvedUser = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			approvedUser = ((UserDetails) principal).getUsername();
 		}
 
-		// update
 		try {
-			postService.approved(postId, approvedUser);
+			user = userService.getUserByUsername(approvedUser).get(0);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+				// get postId
+				int postId = request.getParameter("postId") != null
+						? Integer.parseInt(request.getParameter("postId").toString())
+						: 0;
+
+				// set thoi gian dang bai viet
+				Date publishedDate = request.getParameter("publishedDate") != null
+						? !"".equals(request.getParameter("publishedDate"))
+								? DateUtils.stringToDateTime(request.getParameter("publishedDate"))
+								: new Date()
+						: new Date();
+
+				// duyet bai viet
+				postService.approved(postId, approvedUser, publishedDate);
+			}
+
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -249,7 +278,7 @@ public class PostController {
 	 * @param postId
 	 * @return
 	 */
-	@RequestMapping(value = { "editor/post/pending/unapproved" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "editor/unapproved" }, method = RequestMethod.POST)
 	public String unapproved(HttpServletRequest request) {
 
 		// get postId
@@ -343,6 +372,67 @@ public class PostController {
 		}
 
 		return post.getContent();
+	}
+
+	/**
+	 * Controller bo go bai viet, chi chap nhan quyen editor va admin
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = { "/editor/public" }, method = RequestMethod.POST)
+	public String unpublic(HttpServletRequest request) {
+
+		// Get user
+		String unapprovedUser = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			unapprovedUser = ((UserDetails) principal).getUsername();
+		}
+
+		// check role user
+		User user = new User();
+		try {
+			user = userService.getUserByUsername(unapprovedUser).get(0);
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+
+				// get postId
+				int postId = request.getParameter("postId") != null
+						? Integer.parseInt(request.getParameter("postId").toString())
+						: 0;
+
+				// bo go bai viet
+				postService.publicPost(postId);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return "post/unpublic";
+	}
+
+	@RequestMapping(value = { "/unpublic" }, method = RequestMethod.GET)
+	public String unPublicVideo(Model model) {
+
+		List<Post> listAllPost = new ArrayList<Post>();
+		List<Post> listLimitPost = new ArrayList<Post>();
+
+		try {
+			// lay danh sach tat ca bai viet da bi go moi nhat tu db
+			listAllPost = postService.getPostUnPublic();
+
+			// lay 5 video da bi go
+			listLimitPost = postService.getLimitPostUnPublic(0);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		int numberPage = (int) Math.ceil(listAllPost.size() / 5.0);
+
+		model.addAttribute("listPostUnPublic", listLimitPost);
+		model.addAttribute("totalRecord", listAllPost.size());
+		model.addAttribute("numberPage", numberPage);
+
+		return "post/unpublic";
 	}
 
 }

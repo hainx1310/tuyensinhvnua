@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,7 +40,7 @@ public class Post implements Serializable {
 	private Date updatedDate;
 	private String updatedUser;
 	private Date publishedDate;
-	private int status;
+	private boolean status;
 	private String approvedUser;
 	private String unapprovedUser;
 	private Collection<Comment> comments;
@@ -52,7 +53,7 @@ public class Post implements Serializable {
 
 	public Post(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, int status, String approvedUser, String unapprovedUser, Collection<Comment> comments,
+			Date publishedDate, boolean status, String approvedUser, String unapprovedUser, Collection<Comment> comments,
 			User user, boolean isPublic) {
 		super();
 		this.id = id;
@@ -202,11 +203,11 @@ public class Post implements Serializable {
 	}
 
 	@Column(name = "status")
-	public int getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 
@@ -257,4 +258,13 @@ public class Post implements Serializable {
 		this.isPublic = isPublic;
 	}
 
+	@Transient
+	public String showPublishedDate() {
+		return this.publishedDate != null
+				? this.publishedDate.toString().substring(8, 10).concat("-")
+						.concat(this.publishedDate.toString().substring(5, 7)).concat("-")
+						.concat(this.publishedDate.toString().substring(0, 4))
+						.concat(this.publishedDate.toString().substring(10, this.publishedDate.toString().length()))
+				: "";
+	}
 }

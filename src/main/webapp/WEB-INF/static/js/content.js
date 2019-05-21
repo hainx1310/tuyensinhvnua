@@ -509,12 +509,17 @@ $("#btn-save-video").on("click", function() {
  * 
  * @returns
  */
-function approvedPost(postId) {
+function approvedPost() {
+	var postId = document.getElementById("postId").value;
+	var publishedDate = document.getElementById("datepicker-approved").value;
+	console.log(postId)
+	console.log(publishedDate)
 	$.ajax({
 		type : "post",
-		url : "editor/post/pending/approved",
+		url : "editor/approved",
 		data : {
 			postId : postId,
+			publishedDate: publishedDate,
 		},
 		success : function(response) {
 			location.reload();
@@ -534,7 +539,29 @@ function approvedPost(postId) {
 function unApprovedPost(postId) {
 	$.ajax({
 		type : "post",
-		url : "editor/post/pending/unapproved",
+		url : "editor/unapproved",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
+		}
+	});
+}
+
+/**
+ * Phuong thuc go bai viet tai trang chu
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedPostAtHome(postId) {
+	$.ajax({
+		type : "post",
+		url : "post/editor/unapproved",
 		data : {
 			postId : postId,
 		},
@@ -905,6 +932,34 @@ $("#modal-approved-video").on("hidden.bs.modal", function() {
 });
 
 /**
+ * ham click duyet bai viet
+ * 
+ * @param postId
+ * @returns
+ */
+function openModalApprovedPost(id) {
+	// show modal
+	$('#modal-approved-post').modal({
+		show : 'true'
+	});
+
+	$('#modal-approved-post .modal-body').append(
+			"<input name = \"postId\" id = \"postId\" type = \"text\" value = " + id
+					+ " />");
+	
+	$('#modal-approved-post #postId').hide();
+}
+
+/**
+ * Sự kiện reset form duyet bai viet
+ * 
+ * @returns
+ */
+$("#modal-approved-post").on("hidden.bs.modal", function() {
+	$('#modal-approved-post #postId').remove();
+});
+
+/**
  * Phuong thuc go video
  * 
  * @param postId
@@ -943,7 +998,29 @@ function publicVideo(videoId) {
 			location.reload();
 		},
 		error : function(e) {
-			//location.reload();
+			location.reload();
+		}
+	});
+}
+
+/**
+ * Phuong thuc bỏ go bai viet
+ * 
+ * @param postId
+ * @returns
+ */
+function publicPost(postId) {
+	$.ajax({
+		type : "post",
+		url : "editor/public",
+		data : {
+			postId : postId,
+		},
+		success : function(response) {
+			location.reload();
+		},
+		error : function(e) {
+			location.reload();
 		}
 	});
 }

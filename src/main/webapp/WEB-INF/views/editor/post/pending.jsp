@@ -60,7 +60,6 @@
 												<th>Chuyên mục</th>
 												<th>Tác giả</th>
 												<th>Ngày tạo</th>
-												<th>Thời gian đăng</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -79,18 +78,17 @@
 															value="${listPendingPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPendingPost.get(i-1).getCreatedDate()}"></c:out></td>
-													<td><c:out
-															value="${listPendingPost.get(i-1).getPublishedDate()}"></c:out></td>
 													<td><a href="#"
 														onclick="viewPost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"
 														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 														href="#" class="fa fa-pencil" title="Sửa bài viết"
-														onclick="editPost('${listPendingPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+														onclick="editPost('${listPendingPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<a href="#" class="fa fa-trash-o" title="Xóa bài viết"
+														onclick="openModalDeletePost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-															<a href="#" class="fa fa-trash-o" title="Xóa bài viết"
-																onclick="openModalDeletePost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 															<a href="#" class="fa fa-check" title="Duyệt bài viết"
-																onclick="approvedPost('${listPendingPost.get(i-1).getId()}')"></a>
+																onclick="openModalApprovedPost('${listPendingPost.get(i-1).getId()}')"></a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>
@@ -123,6 +121,49 @@
 															data-dismiss="modal">Hủy bỏ</button>
 														<button id="btn-delete-pots" type="submit"
 															class="btn btn-primary">Đồng ý</button>
+													</div>
+												</form>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<div class="modal fade" id="modal-approved-post">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+													<h4>Duyệt bài viết</h4>
+												</div>
+												<form>
+													<div class="modal-body">
+														<table
+															style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
+															<sec:authorize
+																access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+																<tr>
+																	<td>Thêm thời gian đăng bài viết:</td>
+																	<td>
+																		<div class="input-group date">
+																			<div class="input-group-addon">
+																				<i class="fa fa-calendar"></i>
+																			</div>
+																			<input type="text" class="form-control pull-right"
+																				id="datepicker-approved" name="publishedDate">
+																		</div>
+																	</td>
+																</tr>
+															</sec:authorize>
+														</table>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Hủy</button>
+														<button id="btn-save-approved" type="button"
+															class="btn btn-primary" onclick = "approvedPost()">Duyệt</button>
 													</div>
 												</form>
 											</div>

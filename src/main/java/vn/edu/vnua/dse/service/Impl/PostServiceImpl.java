@@ -1,6 +1,7 @@
 package vn.edu.vnua.dse.service.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -261,10 +262,10 @@ public class PostServiceImpl implements PostService {
 	 * @see vn.edu.vnua.dse.service.PostService#approved(int, java.lang.String)
 	 */
 	@Override
-	public void approved(int postId, String approvedUser) {
+	public void approved(int postId, String approvedUser, Date publishedDate) {
 		try {
 			logger.debug("approved Post Start");
-			postDao.approved(postId, approvedUser);
+			postDao.approved(postId, approvedUser, publishedDate);
 			logger.debug("approved Post End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -342,6 +343,59 @@ public class PostServiceImpl implements PostService {
 			logger.error(e.getMessage());
 		}
 		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach tat ca bai viet da bi bi go
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getPostUnPublic()
+	 */
+	@Override
+	public List<Post> getPostUnPublic() {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			logger.debug("GET getPostUnPublic Start");
+			listResult = postDao.getPostUnPublic();
+			logger.debug("GET getPostUnPublic End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach 10 bai viet bị gỡ Lay danh sach 10 bai viet bị gỡ
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getLimitPostUnPublic(int)
+	 */
+	@Override
+	public List<Post> getLimitPostUnPublic(int startIndex) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			logger.debug("GET getLimitPostUnPublic Start");
+			listResult = postDao.getLimitPostUnPublic(startIndex);
+			logger.debug("GET getLimitPostUnPublic End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
+	}
+
+	/*
+	 * (non-Javadoc) Phuong thuc bo go bai viet
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#publicPost(int)
+	 */
+	@Override
+	public void publicPost(int postId) {
+		try {
+			logger.debug("publicPost Start");
+			postDao.publicPost(postId);
+			logger.debug("publicPost End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
 	}
 
 }

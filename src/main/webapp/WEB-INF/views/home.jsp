@@ -55,7 +55,7 @@
 												<td class="sorting_1"><c:out
 														value="${listPublishedPost.get(i-1).getCategories().getName()}"></c:out></td>
 												<td><c:out
-														value="${listPublishedPost.get(i-1).getPublishedDate()}"></c:out></td>
+														value="${listPublishedPost.get(i-1).showPublishedDate()}"></c:out></td>
 												<td><c:out
 														value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 												<td><c:out
@@ -67,7 +67,7 @@
 													onclick="editPostHome('${listPublishedPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 														<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-															onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
+															onclick="unApprovedPostAtHome('${listPublishedPost.get(i-1).getId()}')"></a>
 													</sec:authorize></td>
 											</tr>
 										</c:forEach>
