@@ -1,2 +1,6 @@
-SELECT * FROM tuyensinhapi.categories
-where status = 1
+SELECT 
+    *
+FROM
+    tuyensinhapi.categories
+WHERE
+    status = 1

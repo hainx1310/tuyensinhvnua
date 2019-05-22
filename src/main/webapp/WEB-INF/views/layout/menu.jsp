@@ -28,10 +28,10 @@
 					class="fa fa-home"></i> <span> Trang chủ</span>
 			</a> <!-- Menu admin --> <sec:authorize access="hasRole('ROLE_ADMIN')">
 					<li><a
-						href="${pageContext.request.contextPath}/admin/categories"><i
+						href="${pageContext.request.contextPath}/admin/quan-ly-chuyen-muc"><i
 							class="fa fa-list-ul"></i><span> Quản lý chuyên mục</span></a>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/user/UserManagement"><i
+						href="${pageContext.request.contextPath}/admin/quan-ly-tai-khoan"><i
 							class="fa fa-users"></i><span> Quản lý tài khoản</span></a></li>
 				</sec:authorize>
 			<li class="treeview"><a href="#"> <i
@@ -41,19 +41,19 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/post/add"><i
+					<li><a href="${pageContext.request.contextPath}/bai-viet/them-moi-bai-viet"><i
 							class="fa fa-pencil"></i><span> Viết bài mới</span></a></li>
-					<li><a href="${pageContext.request.contextPath}/post/pending"><i
+					<li><a href="${pageContext.request.contextPath}/bai-viet/bai-cho-duyet"><i
 							class="fa  fa-hourglass-2"></i><span> Bài chờ duyệt</span></a></li>
 
-					<li><a href="${pageContext.request.contextPath}/post/approved"><i
+					<li><a href="${pageContext.request.contextPath}/bai-viet/bai-cho-dang"><i
 							class="fa fa-calendar"></i><span> Bài chờ đăng</span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/post/published"><i
+						href="${pageContext.request.contextPath}/bai-viet/bai-da-dang"><i
 							class="fa fa-calendar-check-o"></i><span> Bài đã đăng</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/post/unpublic"><i
+						href="${pageContext.request.contextPath}/bai-viet/bai-da-go"><i
 							class="fa fa-calendar-check-o"></i><span> Bài đã gỡ</span></a></li>
 				</ul></li>
 
@@ -64,20 +64,20 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${pageContext.request.contextPath}/video/"><i
+					<li><a href="${pageContext.request.contextPath}/video/them-moi-video"><i
 							class="fa fa-pencil"></i><span>Thêm mới</span></a></li>
-					<li><a href="${pageContext.request.contextPath}/video/pending"><i
+					<li><a href="${pageContext.request.contextPath}/video/video-dang-cho-duyet"><i
 							class="fa  fa-hourglass-2"></i><span> Video chờ duyệt</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/video/approved"><i
+						href="${pageContext.request.contextPath}/video/video-cho-dang"><i
 							class="fa fa-calendar"></i><span> Video chờ đăng</span></a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/video/published"><i
+						href="${pageContext.request.contextPath}/video/video-da-dang"><i
 							class="fa fa-calendar-check-o"></i><span> Video đã đăng</span></a></li>
 
 					<li><a
-						href="${pageContext.request.contextPath}/video/unpublic"><i
+						href="${pageContext.request.contextPath}/video/video-da-go"><i
 							class="fa fa-calendar-check-o"></i><span> Video đã gỡ</span></a></li>
 				</ul></li>
 			<sec:authorize access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">

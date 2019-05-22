@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -214,6 +215,16 @@ public class Video implements Serializable {
 
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	@Transient
+	public String showPublishedDate() {
+		return this.publishedDate != null
+				? this.publishedDate.toString().substring(8, 10).concat("-")
+						.concat(this.publishedDate.toString().substring(5, 7)).concat("-")
+						.concat(this.publishedDate.toString().substring(0, 4))
+						.concat(this.publishedDate.toString().substring(10, this.publishedDate.toString().length()))
+				: "";
 	}
 
 }

@@ -9,33 +9,18 @@
 	<div id="container-content">
 		<section class="content-header">
 			<h1>
-				Video đã duyệt <small>Tuyển sinh HVN</small>
+				Video chờ đăng <small>Tuyển sinh HVN</small>
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="${pageContext.request.contextPath}/home"><i
 						class="fa fa-home"></i> Trang chủ</a></li>
 				<li class="active">Video</li>
-				<li><a href="">Video đã duyệt</a></li>
+				<li><a href="">Video chờ đăng</a></li>
 			</ol>
 			<br>
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Video đã duyệt</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
 					<div id="example2_wrapper"
@@ -46,13 +31,19 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2"
-										class="table table-bordered table-striped" role="grid"
-										aria-describedby="example2_info">
+									<!-- <div id="example2_filter" class="dataTables_filter">
+										<label>Lọc:<input id="input-search-name-user"
+											onkeyup="searchUserByUsername()" placeholder="" type="text"></label>
+									</div> -->
+									<table id="example2" class="table table-bordered table-striped"
+										role="grid" aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
-												<td><input type="checkbox" class="custom-control-input"
-													id="defaultUnchecked"></td>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked"></th>
+												</sec:authorize>
 												<th>Tiêu đề</th>
 												<th>Video youtube Id</th>
 												<th>Tác giả</th>
@@ -61,7 +52,7 @@
 												<th>Người duyệt</th>
 												<sec:authorize
 													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-													<th></th>
+													<th>Gỡ video</th>
 												</sec:authorize>
 											</tr>
 										</thead>
@@ -69,11 +60,14 @@
 											<c:forEach var="i" begin="1"
 												end="${listApprovedVideo.size()}">
 												<tr role="row" class="odd">
-													<td><input type="checkbox"
-														class="custom-control-input" id="defaultUnchecked">
-													</td>
-													<td class=""><a title="Nhấn để xem video"
-														target="_blank"
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td><input type="checkbox"
+															class="custom-control-input" id="defaultUnchecked">
+														</td>
+													</sec:authorize>
+													<td style="max-width: 400px" class=""><a
+														title="Nhấn để xem video" target="_blank"
 														href="https://www.youtube.com/watch?v=${listApprovedVideo.get(i-1).getVideoYoutubeId()}">
 															<c:out value="${listApprovedVideo.get(i-1).getTitle()}"></c:out>
 													</a></td>
@@ -87,14 +81,15 @@
 															value="${listApprovedVideo.get(i-1).getUpdatedDate()}"></c:out>
 													</td>
 													<td><c:out
-															value="${listApprovedVideo.get(i-1).getPublishedDate()}"></c:out>
+															value="${listApprovedVideo.get(i-1).showPublishedDate()}"></c:out>
 													</td>
 													<td><c:out
 															value="${listApprovedVideo.get(i-1).getApprovedUser()}"></c:out>
 													</td>
 													<sec:authorize
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-														<td><a href="#" class="fa fa-remove" title="Gỡ video"
+														<td style="text-align: center;"><a href="#"
+															class="fa fa-remove" title="Gỡ video"
 															onclick="unApprovedVideo('${listApprovedVideo.get(i-1).getId()}')"></a>
 														</td>
 													</sec:authorize>

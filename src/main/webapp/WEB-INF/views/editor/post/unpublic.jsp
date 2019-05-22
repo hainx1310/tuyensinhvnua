@@ -20,25 +20,6 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Bài đã bị gỡ</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						chuyên mục:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên chuyên mục..." type="text"
-						style="width: 180px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
 					<div id="example2_wrapper"
@@ -49,30 +30,40 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2"
-										class="table table-bordered table-striped" role="grid"
-										aria-describedby="example2_info">
+									<table id="example2" class="table table-bordered table-striped"
+										role="grid" aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
-												<th><input type="checkbox" class="custom-control-input"
-													id="defaultUnchecked"></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked"></th>
+												</sec:authorize>
 												<th>STT</th>
 												<th>Tiêu đề</th>
 												<th>Chuyên mục</th>
 												<th>Thời gian đăng</th>
 												<th>Tác giả</th>
 												<th>Người gỡ</th>
-												<th></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th style="text-align: center;">Bỏ gỡ bài viết</th>
+												</sec:authorize>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="i" begin="1" end="${listPostUnPublic.size()}">
 												<tr role="row" class="odd">
-													<td><input type="checkbox"
-														class="custom-control-input" id="defaultUnchecked"></td>
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td><input type="checkbox"
+															class="custom-control-input" id="defaultUnchecked"></td>
+													</sec:authorize>
 													<td><c:out value="${i }"></c:out></td>
-													<td class=""><c:out
-															value="${listPostUnPublic.get(i-1).getTitle()}"></c:out></td>
+													<td style="max-width: 400px" class=""><a href="#"
+														onclick="viewPost('${listPostUnPublic.get(i-1).getId()}', '${listPostUnPublic.get(i-1).getTitle()}')"
+														title="Xem bài viết"><c:out
+																value="${listPostUnPublic.get(i-1).getTitle()}"></c:out></a></td>
 													<td class="sorting_1"><c:out
 															value="${listPostUnPublic.get(i-1).getCategories().getName()}"></c:out></td>
 													<td><c:out
@@ -81,14 +72,13 @@
 															value="${listPostUnPublic.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPostUnPublic.get(i-1).getUnapprovedUser()}"></c:out></td>
-													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-eye"
-														onclick="viewPost('${listPostUnPublic.get(i-1).getId()}', '${listPostUnPublic.get(i-1).getTitle()}')"
-														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
-															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-															<a href="#" class="fa fa-remove" title="Bỏ gỡ bài viết"
-																onclick="publicPost('${listPostUnPublic.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-														</sec:authorize></td>
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td style="text-align: center;"><a href="#"
+															class="fa fa-remove" title="Bỏ gỡ bài viết"
+															onclick="publicPost('${listPostUnPublic.get(i-1).getId()}')"></a>
+														</td>
+													</sec:authorize>
 												</tr>
 											</c:forEach>
 										</tbody>

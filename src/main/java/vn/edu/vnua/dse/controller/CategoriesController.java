@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import vn.edu.vnua.dse.entity.Categories;
 import vn.edu.vnua.dse.service.CategoriesService;
@@ -32,7 +31,7 @@ public class CategoriesController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "/quan-ly-chuyen-muc", method = RequestMethod.GET)
 	public String getAllCategorires(Model model) {
 
 		List<Categories> listCategories = new ArrayList<Categories>();
@@ -51,7 +50,7 @@ public class CategoriesController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalrRecord", totalrRecord);
 
-		return "admin/categories";
+		return "admin/quan-ly-chuyen-muc";
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/AddCategories", method = RequestMethod.POST)
-	public ModelAndView createCategory(Categories categories) {
+	public String createCategory(Categories categories) {
 		String username;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
@@ -75,7 +74,7 @@ public class CategoriesController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/admin/categories");
+		return "redirect:/admin/quan-ly-chuyen-muc";
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/EditCategories", method = RequestMethod.POST)
-	public ModelAndView updateCategories(Categories categories) {
+	public String updateCategories(Categories categories) {
 
 		// Get username
 		String username;
@@ -99,7 +98,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/categories");
+		return "redirect:/admin/quan-ly-chuyen-muc";
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class CategoriesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/DeleteCategories", method = RequestMethod.POST)
-	public ModelAndView deleteCategories(HttpServletRequest request) {
+	public String deleteCategories(HttpServletRequest request) {
 		int categoriesId;
 		categoriesId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
 		try {
@@ -117,7 +116,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/categories");
+		return "redirect:/admin/quan-ly-chuyen-muc";
 	}
 
 	/**
@@ -147,11 +146,11 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return "redirect:/admin/categories";
+		return "admin/quan-ly-chuyen-muc";
 	}
 
 	/**
-	 * Controller lấy ra 10 categories tiep theo
+	 * Controller lấy ra 5 categories tiep theo
 	 * 
 	 * @param model
 	 * @return
@@ -173,7 +172,7 @@ public class CategoriesController {
 			html += "<tr role='row' class='odd'>";
 			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
 			html += "<td class=''>" + (i++) + "</td>";
-			html += "<td id='categories-name' class='sorting_1'>" + item.getName() + "</td>";
+			html += "<td style=\"max-width: 400px\" id='categories-name' class='sorting_1'>" + item.getName() + "</td>";
 			html += "<td id='categories-status'>" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
 			html += "<td id='categories-created-date'>" + item.getCreatedDate() + "</td>";
 			html += "<td id='categories-created-user'>" + (item.getCreatedUser() == null ? "" : item.getCreatedUser())
@@ -182,14 +181,15 @@ public class CategoriesController {
 					+ "</td>";
 			html += "<td id='categories-updated-user'>" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
 					+ "</td>";
-			html += "<td><a id='changeStatusCategories' onclick='openModalChangeStatusCategories(" + item.getId() + ", "
-					+ item.isStatus() + ")' href='#' class = "
-					+ (item.isStatus() == true ? "\"fa fa-toggle-on\"" : "\"fa fa-toggle-off\"")
-					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateCategories("
+			html += "<td style=\"text-align: center;\"><a id='changeStatusCategories' onclick='openModalChangeStatusCategories("
+					+ item.getId() + ", " + item.isStatus() + ")' href='#' class = "
+					+ (item.isStatus() == true ? "\"fa fa-toggle-on\" title=\"Khóa chuyên mục\""
+							: "\"fa fa-toggle-off\" title=\"Kích hoạt chuyên mục\"")
+					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title=\"Sửa\" onclick='openModalUpdateCategories("
 					+ item.getId() + ", \"" + item.getName() + "\", " + item.isStatus()
 					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
-					+ "onclick='openModalDeleteCategories(" + item.getId() + ", \"" + item.getName() + "\")' "
-					+ "href=\"#\" class = \"fa fa-trash-o\"></a></td>";
+					+ "title=\"Xóa\" onclick='openModalDeleteCategories(" + item.getId() + ", \"" + item.getName()
+					+ "\")' " + "href=\"#\" class = \"fa fa-trash-o\"></a></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);

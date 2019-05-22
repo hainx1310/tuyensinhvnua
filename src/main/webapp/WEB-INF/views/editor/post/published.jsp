@@ -33,26 +33,37 @@
 									<table id="example2" class="table table-bordered table-striped">
 										<thead>
 											<tr role="row">
-												<th><input type="checkbox" class="custom-control-input"
-													id="defaultUnchecked"></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked"></th>
+												</sec:authorize>
 												<th>STT</th>
 												<th>Tiêu đề</th>
 												<th>Chuyên mục</th>
 												<th>Thời gian đăng bài</th>
 												<th>Tác giả</th>
 												<th>Người duyệt</th>
-												<th></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th style="text-align: center;">Gỡ bài viết</th>
+												</sec:authorize>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="i" begin="1"
 												end="${listPublishedPost.size()}">
 												<tr role="row" class="odd">
-													<td><input type="checkbox"
-														class="custom-control-input" id="defaultUnchecked"></td>
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td><input type="checkbox"
+															class="custom-control-input" id="defaultUnchecked"></td>
+													</sec:authorize>
 													<td><c:out value="${i }"></c:out></td>
-													<td class=""><c:out
-															value="${listPublishedPost.get(i-1).getTitle()}"></c:out></td>
+													<td style="max-width: 400px" class=""><a href="#"
+														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
+														title="Xem bài viết"><c:out
+																value="${listPublishedPost.get(i-1).getTitle()}"></c:out></a></td>
 													<td class="sorting_1"><c:out
 															value="${listPublishedPost.get(i-1).getCategories().getName()}"></c:out></td>
 													<td><c:out
@@ -61,14 +72,13 @@
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td><a href="#" class="fa fa-eye"
-														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
-														title="Xem bài viết"></a>
 													<sec:authorize
-															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
-														</sec:authorize></td>
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td style="text-align: center;"><a href="#"
+															class="fa fa-remove" title="Gỡ bài viết"
+															onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
+														</td>
+													</sec:authorize>
 												</tr>
 											</c:forEach>
 										</tbody>

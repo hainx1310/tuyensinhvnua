@@ -149,11 +149,12 @@
 		var content = CKEDITOR.instances['frmContent'].getData();
 		var avatarPost = $('#avatarPost').attr('src');
 		var categoriesId = $('input[name=categoriesId]:checked').val();
-		var publishedDate = document.getElementById("datepicker").value;
+		var publishedDate = document.getElementById("datepicker") ? document
+				.getElementById("datepicker").value : null;
 		var url = document.getElementById("url").value;
 		$.ajax({
 			type : "post",
-			url : "updated",
+			url : "cap-nhat-bai-viet",
 			data : {
 				id : id,
 				title : title,
@@ -165,7 +166,7 @@
 				publishedDate : publishedDate
 			},
 			success : function(response) {
-				location.href = 'pending'
+				location.href = 'bai-cho-duyet'
 			},
 			error : function(e) {
 			}

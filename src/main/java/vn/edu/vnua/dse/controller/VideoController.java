@@ -42,7 +42,7 @@ public class VideoController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/them-moi-video", method = RequestMethod.GET)
 	public String getAllVideo(Model model) {
 
 		List<Video> listAllVideo = new ArrayList<Video>();
@@ -61,7 +61,7 @@ public class VideoController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
 
-		return "video";
+		return "video/them-moi-video";
 	}
 
 	/**
@@ -101,7 +101,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/video");
+		return new ModelAndView("redirect:/video/them-moi-video");
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/video/pending");
+		return new ModelAndView("redirect:/video/video-dang-cho-duyet");
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class VideoController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/video/pending");
+		return new ModelAndView("redirect:/video/video-dang-cho-duyet");
 	}
 
 	/**
@@ -244,7 +244,7 @@ public class VideoController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = { "/pending" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/video-dang-cho-duyet" }, method = RequestMethod.GET)
 	public String pendingPosttPage(Model model) {
 		List<Video> listAllPendingVideo = new ArrayList<Video>();
 		List<Video> listLimitPendingVideo = new ArrayList<Video>();
@@ -264,10 +264,10 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllPendingVideo.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "video/pending";
+		return "video/video-dang-cho-duyet";
 	}
 
-	@RequestMapping(value = { "/approved" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/video-cho-dang" }, method = RequestMethod.GET)
 	public String approvedVideoPage(Model model) {
 		List<Video> listAllApprovedVideo = new ArrayList<Video>();
 		List<Video> listLimitApprovedVideo = new ArrayList<Video>();
@@ -287,11 +287,11 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllApprovedVideo.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "video/approved";
+		return "video/video-cho-dang";
 	}
 
-	@RequestMapping(value = { "/published" }, method = RequestMethod.GET)
-	public String postPublishedPage(Model model) {
+	@RequestMapping(value = { "/video-da-dang" }, method = RequestMethod.GET)
+	public String videoPublishedPage(Model model) {
 
 		List<Video> listAllPublishedVideo = new ArrayList<Video>();
 		List<Video> listLimitPublishedVideo = new ArrayList<Video>();
@@ -311,7 +311,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllPublishedVideo.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "video/published";
+		return "video/video-da-dang";
 	}
 
 	/**
@@ -355,7 +355,7 @@ public class VideoController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/video/pending";
+		return "redirect:/video/video-dang-cho-duyet";
 	}
 
 	/**
@@ -429,10 +429,10 @@ public class VideoController {
 			throw new RuntimeException(e);
 		}
 
-		return "video/unpublic";
+		return "video/video-da-go";
 	}
 
-	@RequestMapping(value = { "/unpublic" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/video-da-go" }, method = RequestMethod.GET)
 	public String unPublicVideo(Model model) {
 
 		List<Video> listAllVideo = new ArrayList<Video>();
@@ -453,7 +453,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllVideo.size());
 		model.addAttribute("numberPage", numberPage);
 
-		return "video/unpublic";
+		return "video/video-da-go";
 	}
 
 }

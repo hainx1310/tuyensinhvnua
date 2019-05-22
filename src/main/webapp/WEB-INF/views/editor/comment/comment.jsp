@@ -31,8 +31,8 @@
 									</c:if>
 									<c:if test="${totalRecord > 0}">
 										<table id="table-comment-pending"
-											class="table table-bordered table-striped"
-											role="grid" aria-describedby="example2_info">
+											class="table table-bordered table-striped" role="grid"
+											aria-describedby="example2_info">
 											<thead>
 												<tr role="row">
 													<th><input type="checkbox"
@@ -42,7 +42,7 @@
 													<th>Nội dung bình luận</th>
 													<th>Người bình luận</th>
 													<th>Thời gian bình luận</th>
-													<th>Duyệt</th>
+													<th style="text-align: center;">Duyệt</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -51,16 +51,18 @@
 														<td><input type="checkbox"
 															class="custom-control-input" id="defaultUnchecked"></td>
 														<td class=""><c:out value="${i}" /></td>
-														<td id="user-username" class="sorting_1"><c:out
+														<td style="max-width: 400px" id="user-username"
+															class="sorting_1"><c:out
 																value="${listComment.get(i-1).getpost().getTitle()}" /></td>
-														<td id="user-username" class="sorting_1"><c:out
+														<td style="max-width: 200px" id="user-username"
+															class="sorting_1"><c:out
 																value="${listComment.get(i-1).getComment()}" /></td>
 														<td id="user-email"><c:out
 																value="${listComment.get(i-1).getName()}" /></td>
 														<td id="user-role"><c:out
 																value="${listComment.get(i-1).showCreatedDate()}" /></td>
-														<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-															href="#" class="fa fa-check" title="Duyệt"
+														<td style="text-align: center;"><a href="#"
+															class="fa fa-check" title="Duyệt"
 															onclick="approvedComment('${listComment.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 															href="#" class="fa fa-remove" title="Không duyệt"
 															onclick="unApprovedComment('${listComment.get(i-1).getId()}')"></a></td>

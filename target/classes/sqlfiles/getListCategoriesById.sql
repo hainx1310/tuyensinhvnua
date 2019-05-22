@@ -1,2 +1,6 @@
-SELECT * FROM tuyensinhapi.categories
-WHERE id =:id
+SELECT 
+    *
+FROM
+    tuyensinhapi.categories
+WHERE
+    id = :id

@@ -21,21 +21,6 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Video đã bị gỡ</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
 					<div id="example2_wrapper"
@@ -46,13 +31,19 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2"
-										class="table table-bordered table-striped" role="grid"
-										aria-describedby="example2_info">
+									<!-- <div id="example2_filter" class="dataTables_filter">
+										<label>Lọc:<input id="input-search-name-user"
+											onkeyup="searchUserByUsername()" placeholder="" type="text"></label>
+									</div> -->
+									<table id="example2" class="table table-bordered table-striped"
+										role="grid" aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
-												<th><input type="checkbox" class="custom-control-input"
-													id="defaultUnchecked"></th>
+												<sec:authorize
+													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+													<th><input type="checkbox"
+														class="custom-control-input" id="defaultUnchecked"></th>
+												</sec:authorize>
 												<th>STT</th>
 												<th>Tiêu đề</th>
 												<th>Video Youtube Id</th>
@@ -60,7 +51,7 @@
 												<th>Tác giả</th>
 												<sec:authorize
 													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-													<th></th>
+													<th style="text-align: center;">Bỏ gỡ video</th>
 												</sec:authorize>
 											</tr>
 										</thead>
@@ -68,22 +59,26 @@
 											<c:forEach var="i" begin="1"
 												end="${listVideoUnPublic.size()}">
 												<tr role="row" class="odd">
-													<td><input type="checkbox"
-														class="custom-control-input" id="defaultUnchecked"></td>
+													<sec:authorize
+														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
+														<td><input type="checkbox"
+															class="custom-control-input" id="defaultUnchecked"></td>
+													</sec:authorize>
 													<td><c:out value="${i }"></c:out></td>
-													<td class=""><a title="Nhấn để xem video"
-														target="_blank"
+													<td style="max-width: 400px" class=""><a
+														title="Nhấn để xem video" target="_blank"
 														href="https://www.youtube.com/watch?v=${listVideoUnPublic.get(i-1).getVideoYoutubeId()}"><c:out
 																value="${listVideoUnPublic.get(i-1).getTitle()}"></c:out></a></td>
 													<td class="sorting_1"><c:out
 															value="${listVideoUnPublic.get(i-1).getVideoYoutubeId()}"></c:out></td>
 													<td><c:out
-															value="${listVideoUnPublic.get(i-1).getPublishedDate()}"></c:out></td>
+															value="${listVideoUnPublic.get(i-1).showPublishedDate()}"></c:out></td>
 													<td><c:out
 															value="${listVideoUnPublic.get(i-1).getAuthor()}"></c:out></td>
 													<sec:authorize
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-														<td><a href="#" class="fa fa-remove" title="Bỏ gỡ video"
+														<td style="text-align: center;"><a href="#"
+															class="fa fa-remove" title="Bỏ gỡ video"
 															onclick="publicVideo('${listVideoUnPublic.get(i-1).getId()}')"></a>
 														</td>
 													</sec:authorize>

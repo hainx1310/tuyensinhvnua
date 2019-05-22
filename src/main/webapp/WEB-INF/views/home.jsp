@@ -20,9 +20,10 @@
 					<!-- Thong ke -->
 					<div id="thongke">
 						<h4>Thống kê</h4>
-						<a href="${pageContext.request.contextPath}/post/pending">(${pendingPosts})
+						<a
+							href="${pageContext.request.contextPath}/bai-viet/bai-cho-duyet">(${pendingPosts})
 							Bài chờ duyệt</a>, <a
-							href="${pageContext.request.contextPath}/post/approved">(${approvedPosts})
+							href="${pageContext.request.contextPath}/bai-viet/bai-cho-dang">(${approvedPosts})
 							Bài đã duyệt</a>
 					</div>
 				</div>
@@ -84,8 +85,7 @@
 												</button>
 												<h4></h4>
 											</div>
-											<div class="modal-body">
-											</div>
+											<div class="modal-body"></div>
 										</div>
 										<!-- /.modal-content -->
 									</div>

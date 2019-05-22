@@ -26,9 +26,8 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<div id="example2_filter" class="dataTables_filter">
-										<label>Lọc:<input
-											id="input-search-name-categories" type="search"
-											onkeyup="searchCategoriesByName()"
+										<label>Lọc:<input id="input-search-name-categories"
+											type="search" onkeyup="searchCategoriesByName()"
 											class="form-control input-sm" placeholder=""
 											aria-controls="example2"></label>
 										<button type="button" class="btn btn-success"
@@ -49,7 +48,7 @@
 												<th>Người tạo</th>
 												<th>Ngày sửa</th>
 												<th>Người sửa</th>
-												<th></th>
+												<th style="text-align: center;">Hành động</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -58,7 +57,8 @@
 													<td><input type="checkbox"
 														class="custom-control-input" id="defaultUnchecked"></td>
 													<td class=""><c:out value="${i}" /></td>
-													<td id="categories-name" class="sorting_1"><c:out
+													<td style="max-width: 400px" id="categories-name"
+														class="sorting_1"><c:out
 															value="${listCategories.get(i-1).getName()}" /></td>
 													<td id="categories-status"><c:out
 															value="${listCategories.get(i-1).isStatus()==true ? \"Kích hoạt\" : \"Khóa\"}" /></td>
@@ -70,19 +70,22 @@
 															value="${listCategories.get(i-1).getUpdatedDate()}" /></td>
 													<td id="categories-updated-user"><c:out
 															value="${listCategories.get(i-1).getUpdatedUser()}" /></td>
-													<td><c:if
+													<td style="text-align: center;"><c:if
 															test="${listCategories.get(i-1).isStatus() == true}">
-															<a id="changeStatusCategories"
+															<a title="Khóa chuyên mục" id="changeStatusCategories"
 																onclick='openModalChangeStatusCategories(${listCategories.get(i-1).getId()}, ${listCategories.get(i-1).isStatus()})'
 																href="#" class="fa fa-toggle-on"></a>
 														</c:if> <c:if
 															test="${listCategories.get(i-1).isStatus() == false}">
-															<a id="changeStatusCategories"
+															<a title="Kích hoạt chuyên mục"
+																id="changeStatusCategories"
 																onclick='openModalChangeStatusCategories(${listCategories.get(i-1).getId()}, ${listCategories.get(i-1).isStatus()})'
 																href="#" class="fa fa-toggle-off"></a>
 														</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+														title="Sửa"
 														onclick='openModalUpdateCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}", ${listCategories.get(i-1).isStatus()})'
 														href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+														title="Xóa"
 														onclick='openModalDeleteCategories(${listCategories.get(i-1).getId()}, "${listCategories.get(i-1).getName()}")'
 														href="#" class="fa fa-trash-o"></a></td>
 												</tr>

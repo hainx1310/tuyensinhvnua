@@ -290,7 +290,7 @@ $('body').on('click', '.page-of-categories', function() {
 function changeStatusUserById(userId, status) {
 	$.ajax({
 		type : "post",
-		url : "changeStatusUser",
+		url : "quan-ly-tai-khoan/changeStatusUser",
 		data : {
 			status : status,
 			id : userId,
@@ -420,7 +420,7 @@ $('body').on('click', '.page-of-user', function() {
 	var startIndex = (currentPage - 1) * 5;
 	$('#recored-start').text(startIndex + 1);
 	$.ajax({
-		url : "getUserLimit",
+		url : "quan-ly-tai-khoan/getUserLimit",
 		type : "get",
 		data : {
 			startIndex : startIndex,
@@ -659,12 +659,12 @@ function editPost(postId) {
 
 	$.ajax({
 		type : "get",
-		url : "edit",
+		url : "sua-bai-viet",
 		data : {
 			postId : postId,
 		},
 		success : function(response) {
-			location.href = "update?postId=" + postId;
+			location.href = "cap-nhat-bai-viet?postId=" + postId;
 		},
 		error : function(e) {
 		}
@@ -675,12 +675,12 @@ function editPostHome(postId) {
 
 	$.ajax({
 		type : "get",
-		url : "post/edit",
+		url : "bai-viet/sua-bai-viet",
 		data : {
 			postId : postId,
 		},
 		success : function(response) {
-			location.href = "post/update?postId=" + postId;
+			location.href = "bai-viet/cap-nhat-bai-viet?postId=" + postId;
 		},
 		error : function(e) {
 		}
@@ -724,7 +724,7 @@ function viewPostHome(postId, title) {
 
 	$.ajax({
 		type : "get",
-		url : "post/view",
+		url : "bai-viet/view",
 		data : {
 			postId : postId,
 		},

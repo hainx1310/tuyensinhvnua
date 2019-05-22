@@ -30,13 +30,11 @@
 							<div class="col-sm-12">
 								<div class="row">
 									<div class="col-sm-8" style="margin-left: 10px">
-										<c:if test="${1==1 }">
-											<div>
-												<h4>Tiêu đề bài viết (*)</h4>
-												<input style="margin-right: 0px; width: 100%" type="text"
-													placeholder="Tiêu đề bài viết" id="title" value="${title}" />
-											</div>
-										</c:if>
+										<div>
+											<h4>Tiêu đề bài viết (*)</h4>
+											<input style="margin-right: 0px; width: 100%" type="text"
+												placeholder="Tiêu đề bài viết" id="title" value="${title}" />
+										</div>
 										<div>
 											<h4>Địa chỉ bài viết (*)</h4>
 											<input name="url" style="margin-right: 0px; width: 100%"
@@ -133,11 +131,13 @@
 				var content = CKEDITOR.instances['frmContent'].getData();
 				var avatarPost = $('#avatarPost').attr('src');
 				var categoriesId = $('input[name=categoriesId]:checked').val();
-				var publishedDate = document.getElementById("datepicker").value;
+				var publishedDate = document.getElementById("datepicker") ? document
+						.getElementById("datepicker").value
+						: null;
 				var url = document.getElementById("url").value;
 				$.ajax({
 					type : "post",
-					url : "add",
+					url : "them-moi-bai-viet",
 					data : {
 						title : title,
 						url : url,

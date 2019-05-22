@@ -30,7 +30,7 @@
 	<!-- End dinh nghia trang chu -->
 
 	<!-- Dinh nghia trang profile -->
-	<definition name="profile" extends="base.definition">
+	<definition name="thong-tin-ca-nhan" extends="base.definition">
 		<put-attribute name="title" value="Thông tin cá nhân" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/user/profile.jsp" />
@@ -38,14 +38,14 @@
 	<!-- End dinh nghia trang profile -->
 
 	<!-- Dinh nghia trang them moi bai viet -->
-	<definition name="post/add" extends="base.definition">
+	<definition name="bai-viet/them-moi-bai-viet" extends="base.definition">
 		<put-attribute name="title" value="Thêm bài viết" />
 		<put-attribute name="body" value="/WEB-INF/views/editor/post/add.jsp" />
 	</definition>
 	<!-- End dinh nghia trang them moi bai viet -->
 
 	<!-- Dinh nghia trang sua bai viet -->
-	<definition name="post/update" extends="base.definition">
+	<definition name="bai-viet/cap-nhat-bai-viet" extends="base.definition">
 		<put-attribute name="title" value="Sửa bài viết" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/post/update.jsp" />
@@ -53,7 +53,7 @@
 	<!-- End dinh nghia trang sua bai viet -->
 
 	<!-- Dinh nghia trang bai viet cho duyet -->
-	<definition name="post/pending" extends="base.definition">
+	<definition name="bai-viet/bai-cho-duyet" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đang chờ duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/post/pending.jsp" />
@@ -61,7 +61,7 @@
 	<!-- End dinh nghia trang bai viet cho duyet -->
 
 	<!-- Dinh nghia trang bai viet da duyet -->
-	<definition name="post/approved" extends="base.definition">
+	<definition name="bai-viet/bai-da-duyet" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/post/approved.jsp" />
@@ -69,7 +69,7 @@
 	<!-- End dinh nghia trang bai viet da duyet -->
 
 	<!-- Dinh nghia trang bai viet da xuat ban -->
-	<definition name="post/published" extends="base.definition">
+	<definition name="bai-viet/bai-da-dang" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã xuất bản" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/post/published.jsp" />
@@ -77,7 +77,7 @@
 	<!-- End dinh nghia trang bai viet da xuat ban -->
 
 	<!-- Dinh nghia trang bai viet da bi go -->
-	<definition name="post/unpublic" extends="base.definition">
+	<definition name="bai-viet/bai-da-go" extends="base.definition">
 		<put-attribute name="title" value="Bài viết đã bị gỡ" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/post/unpublic.jsp" />
@@ -85,7 +85,7 @@
 	<!-- End dinh nghia trang bai viet da bi go -->
 
 	<!-- Dinh nghia trang quan ly chuyen muc -->
-	<definition name="admin/categories" extends="base.definition">
+	<definition name="admin/quan-ly-chuyen-muc" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Chuyên mục" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/categories/categories.jsp" />
@@ -93,7 +93,7 @@
 	<!-- End dinh nghia trang quan ly chuyen muc -->
 
 	<!-- Dinh nghia trang quan ly Video -->
-	<definition name="video" extends="base.definition">
+	<definition name="video/them-moi-video" extends="base.definition">
 		<put-attribute name="title" value="Quản lý Video" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/video.jsp" />
@@ -101,7 +101,7 @@
 	<!-- End dinh nghia trang quan ly Video -->
 
 	<!-- Dinh nghia trang Video cho duyet -->
-	<definition name="video/pending" extends="base.definition">
+	<definition name="video/video-dang-cho-duyet" extends="base.definition">
 		<put-attribute name="title" value="Video đang chờ duyệt" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/pending.jsp" />
@@ -109,23 +109,23 @@
 	<!-- End dinh nghia trang Video cho duyet -->
 
 	<!-- Dinh nghia trang Video da duyet -->
-	<definition name="video/approved" extends="base.definition">
-		<put-attribute name="title" value="Video đã duyệt" />
+	<definition name="video/video-cho-dang" extends="base.definition">
+		<put-attribute name="title" value="Video đang chờ đăng" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/approved.jsp" />
 	</definition>
 	<!-- End dinh nghia trang Video da duyet -->
 
 	<!-- Dinh nghia trang bai viet da xuat ban -->
-	<definition name="video/published" extends="base.definition">
-		<put-attribute name="title" value="Video đã xuất bản" />
+	<definition name="video/video-da-dang" extends="base.definition">
+		<put-attribute name="title" value="Video đã đăng" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/published.jsp" />
 	</definition>
 	<!-- End dinh nghia trang Video da xuat ban -->
 
 	<!-- Dinh nghia trang bai viet da bị gỡ -->
-	<definition name="video/unpublic" extends="base.definition">
+	<definition name="video/video-da-go" extends="base.definition">
 		<put-attribute name="title" value="Video đã bị gỡ" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/editor/video/unpublic.jsp" />
@@ -133,7 +133,7 @@
 	<!-- End dinh nghia trang Video da xuat ban -->
 
 	<!-- Dinh nghia trang quan ly Thanh vien -->
-	<definition name="admin/user" extends="base.definition">
+	<definition name="admin/quan-ly-tai-khoan" extends="base.definition">
 		<put-attribute name="title" value="Quản lý thành viên" />
 		<put-attribute name="body" value="/WEB-INF/views/admin/user/user.jsp" />
 	</definition>

@@ -51,7 +51,7 @@
 				<!-- /.box-body -->
 
 				<div class="box-footer">
-					<button type="submit" class="btn btn-primary">Gửi video</button>
+					<button type="submit" class="btn btn-primary">Lưu</button>
 				</div>
 			</form>
 		</div>

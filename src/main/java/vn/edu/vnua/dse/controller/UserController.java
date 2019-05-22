@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.entity.User;
 import vn.edu.vnua.dse.service.UserService;
 
@@ -33,13 +34,13 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/user/add", method = RequestMethod.POST)
-	public ModelAndView createUser(User user, HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan/add", method = RequestMethod.POST)
+	public ModelAndView createUser(User user, Model model) {
 
 		// kiem tra username co ton tai ko
 		if (userService.checkExistUserByName(user.getUsername())) {
 			model.addAttribute("message", "Tên tài khoản đã tồn tại! Mời bạn nhập tên khác.");
-			return new ModelAndView("redirect:" + "admin/user");
+			return new ModelAndView("redirect:" + "admin/quan-ly-tai-khoan");
 		}
 
 		// Get username
@@ -51,11 +52,9 @@ public class UserController {
 		}
 
 		// get type role
-		if (!"ROLE_ADMIN".equals(user.getRole()) || !"ROLE_EDITOR".equals(user.getRole())
-				|| !"ROLE_COLLABORARATORS".equals(user.getRole())) {
-			user.setRole("ROLE_COLLABORARATORS");
-		} else {
-			user.setRole(request.getParameter("role"));
+		if (!CommonConst.ROLE_NAME.ROLE_EDITOR.equals(user.getRole())
+				&& !CommonConst.ROLE_NAME.ROLE_COLLABORARATORS.equals(user.getRole())) {
+			user.setRole(CommonConst.ROLE_NAME.ROLE_COLLABORARATORS);
 		}
 
 		// random salt
@@ -71,7 +70,7 @@ public class UserController {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/admin/user/UserManagement");
+		return new ModelAndView("redirect:" + "/admin/quan-ly-tai-khoan");
 	}
 
 	/**
@@ -80,7 +79,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/user/UserManagement", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan", method = RequestMethod.GET)
 	public String getFirstResultPage(Model model) {
 
 		List<User> listUser = new ArrayList<User>();
@@ -99,7 +98,7 @@ public class UserController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
 
-		return "admin/user";
+		return "admin/quan-ly-tai-khoan";
 	}
 
 	/**
@@ -107,7 +106,7 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/user/EditUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan/EditUser", method = RequestMethod.POST)
 	public ModelAndView updateUser(User user) {
 
 		// Get username
@@ -118,12 +117,18 @@ public class UserController {
 			user.setUpdatedUser(username);
 		}
 
+		// get type role
+		if (!CommonConst.ROLE_NAME.ROLE_EDITOR.equals(user.getRole())
+				&& !CommonConst.ROLE_NAME.ROLE_COLLABORARATORS.equals(user.getRole())) {
+			user.setRole(CommonConst.ROLE_NAME.ROLE_COLLABORARATORS);
+		}
+
 		try {
 			userService.updateUser(user);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/user/UserManagement");
+		return new ModelAndView("redirect:" + "/admin/quan-ly-tai-khoan");
 	}
 
 	/**
@@ -132,7 +137,7 @@ public class UserController {
 	 * @param User
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/user/DeleteUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan/DeleteUser", method = RequestMethod.POST)
 	public ModelAndView deleteUser(HttpServletRequest request) {
 		int UserId;
 		UserId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
@@ -141,7 +146,7 @@ public class UserController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:" + "/admin/user/UserManagement");
+		return new ModelAndView("redirect:" + "/admin/quan-ly-tai-khoan");
 	}
 
 	/**
@@ -149,7 +154,7 @@ public class UserController {
 	 * 
 	 * @param request
 	 */
-	@RequestMapping(value = "/admin/user/changeStatusUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan/changeStatusUser", method = RequestMethod.POST)
 	public ModelAndView changeStatusUser(HttpServletRequest request) {
 		int UserId;
 		String username = null;
@@ -171,7 +176,7 @@ public class UserController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return new ModelAndView("redirect:/admin/user/UserManagement");
+		return new ModelAndView("redirect:/admin/quan-ly-tai-khoan");
 	}
 
 	/**
@@ -180,7 +185,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/user/getUserLimit", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@RequestMapping(value = "/admin/quan-ly-tai-khoan/getUserLimit", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public String getCategoriresLimit(@RequestParam int startIndex) {
 
@@ -203,15 +208,16 @@ public class UserController {
 			html += "<td id=\"user-role\">" + item.getRoleName() + "</td>";
 			html += "<td>" + item.getPost().size() + "</td>";
 			html += "<td>" + item.getVideo().size() + "</td>";
-			html += "<td><a id='changeStatusUser' onclick='changeStatusUserById(" + item.getId() + ", "
-					+ item.isStatus() + ")' href='#' "
-					+ (item.isStatus() == true ? "class=\"fa fa-toggle-on\"" : "class=\"fa fa-toggle-off\"")
-					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateUser("
+			html += "<td  style=\"text-align: center;\"><a id='changeStatusUser' onclick='changeStatusUserById("
+					+ item.getId() + ", " + item.isStatus() + ")' href='#' "
+					+ (item.isStatus() == true ? "class=\"fa fa-toggle-on\" title = \"Khóa tài khoản\""
+							: "class=\"fa fa-toggle-off\" title = \"Kích hoạt tài khoản\"")
+					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a title=\"Sửa\" onclick='openModalUpdateUser("
 					+ item.getId() + ", \"" + item.getUsername() + "\", \"" + item.getRoleName() + "\", "
 					+ item.isStatus()
 					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
-					+ "onclick='openModalDeleteUser(" + item.getId() + ", \"" + item.getUsername() + "\")' "
-					+ "href=\"#\" class = \"fa fa fa-trash-o\"></a></td>";
+					+ "title=\"Xóa\" onclick='openModalDeleteUser(" + item.getId() + ", \"" + item.getUsername()
+					+ "\")' " + "href=\"#\" class = \"fa fa fa-trash-o\"></a></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);
@@ -222,7 +228,7 @@ public class UserController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "/thong-tin-ca-nhan", method = RequestMethod.GET)
 	public String profile(ModelMap model) {
 
 		User user = new User();
@@ -249,6 +255,6 @@ public class UserController {
 		model.addAttribute("totalPostByAuthor", totalPostByAuthor);
 		model.addAttribute("totalVideoByAuthor", totalVideoByAuthor);
 
-		return "profile";
+		return "thong-tin-ca-nhan";
 	}
 }

@@ -48,7 +48,7 @@
 													<th>Quyền</th>
 													<th>Số bài viết</th>
 													<th>Số video</th>
-													<th></th>
+													<th style="text-align: center;">Hành động</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -69,18 +69,20 @@
 																value="${listUser.get(i-1).getPost().size()}" /></td>
 														<td id="user-created-user"><c:out
 																value="${listUser.get(i-1).getVideo().size()}" /></td>
-														<td><c:if
+														<td style="text-align: center;"><c:if
 																test="${listUser.get(i-1).isStatus()==true}">
-																<a id="changeStatusUser"
+																<a id="changeStatusUser" title="Khóa tài khoản"
 																	onclick='changeStatusUserById(${listUser.get(i-1).getId()}, ${listUser.get(i-1).isStatus()})'
 																	href="#" class="fa fa-toggle-on"></a>
 															</c:if> <c:if test="${listUser.get(i-1).isStatus()==false }">
-																<a id="changeStatusUser"
+																<a id="changeStatusUser" title="Kích hoạt tài khoản"
 																	onclick='changeStatusUserById(${listUser.get(i-1).getId()}, ${listUser.get(i-1).isStatus()})'
 																	href="#" class="fa fa-toggle-off"></a>
 															</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+															title="Sửa"
 															onclick='openModalUpdateUser(${listUser.get(i-1).getId()}, "${listUser.get(i-1).getUsername()}", "${listUser.get(i-1).getRoleName()}", ${listUser.get(i-1).isStatus()})'
 															href="#" class="fa fa-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+															title="Xóa"
 															onclick='openModalDeleteUser(${listUser.get(i-1).getId()}, "${listUser.get(i-1).getUsername()}")'
 															href="#" class="fa fa-trash-o"></a></td>
 													</tr>
@@ -127,7 +129,7 @@
 									</button>
 									<h4 class="modal-user-title"></h4>
 								</div>
-								<form action="add" method="post">
+								<form action="quan-ly-tai-khoan/add" method="post">
 									<div class="modal-body">
 										<table
 											style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
@@ -156,12 +158,10 @@
 											<tr>
 												<td>Quyền:</td>
 												<td><div class="form-group">
-														<select id="select_role"
-															class="form-control select2 select2-hidden-accessible"
+														<select id="select_role" class="form-control select2"
 															style="width: 100%;" tabindex="-1" aria-hidden="true"
 															name="role">
 															<option selected="selected">---Chọn quyền--</option>
-															<option value="ROLE_ADMIN">Quản trị viên</option>
 															<option value="ROLE_EDITOR">Biên tập viên</option>
 															<option value="ROLE_COLLABORARATORS">Cộng tác
 																viên</option>
@@ -201,7 +201,7 @@
 									</button>
 									<h4 class="modal-user-title">Cập nhật thành viên</h4>
 								</div>
-								<form action="EditUser" method="post">
+								<form action="quan-ly-tai-khoan/EditUser" method="post">
 									<div class="modal-body">
 										<table
 											style="display: table; border-collapse: separate; border-spacing: 10px; border-color: grey">
@@ -212,12 +212,10 @@
 											<tr>
 												<td>Quyền:</td>
 												<td><div class="form-group">
-														<select id="select_role"
-															class="form-control select2 select2-hidden-accessible"
+														<select id="select_role1" class="form-control select2"
 															style="width: 100%;" tabindex="-1" aria-hidden="true"
 															name="role">
 															<option selected="selected">---Chọn quyền--</option>
-															<option value="ROLE_ADMIN">Quản trị viên</option>
 															<option value="ROLE_EDITOR">Biên tập viên</option>
 															<option value="ROLE_COLLABORARATORS">Cộng tác
 																viên</option>
@@ -226,7 +224,7 @@
 											</tr>
 											<tr>
 												<td>Kích hoạt:</td>
-												<td><input type="checkbox" id="user_is_active"
+												<td><input type="checkbox" id="update-user_is_active"
 													name="status"></td>
 											</tr>
 										</table>
@@ -234,7 +232,7 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"
 											data-dismiss="modal">Hủy</button>
-										<button id="btn-submit-user" type="submit"
+										<button id="btn-submit-update-user" type="submit"
 											class="btn btn-primary">Lưu</button>
 									</div>
 								</form>
@@ -249,7 +247,7 @@
 					<div class="modal fade" id="modal-confirm-delete">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="DeleteUser" method="post">
+								<form action="quan-ly-tai-khoan/DeleteUser" method="post">
 									<div class="modal-body"></div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary"

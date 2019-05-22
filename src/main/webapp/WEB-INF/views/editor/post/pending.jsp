@@ -20,24 +20,6 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<div id="thongke">
-				<h4>Bài chờ duyệt</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						chuyên mục:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên chuyên mục..." type="text"
-						style="width: 180px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
 					<div id="example2_wrapper"
@@ -48,9 +30,8 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2"
-										class="table table-bordered table-striped" role="grid"
-										aria-describedby="example2_info">
+									<table id="example2" class="table table-bordered table-striped"
+										role="grid" aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
 												<th><input type="checkbox" class="custom-control-input"
@@ -69,8 +50,10 @@
 													<td><input type="checkbox"
 														class="custom-control-input" id="defaultUnchecked"></td>
 													<td><c:out value="${i}"></c:out></td>
-													<td class=""><c:out
-															value="${listPendingPost.get(i-1).getTitle()}"></c:out></td>
+													<td style="max-width: 400px" class=""><a href="#"
+														onclick="viewPost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"
+														title="Xem bài viết"><c:out
+																value="${listPendingPost.get(i-1).getTitle()}"></c:out></a></td>
 													<td class="sorting_1"><c:out
 															value="${listPendingPost.get(i-1).getCategories().getName()}"></c:out>
 													</td>
@@ -78,9 +61,7 @@
 															value="${listPendingPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPendingPost.get(i-1).getCreatedDate()}"></c:out></td>
-													<td><a href="#"
-														onclick="viewPost('${listPendingPost.get(i-1).getId()}', '${listPendingPost.get(i-1).getTitle()}')"
-														class="fa fa-eye" title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 														href="#" class="fa fa-pencil" title="Sửa bài viết"
 														onclick="editPost('${listPendingPost.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<a href="#" class="fa fa-trash-o" title="Xóa bài viết"
@@ -163,7 +144,7 @@
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Hủy</button>
 														<button id="btn-save-approved" type="button"
-															class="btn btn-primary" onclick = "approvedPost()">Duyệt</button>
+															class="btn btn-primary" onclick="approvedPost()">Duyệt</button>
 													</div>
 												</form>
 											</div>
