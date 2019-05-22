@@ -49,7 +49,7 @@ public class CategoriesDaoImpl implements CategoriesDAO {
 			} else {
 				query = session.createQuery("FROM Categories");
 				query.setFirstResult(startIndex);
-				query.setMaxResults(10);
+				query.setMaxResults(5);
 			}
 			listCategories = (List<Categories>) query.list();
 		} catch (Exception ex) {

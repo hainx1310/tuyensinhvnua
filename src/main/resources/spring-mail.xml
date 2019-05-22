@@ -7,8 +7,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	<property name="host" value="smtp.gmail.com" />
 	<property name="port" value="587" />
-	<property name="username" value="system.nsmv@gmail.com" />
-	<property name="password" value="abcxyz12345" />
+	<property name="username" value="haiconlg1@gmail.com" />
+	<property name="password" value="@Xuanhai94" />
 		
 	<property name="javaMailProperties">
 	   <props>
@@ -22,8 +22,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 <bean id="sendMail" class="vn.com.nsmv.common.Mail">
 	<property name="mailSender" ref="mailSender" />
 	<property name="velocityEngine" ref="velocityEngine"/>
-	<property name="mailDefault" value="se@nsmv.com.vn"/>
-	<property name="mailDefault2" value="helpdesk@nsmv.com.vn"/>
+	<property name="mailDefault" value="haiconlg1@gmail.com"/>
+	<property name="mailDefault2" value="haiconlg1@gmail.com"/>
 </bean>
 <bean id="velocityEngine"
  class="org.springframework.ui.velocity.VelocityEngineFactoryBean">

@@ -57,10 +57,10 @@ public class UserController {
 		} else {
 			user.setRole(request.getParameter("role"));
 		}
-		
+
 		// random salt
 		String salt = "randomString";
-		
+
 		// ma hoa mk
 		user.setPasswordSalt(salt);
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)));
@@ -93,7 +93,7 @@ public class UserController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		pagesNumber = (int) Math.ceil(listAllUser.size() / 10.0);
+		pagesNumber = (int) Math.ceil(listAllUser.size() / 5.0);
 		totalRecord = listAllUser.size();
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("pagesNumber", pagesNumber);
@@ -175,7 +175,7 @@ public class UserController {
 	}
 
 	/**
-	 * Controller lấy ra 10 User tiep theo
+	 * Controller lấy ra 5 User tiep theo
 	 * 
 	 * @param model
 	 * @return
@@ -201,18 +201,14 @@ public class UserController {
 			html += "<td id=\"user-email\">" + item.getEmail() + "</td>";
 			html += "<td id=\"user-status\">" + (item.isStatus() == true ? "Kích hoạt" : "Khóa") + "</td>";
 			html += "<td id=\"user-role\">" + item.getRoleName() + "</td>";
-			html += "<td id=\"user-created-date\">" + (item.getCreatedDate() == null ? "" : item.getCreatedDate())
-					+ "</td>";
-			html += "<td id=\"user-created-user\">" + (item.getCreatedUser()) + "</td>";
-			html += "<td id=\"user-udapted-date\">" + (item.getUpdatedDate() == null ? "" : item.getUpdatedDate())
-					+ "</td>";
-			html += "<td id=\"user-udapted-user\">" + (item.getUpdatedUser() == null ? "" : item.getUpdatedUser())
-					+ "</td>";
+			html += "<td>" + item.getPost().size() + "</td>";
+			html += "<td>" + item.getVideo().size() + "</td>";
 			html += "<td><a id='changeStatusUser' onclick='changeStatusUserById(" + item.getId() + ", "
 					+ item.isStatus() + ")' href='#' "
 					+ (item.isStatus() == true ? "class=\"fa fa-toggle-on\"" : "class=\"fa fa-toggle-off\"")
 					+ "></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick='openModalUpdateUser("
-					+ item.getId() + ", \"" + item.getUsername() + "\", \"" + item.getRoleName() + "\", " + item.isStatus()
+					+ item.getId() + ", \"" + item.getUsername() + "\", \"" + item.getRoleName() + "\", "
+					+ item.isStatus()
 					+ ")' href=\"#\" class = \"fa fa-pencil\"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a "
 					+ "onclick='openModalDeleteUser(" + item.getId() + ", \"" + item.getUsername() + "\")' "
 					+ "href=\"#\" class = \"fa fa fa-trash-o\"></a></td>";

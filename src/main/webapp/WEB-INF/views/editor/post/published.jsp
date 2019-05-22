@@ -20,28 +20,9 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Bài đã đăng</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						chuyên mục:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên chuyên mục..." type="text"
-						style="width: 180px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
-					<div id="example2_wrapper"
+					<div id="example1_wrapper"
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
@@ -49,9 +30,7 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2"
-										class="table table-bordered table-hover dataTable" role="grid"
-										aria-describedby="example2_info">
+									<table id="example2" class="table table-bordered table-striped">
 										<thead>
 											<tr role="row">
 												<th><input type="checkbox" class="custom-control-input"
@@ -82,13 +61,13 @@
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
-													<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-														href="#" class="fa fa-eye"
+													<td><a href="#" class="fa fa-eye"
 														onclick="viewPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"
-														title="Xem bài viết"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sec:authorize
+														title="Xem bài viết"></a>
+													<sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+																onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>
@@ -114,33 +93,6 @@
 								</c:if>
 							</div>
 						</div>
-
-						<c:if test="${totalRecord > 10}">
-							<div class="row">
-								<div class="col-sm-5">
-									<div class="dataTables_info" id="show-data-of-page"
-										role="status" aria-live="polite">
-										Hiển thị <span id="recored-start">1</span> đến <span
-											id="recored-end">${listPublishedPost.size()}</span> trong số
-										<c:out value="${totalRecord}" />
-										mục
-									</div>
-								</div>
-								<div class="col-sm-7">
-									<div class="dataTables_paginate paging_simple_numbers"
-										id="example2_paginate">
-										<ul class="pagination">
-											<c:forEach var="i" begin="1" end="${numberPage}">
-												<li class="paginate_button page-of-categories next"
-													id="example2_next"><a href="#"
-													aria-controls="example2" data-dt-idx="'${i}'" tabindex="0">${i}</a></li>
-											</c:forEach>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</c:if>
-
 					</div>
 				</div>
 				<!-- /.box-body -->

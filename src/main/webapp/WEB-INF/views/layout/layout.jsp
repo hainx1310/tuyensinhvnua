@@ -43,6 +43,8 @@
 <!-- Select2 -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bower_components/select2/dist/css/select2.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">	
 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/resources/css/content.css" />
@@ -125,6 +127,11 @@
 		src="<%=request.getContextPath()%>/resources/dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="<%=request.getContextPath()%>/resources/dist/js/demo.js"></script>
+	<!-- DataTables -->
+	<script
+		src="<%=request.getContextPath()%>/resources/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 	<!-- START js tự định nghĩa -->
 	<script type="text/javascript"
@@ -151,16 +158,28 @@
 			}
 
 			var url = window.location.pathname;
-			
+
 			var activePage = stripTrailingSlash(url);
-			$('.sidebar-menu li a').each(function() {
-				var currentPage = stripTrailingSlash($(this).attr('href'));
-				if (activePage == currentPage) {
-					$(this).parent().addClass('active');
-					$(this).parent().parent().parent().addClass('menu-open').addClass('active')
-				}
-			});
+			$('.sidebar-menu li a').each(
+					function() {
+						var currentPage = stripTrailingSlash($(this).attr(
+								'href'));
+						if (activePage == currentPage) {
+							$(this).parent().addClass('active');
+							$(this).parent().parent().parent().addClass(
+									'menu-open').addClass('active')
+						}
+					});
 		});
 	</script>
+	<script>
+	$(function() {
+		$('#example1').DataTable()
+		$('#example2').DataTable({
+	        "ordering": false,
+	        "aLengthMenu": [5,10,15]
+		})
+	})
+</script>
 </body>
 </html>

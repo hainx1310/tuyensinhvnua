@@ -21,21 +21,6 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Video đã đăng</h4>
-				<div id="filter">
-					<span>Tiêu đề:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByTitle()"
-						placeholder="Tìm theo tiêu đề..." type="text"
-						style="width: 300px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Tên
-						tác giả:&nbsp;&nbsp;</span> <input id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm theo tên tác giả..." type="text"
-						style="width: 150px;" />
-				</div>
-			</div>
 			<div class="box">
 				<div class="box-body">
 					<div id="example2_wrapper"
@@ -47,7 +32,7 @@
 								</c:if>
 								<c:if test="${totalRecord > 0}">
 									<table id="example2"
-										class="table table-bordered table-hover dataTable" role="grid"
+										class="table table-bordered table-striped" role="grid"
 										aria-describedby="example2_info">
 										<thead>
 											<tr role="row">

@@ -191,7 +191,7 @@ public class UserDaoImpl implements UserDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			Query query = session.createQuery("FROM User");
 			query.setFirstResult(startIndex);
-			query.setMaxResults(10);
+			query.setMaxResults(5);
 
 			listUserLimit = (List<User>) query.list();
 		} catch (Exception e) {

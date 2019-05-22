@@ -18,17 +18,6 @@
 		</section>
 
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Chuyên mục</h4>
-				<div id="filter">
-					<span>Tên chuyên mục:&nbsp;&nbsp;</span> <input
-						id="input-search-name-categories"
-						onkeyup="searchCategoriesByName()"
-						placeholder="Tìm tên chuyên mục..." type="text"
-						style="width: 300px;" />
-				</div>
-			</div>
 			<div>
 				<div class="box">
 					<div class="box-body">
@@ -36,13 +25,23 @@
 							class="dataTables_wrapper form-inline dt-bootstrap">
 							<div class="row">
 								<div class="col-sm-12">
+									<div id="example2_filter" class="dataTables_filter">
+										<label>Lọc:<input
+											id="input-search-name-categories" type="search"
+											onkeyup="searchCategoriesByName()"
+											class="form-control input-sm" placeholder=""
+											aria-controls="example2"></label>
+										<button type="button" class="btn btn-success"
+											data-toggle="modal" data-target="#modal-success"
+											id="btn-categorites-clcik">Thêm</button>
+									</div>
 									<table id="table-categories"
-										class="table table-bordered table-hover dataTable" role="grid"
+										class="table table-bordered table-striped" role="grid"
 										aria-describedby="example2_info">
 										<thead>
 											<tr role="row">
-												<th><input type="checkbox"
-														class="custom-control-input" id="defaultUnchecked"></th>
+												<th><input type="checkbox" class="custom-control-input"
+													id="defaultUnchecked"></th>
 												<th>STT</th>
 												<th>Tên chuyên mục</th>
 												<th>Trạng thái</th>
@@ -93,11 +92,7 @@
 								</div>
 							</div>
 
-							<button type="button" class="btn btn-success" data-toggle="modal"
-								data-target="#modal-success" id="btn-categorites-clcik">Thêm
-								mới</button>
-
-							<c:if test="${totalrRecord > 10}">
+							<c:if test="${totalrRecord > 5}">
 								<div class="row">
 									<div class="col-sm-5">
 										<div class="dataTables_info" id="show-data-of-page"

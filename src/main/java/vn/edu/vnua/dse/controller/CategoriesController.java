@@ -45,7 +45,7 @@ public class CategoriesController {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		pagesNumber = (int) Math.ceil(listAllCategories.size() / 10.0);
+		pagesNumber = (int) Math.ceil(listAllCategories.size() / 5.0);
 		totalrRecord = listAllCategories.size();
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("pagesNumber", pagesNumber);

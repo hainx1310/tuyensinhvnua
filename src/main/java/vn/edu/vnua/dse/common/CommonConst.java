@@ -299,4 +299,24 @@ public class CommonConst {
 		 */
 		public static final String ROLE_COLLABORARATORS = "ROLE_COLLABORARATORS";
 	}
+	
+	/**
+	 * Class định nghĩa số bản ghi 1 trang
+	 * 
+	 * @author HaiNX
+	 *
+	 */
+	public class PAGE_SIZE {
+
+		/**
+		 * Số bản ghi 1 trang là 5
+		 */
+		public static final int PAGE_SIZE_WEB = 5;
+		
+		/**
+		 * Số bản ghi 1 trang là 10
+		 */
+		public static final int PAGE_SIZE_API = 10;
+
+	}
 }

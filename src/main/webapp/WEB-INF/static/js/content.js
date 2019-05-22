@@ -260,7 +260,7 @@ function searchCategoriesByName() {
  */
 $('body').on('click', '.page-of-categories', function() {
 	var currentPage = $(this).text();
-	var startIndex = (currentPage - 1) * 10;
+	var startIndex = (currentPage - 1) * 5;
 	$('#recored-start').text(startIndex + 1);
 	$.ajax({
 		url : "getCategoriresLimit",
@@ -417,7 +417,7 @@ function searchUserByUsername() {
  */
 $('body').on('click', '.page-of-user', function() {
 	var currentPage = $(this).text();
-	var startIndex = (currentPage - 1) * 10;
+	var startIndex = (currentPage - 1) * 5;
 	$('#recored-start').text(startIndex + 1);
 	$.ajax({
 		url : "getUserLimit",
@@ -427,6 +427,87 @@ $('body').on('click', '.page-of-user', function() {
 		},
 		success : function(value) {
 			var element = $('#table-user').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});
+
+/**
+ * Sự kiện phân trang binh luan da duyet
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-comment-approved', function() {
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 5;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "editor/approved/get",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#table-comment-approved').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});
+
+/**
+ * Sự kiện phân trang binh luan khong duoc duyet
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-comment-notapproved', function() {
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 5;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "editor/notapproved/get",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#table-comment-notapproved').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});
+
+/**
+ * Sự kiện phân trang binh luan dang cho duyet
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-comment-pending', function() {
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 5;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "editor/pending/get",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#table-comment-pending').find("tbody");
 			var idx = value.lastIndexOf(">") + 1;
 			var last = value.substring(idx, value.length);
 			var result = value.substring(0, idx);

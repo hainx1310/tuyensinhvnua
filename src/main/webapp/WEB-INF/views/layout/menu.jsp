@@ -50,11 +50,11 @@
 							class="fa fa-calendar"></i><span> Bài chờ đăng</span></a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/post/published"><i
-							class="fa fa-calendar-check-o"></i><span>Bài đã đăng</span></a></li>
+							class="fa fa-calendar-check-o"></i><span> Bài đã đăng</span></a></li>
 
 					<li><a
 						href="${pageContext.request.contextPath}/post/unpublic"><i
-							class="fa fa-calendar-check-o"></i><span>Bài đã gỡ</span></a></li>
+							class="fa fa-calendar-check-o"></i><span> Bài đã gỡ</span></a></li>
 				</ul></li>
 
 			<li class="treeview"><a href="#"> <i

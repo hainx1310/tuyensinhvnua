@@ -208,22 +208,22 @@ public class PostController {
 	public String postPublishedPage(Model model) {
 
 		List<Post> listAllPublishedPost = new ArrayList<Post>();
-		List<Post> listLimitPublishedPost = new ArrayList<Post>();
+//		List<Post> listLimitPublishedPost = new ArrayList<Post>();
 
 		try {
-			// lay danh sach 10 bai viet da xuat ban moi nhat tu db
+			// lay danh sach tat ca bai viet da xuat ban moi nhat tu db
 			listAllPublishedPost = postService.getPostPublished();
 
 			// lay 10 bai viet da xuat ban
-			listLimitPublishedPost = postService.getLimitPostPublished(0);
+//			listLimitPublishedPost = postService.getLimitPostPublished(0);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
+//		int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
 
-		model.addAttribute("listPublishedPost", listLimitPublishedPost);
+		model.addAttribute("listPublishedPost", listAllPublishedPost);
 		model.addAttribute("totalRecord", listAllPublishedPost.size());
-		model.addAttribute("numberPage", numberPage);
+//		model.addAttribute("numberPage", numberPage);
 
 		return "post/published";
 	}

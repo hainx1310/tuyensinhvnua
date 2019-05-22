@@ -16,16 +16,6 @@
 			<br>
 		</section>
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Tài khoản</h4>
-				<div id="filter">
-					<span>Tên tài khoản:&nbsp;&nbsp;</span> <input
-						id="input-search-name-user" onkeyup="searchUserByUsername()"
-						placeholder="Lọc tài khoản..." type="text" style="width: 300px;" />
-				</div>
-			</div>
 			<div>
 				<div class="box">
 					<div class="box-body">
@@ -37,9 +27,16 @@
 										<p>Không có dữ liệu để hiển thị</p>
 									</c:if>
 									<c:if test="${totalRecord > 0}">
+										<div id="example2_filter" class="dataTables_filter">
+											<label>Lọc:<input id="input-search-name-user"
+												onkeyup="searchUserByUsername()" placeholder="" type="text"></label>
+											<button type="button" class="btn btn-success"
+												data-toggle="modal" data-target="#modal-success"
+												onclick="openModalCreateUser()">Thêm</button>
+										</div>
 										<table id="table-user"
-											class="table table-bordered table-hover dataTable"
-											role="grid" aria-describedby="example2_info">
+											class="table table-bordered table-striped" role="grid"
+											aria-describedby="example2_info">
 											<thead>
 												<tr role="row">
 													<th><input type="checkbox"
@@ -68,10 +65,10 @@
 																value="${listUser.get(i-1).isStatus()==true ? \"Kích hoạt\" : \"Khóa\"}" /></td>
 														<td id="user-role"><c:out
 																value="${listUser.get(i-1).getRoleName()}" /></td>
-														<td id="user-created-date"><c:out
-																value="${listUser.get(i-1).getCreatedDate()}" /></td>
+														<td><c:out
+																value="${listUser.get(i-1).getPost().size()}" /></td>
 														<td id="user-created-user"><c:out
-																value="${listUser.get(i-1).getCreatedUser()}" /></td>
+																value="${listUser.get(i-1).getVideo().size()}" /></td>
 														<td><c:if
 																test="${listUser.get(i-1).isStatus()==true}">
 																<a id="changeStatusUser"
@@ -93,13 +90,7 @@
 									</c:if>
 								</div>
 							</div>
-
-							<button type="button" class="btn btn-success" data-toggle="modal"
-								data-target="#modal-success" onclick="openModalCreateUser()">Thêm
-								mới</button>
-							<div class="box-header"></div>
-
-							<c:if test="${totalRecord > 10}">
+							<c:if test="${totalRecord > 5}">
 								<div class="row">
 									<div class="col-sm-5">
 										<div class="dataTables_info" id="show-data-of-page"

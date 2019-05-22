@@ -49,7 +49,7 @@
 								</c:if>
 								<c:if test="${totalRecord > 0}">
 									<table id="example2"
-										class="table table-bordered table-hover dataTable" role="grid"
+										class="table table-bordered table-striped" role="grid"
 										aria-describedby="example2_info">
 										<thead>
 											<tr role="row">

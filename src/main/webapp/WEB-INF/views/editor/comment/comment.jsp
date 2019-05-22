@@ -19,17 +19,6 @@
 			<br>
 		</section>
 		<div style="margin-left: 10px; margin-right: 10px;">
-			<!-- Thong ke -->
-			<!-- Thong ke -->
-			<div id="thongke">
-				<h4>Bình luận</h4>
-				<div id="filter">
-					<span>Bài viết:&nbsp;&nbsp;</span> <input
-						id="input-search-name-user" onkeyup="searchUserByUsername()"
-						placeholder="Lọc theo bài viết..." type="text"
-						style="width: 300px;" />
-				</div>
-			</div>
 			<div>
 				<div class="box">
 					<div class="box-body">
@@ -41,8 +30,8 @@
 										<p>Không có dữ liệu để hiển thị</p>
 									</c:if>
 									<c:if test="${totalRecord > 0}">
-										<table id="table-user"
-											class="table table-bordered table-hover dataTable"
+										<table id="table-comment-pending"
+											class="table table-bordered table-striped"
 											role="grid" aria-describedby="example2_info">
 											<thead>
 												<tr role="row">
@@ -69,8 +58,9 @@
 														<td id="user-email"><c:out
 																value="${listComment.get(i-1).getName()}" /></td>
 														<td id="user-role"><c:out
-																value="${listComment.get(i-1).getCreatedDate()}" /></td>
-														<td><a href="#" class="fa fa-check" title="Duyệt"
+																value="${listComment.get(i-1).showCreatedDate()}" /></td>
+														<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+															href="#" class="fa fa-check" title="Duyệt"
 															onclick="approvedComment('${listComment.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
 															href="#" class="fa fa-remove" title="Không duyệt"
 															onclick="unApprovedComment('${listComment.get(i-1).getId()}')"></a></td>
@@ -81,7 +71,7 @@
 									</c:if>
 								</div>
 							</div>
-							<c:if test="${totalRecord > 10}">
+							<c:if test="${totalRecord > 5}">
 								<div class="row">
 									<div class="col-sm-5">
 										<div class="dataTables_info" id="show-data-of-page"
@@ -97,7 +87,7 @@
 											id="example2_paginate">
 											<ul class="pagination">
 												<c:forEach var="i" begin="1" end="${pagesNumber}">
-													<li class="paginate_button page-of-user next"
+													<li class="paginate_button page-of-comment-pending next"
 														id="example2_next"><a href="#"
 														aria-controls="example2" data-dt-idx="'${i}'" tabindex="0">${i}</a></li>
 												</c:forEach>
