@@ -25,13 +25,13 @@
 		<!-- Cau hinh cac quyen chung danh cho ca 3 quyen -->
 		<intercept-url pattern="/home"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_COLLABORARATORS')" />
-		<intercept-url pattern="/profile"
+		<intercept-url pattern="thong-tin-ca-nhan"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN', 'ROLE_COLLABORARATORS')" />
-		<intercept-url pattern="/post/**"
+		<intercept-url pattern="/bai-viet/**"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/video/**"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS', 'ROLE_ADMIN')" />
-		<intercept-url pattern="/comment/**"
+		<intercept-url pattern="/binh-luan/**"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS', 'ROLE_ADMIN')" />
 		<intercept-url pattern="/notification/**"
 			access="hasAnyRole('ROLE_EDITOR', 'ROLE_COLLABORARATORS', 'ROLE_ADMIN')" />

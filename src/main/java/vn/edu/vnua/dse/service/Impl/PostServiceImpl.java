@@ -208,11 +208,11 @@ public class PostServiceImpl implements PostService {
 	 * @see vn.edu.vnua.dse.service.PostService#getLimitPostPublished(int)
 	 */
 	@Override
-	public List<Post> getLimitPostPublished(int startIndex) {
+	public List<Post> getLimitPostPublished(int startIndex, int limit) {
 		List<Post> listResult = new ArrayList<Post>();
 		try {
 			logger.debug("GET getLimitPostPublished Post Start");
-			listResult = postDao.getLimitPostPublished(startIndex);
+			listResult = postDao.getLimitPostPublished(startIndex, limit);
 			logger.debug("GET ALL getLimitPostPublished End");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -396,6 +396,44 @@ public class PostServiceImpl implements PostService {
 			logger.error(e.getMessage());
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong bai viet đã đăng theo user
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getPostIsPublishedByUserId(int)
+	 */
+	@Override
+	public int getPostIsPublishedByUserId(int userId) {
+		int result = 0;
+		try {
+			logger.debug("getPostIsPublishedByUserId Start");
+			result = postDao.getPostIsPublishedByUserId(userId);
+			logger.debug("getPostIsPublishedByUserId End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach giới hạn bai viet đã đăng theo user
+	 * 
+	 * @see vn.edu.vnua.dse.service.PostService#getLimitPostIsPublishedByUserId(int,
+	 * int, int)
+	 */
+	@Override
+	public List<Post> getLimitPostIsPublishedByUserId(int startIndex, int limit, int userId) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			logger.debug("GET getLimitPostIsPublishedByUserId Start");
+			listResult = postDao.getLimitPostIsPublishedByUserId(startIndex, limit, userId);
+			logger.debug("GET getLimitPostIsPublishedByUserId End");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return listResult;
 	}
 
 }

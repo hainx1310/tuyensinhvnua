@@ -1,5 +1,6 @@
 package vn.edu.vnua.dse.dao.Impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -262,7 +263,7 @@ public class PostDaoImpl implements PostDAO {
 	 * @see vn.edu.vnua.dse.dao.PostDAO#getLimitPostPublished(int)
 	 */
 	@Override
-	public List<Post> getLimitPostPublished(int startIndex) {
+	public List<Post> getLimitPostPublished(int startIndex, int limit) {
 		List<Post> listResult = new ArrayList<Post>();
 
 		try {
@@ -270,7 +271,7 @@ public class PostDaoImpl implements PostDAO {
 			Query query = session.createQuery(
 					"FROM Post WHERE status = 1 and public = 1 and published_date <= now() ORDER BY published_date desc");
 			query.setFirstResult(startIndex);
-			query.setMaxResults(10);
+			query.setMaxResults(limit);
 			listResult = (List<Post>) query.list();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -484,6 +485,50 @@ public class PostDaoImpl implements PostDAO {
 			logger.error(ex.getMessage());
 			throw new RuntimeException(ex);
 		}
+	}
+
+	/*
+	 * (non-Javadoc) Lay so luong bai viet đã đăng theo user
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getPostIsPublishedByUserId(int)
+	 */
+	@Override
+	public int getPostIsPublishedByUserId(int userId) {
+		int result = 0;
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			String sql = CommonUtils.readSqlFile(CommonConst.SqlFileName.GET_TOTAL_POST_BY_USERID);
+			Query query = session.createSQLQuery(sql);
+			query.setParameter("userId", userId);
+			result = ((BigInteger) query.uniqueResult()).intValue();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc) Lay danh sach giới hạn bai viet đã đăng theo user
+	 * 
+	 * @see vn.edu.vnua.dse.dao.PostDAO#getLimitPostIsPublishedByUserId(int, int,
+	 * int)
+	 */
+	@Override
+	public List<Post> getLimitPostIsPublishedByUserId(int startIndex, int limit, int userId) {
+		List<Post> listResult = new ArrayList<Post>();
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			Query query = session.createQuery(
+					"FROM Post WHERE status = 1 and public = 1 and published_date <= now() and user_id = :userId ORDER BY published_date desc");
+			query.setParameter("userId", userId);
+			query.setFirstResult(startIndex);
+			query.setMaxResults(limit);
+			listResult = (List<Post>) query.list();
+		} catch (Exception ex) {
+			logger.error(ex.getMessage());
+			throw new RuntimeException(ex);
+		}
+		return listResult;
 	}
 
 }

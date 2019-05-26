@@ -53,7 +53,7 @@ public interface PostService {
 	 * 
 	 * @return
 	 */
-	public List<Post> getLimitPostPublished(int startIndex);
+	public List<Post> getLimitPostPublished(int startIndex, int limit);
 
 	/**
 	 * Lay danh sach bai viet dang cho duyet
@@ -154,4 +154,18 @@ public interface PostService {
 	 * @param postId
 	 */
 	public void publicPost(int postId);
+
+	/**
+	 * Lay so luong bai viet đã đăng theo user
+	 * 
+	 * @return
+	 */
+	public int getPostIsPublishedByUserId(int userId);
+
+	/**
+	 * Lay danh sach giới hạn bai viet đã đăng theo user
+	 * 
+	 * @return
+	 */
+	public List<Post> getLimitPostIsPublishedByUserId(int startIndex, int limit, int userId);
 }

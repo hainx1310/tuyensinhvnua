@@ -103,7 +103,7 @@
 											Hiển thị <span id="recored-start">1</span> đến <span
 												id="recored-end">${listCategories.size()}</span> trong số
 											<c:out value="${totalrRecord}" />
-											mục
+											kết quả
 										</div>
 									</div>
 									<div class="col-sm-7">

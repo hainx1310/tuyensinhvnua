@@ -281,6 +281,33 @@ $('body').on('click', '.page-of-categories', function() {
 });
 
 /**
+ * Sự kiện click bai da xuat ban cua toi
+ * 
+ * @returns
+ */
+function getPostPublishedOfMe() {
+	$.ajax({
+		type : "get",
+		url : "bai-da-dang",
+		data : {
+			postOfMe : true
+		},
+		success : function(value) {
+			/*
+			 * var element = $('#example2').find("tbody"); var idx =
+			 * value.lastIndexOf(">") + 1; var last = value.substring(idx,
+			 * value.length); var result = value.substring(0, idx);
+			 * element.empty(); element.append(value);
+			 * $('#recored-end').text(last);
+			 */
+			location.href = "bai-da-dang?bai-cua-toi=" + true;
+		},
+		error : function(e) {
+			// location.reload();
+		}
+	});
+}
+/**
  * Hàm xử lý sự kiện người dùng nhấn đổi trạng thái user
  * 
  * @param userId
@@ -600,7 +627,7 @@ function approvedPost() {
 		url : "editor/approved",
 		data : {
 			postId : postId,
-			publishedDate: publishedDate,
+			publishedDate : publishedDate,
 		},
 		success : function(response) {
 			location.reload();
@@ -617,7 +644,8 @@ function approvedPost() {
  * @param postId
  * @returns
  */
-function unApprovedPost(postId) {
+function unApprovedPost() {
+	var postId = document.getElementById("postId").value;
 	$.ajax({
 		type : "post",
 		url : "editor/unapproved",
@@ -687,7 +715,6 @@ function editPostHome(postId) {
 	});
 }
 
-
 /**
  * su kien khi bam xem bai viet
  * 
@@ -713,7 +740,6 @@ function viewPost(postId, title) {
 		show : 'true'
 	});
 };
-
 
 /**
  * su kien khi bam xem bai viet
@@ -991,11 +1017,11 @@ function openModalApprovedVideo(id, videoYoutubeId, title) {
 	});
 
 	$('#modal-approved-video .modal-body').append(
-			"<input name = \"videoId\" id = \"videoId\" type = \"text\" value = " + id
-					+ " />");
+			"<input name = \"videoId\" id = \"videoId\" type = \"text\" value = "
+					+ id + " />");
 	$('#modal-approved-video #title').val(title);
 	$('#modal-approved-video #videoYoutubeId').val(videoYoutubeId);
-	
+
 	$('#modal-approved-video #videoId').hide();
 	$('#modal-approved-video #title').hide();
 	$('#modal-approved-video #videoYoutubeId').hide();
@@ -1025,9 +1051,9 @@ function openModalApprovedPost(id) {
 	});
 
 	$('#modal-approved-post .modal-body').append(
-			"<input name = \"postId\" id = \"postId\" type = \"text\" value = " + id
-					+ " />");
-	
+			"<input name = \"postId\" id = \"postId\" type = \"text\" value = "
+					+ id + " />");
+
 	$('#modal-approved-post #postId').hide();
 }
 
@@ -1176,7 +1202,97 @@ function unApprovedComment(commentId) {
 			location.reload();
 		},
 		error : function(e) {
-			//location.reload();
+			// location.reload();
 		}
 	});
 }
+
+/**
+ * Hàm mở modal xác nhận gỡ bài viết
+ * 
+ * @param postId
+ * @param title
+ * @returns
+ */
+function openModalUnpublicPost(postId, title) {
+	// show modal
+	$('#modal-confirm-unpublic').modal({
+		show : 'true'
+	});
+	$('#modal-confirm-unpublic .modal-body').append(
+			'<strong> <p>Xác nhận </strong>'
+					+ '<p>Bạn chắc chắn muốn gỡ bài viết <strong>' + title
+					+ '</strong>?</p>');
+	$('#modal-confirm-unpublic .modal-body').append(
+			"<input name = \"id\" id = \"postId\" type = \"text\" value = "
+					+ postId + " />");
+
+	$('#modal-confirm-unpublic #postId').hide();
+}
+
+/**
+ * Sự kiện reset form gỡ bài viết
+ * 
+ * @returns
+ */
+$("#modal-confirm-unpublic").on("hidden.bs.modal", function() {
+	$('#modal-confirm-unpublic #postId').remove();
+	$('#modal-confirm-unpublic p').remove();
+});
+
+/**
+ * Sự kiện phân trang tat ca bài viết đã đăng
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-post-published', function(e) {
+	e.preventDefault();
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 5;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "getMorePost",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+		},
+		success : function(value) {
+			var element = $('#post-published').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});
+
+/**
+ * Sự kiện phân trang bài viết đã đăng của tôi
+ * 
+ * @returns
+ */
+$('body').on('click', '.page-of-post-published-of-me', function(e) {
+	e.preventDefault();
+	var currentPage = $(this).text();
+	var startIndex = (currentPage - 1) * 5;
+	$('#recored-start').text(startIndex + 1);
+	$.ajax({
+		url : "getMorePost",
+		type : "get",
+		data : {
+			startIndex : startIndex,
+			postOfMe : true
+		},
+		success : function(value) {
+			var element = $('#post-published').find("tbody");
+			var idx = value.lastIndexOf(">") + 1;
+			var last = value.substring(idx, value.length);
+			var result = value.substring(0, idx);
+			element.empty();
+			element.append(result);
+			$('#recored-end').text(last);
+		}
+	});
+});

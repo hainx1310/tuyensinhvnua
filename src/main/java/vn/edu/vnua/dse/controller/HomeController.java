@@ -38,7 +38,7 @@ public class HomeController {
 			approvedPosts = postService.getApprovedPost() != null
 					? postService.getApprovedPost().size() > 0 ? postService.getApprovedPost().size() : 0
 					: 0;
-			listLimitPublishedPost = postService.getLimitPostPublished(0);
+			listLimitPublishedPost = postService.getLimitPostPublished(0, 5);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

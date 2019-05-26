@@ -157,7 +157,12 @@ public class CommonConst {
 		 * cau sql bỏ go bai viet
 		 */
 		public static final String PUBLIC_POST = "sqlfiles/publicPost.sql";
-
+		
+		/**
+		 * cau sql lay so luong bai viet theo userId
+		 */
+		public static final String GET_TOTAL_POST_BY_USERID = "sqlfiles/getAllPostPublishedByUserId.sql";
+		
 		/**
 		 * cau sql lay so luong bai viet theo tac gia
 		 */

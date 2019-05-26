@@ -4,7 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>tuyensinhhvnapi</display-name>
-
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/config/spring-mvc-servlet.xml
+		</param-value>
+	</context-param>
 	<!-- SERVLET WEB -->
 	<servlet>
 		<servlet-name>spring-mvc</servlet-name>
@@ -20,10 +25,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/spring-security.xml
-			/WEB-INF/data-source-hiber-cfg.xml
-			/WEB-INF/dao-cfg.xml
-			/WEB-INF/transaction-cfg.xml
+			/WEB-INF/config/spring-security.xml
+			/WEB-INF/config/data-source-hiber-cfg.xml
+			/WEB-INF/config/dao-cfg.xml
+			/WEB-INF/config/transaction-cfg.xml
 		</param-value>
 	</context-param>
 	<!-- END SERVLET WEB -->
@@ -34,7 +39,7 @@
 		<servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
 		<init-param>
 			<param-name>XMLConfig</param-name>
-			<param-value>/WEB-INF/ckfinder-config.xml</param-value>
+			<param-value>/WEB-INF/config/ckfinder-config.xml</param-value>
 		</init-param>
 		<init-param>
 			<param-name>debug</param-name>

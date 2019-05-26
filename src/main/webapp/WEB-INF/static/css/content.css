@@ -56,3 +56,7 @@
 #modal-view-post .modal-dialog {
 	width: 400px;
 }
+
+#modal-confirm-unpublic .modal-dialog {
+	width: 360px;
+}

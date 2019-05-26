@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -203,27 +204,114 @@ public class PostController {
 	}
 
 	@RequestMapping(value = { "/bai-da-dang" }, method = RequestMethod.GET)
-	public String postPublishedPage(Model model) {
-
+	public String postPublishedPage(Model model, HttpServletRequest request) {
+		User user = new User();
 		List<Post> listAllPublishedPost = new ArrayList<Post>();
-		// List<Post> listLimitPublishedPost = new ArrayList<Post>();
+		int postByUserId = 0;
+		int totalAllRecord = 0;
+		int totalRecord = 0;
+		int numberPage = 0;
+		List<Categories> listCategories = new ArrayList<Categories>();
+		List<Post> listLimitPublishedPost = new ArrayList<Post>();
+
+		// Get user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			String username = ((UserDetails) principal).getUsername();
+			user = userService.getUserByUsername(username).get(0);
+		}
 
 		try {
 			// lay danh sach tat ca bai viet da xuat ban moi nhat tu db
 			listAllPublishedPost = postService.getPostPublished();
-
-			// lay 10 bai viet da xuat ban
-			// listLimitPublishedPost = postService.getLimitPostPublished(0);
+			totalAllRecord = listAllPublishedPost.size();
+			
+			// lay tat ca chuyen muc
+			listCategories = categoriesService.getAllCategories(-1);
+			
+			if (user != null) {
+				postByUserId = postService.getPostIsPublishedByUserId(user.getId());
+			}
+			if (request.getParameter("bai-cua-toi") == null) {
+				// lay 10 bai viet da xuat ban
+				listLimitPublishedPost = postService.getLimitPostPublished(0, 5);
+				numberPage = (int) Math.ceil(listAllPublishedPost.size() / 5.0);
+				totalRecord = listAllPublishedPost.size();
+				model.addAttribute("allPost", true);
+			} else {
+				if (user != null) {
+					listLimitPublishedPost = postService.getLimitPostIsPublishedByUserId(0, 5, user.getId());
+					model.addAttribute("bai-cua-toi", true);
+					totalRecord = postByUserId;
+					numberPage = (int) Math.ceil(postByUserId / 5.0);
+				}
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		// int numberPage = (int) Math.ceil(listAllPublishedPost.size() / 10.0);
 
-		model.addAttribute("listPublishedPost", listAllPublishedPost);
-		model.addAttribute("totalRecord", listAllPublishedPost.size());
-		// model.addAttribute("numberPage", numberPage);
-
+		model.addAttribute("listPublishedPost", listLimitPublishedPost);
+		model.addAttribute("totalAllRecord", totalAllRecord);
+		model.addAttribute("totalRecord", totalRecord);
+		model.addAttribute("postByUserId", postByUserId);
+		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("listCategories", listCategories);
 		return "bai-viet/bai-da-dang";
+	}
+
+	/**
+	 * Controller phan trang bai viet da dang
+	 * 
+	 * @param startIndex
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getMorePost", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public String postPublishedById(@RequestParam int startIndex, HttpServletRequest request) {
+		User user = new User();
+		List<Post> listResult = new ArrayList<Post>();
+		String html = "";
+		int i = startIndex + 1;
+
+		// Get user
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			String username = ((UserDetails) principal).getUsername();
+			user = userService.getUserByUsername(username).get(0);
+		}
+
+		try {
+			if (request.getParameter("postOfMe") == null) {
+				// truong hop phan trang tat ca
+				listResult = postService.getLimitPostPublished(startIndex, 5);
+			} else {
+				// truong hop phan trang bai cua toi
+				if (user != null) {
+					listResult = postService.getLimitPostIsPublishedByUserId(startIndex, 5, user.getId());
+				}
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		for (Post item : listResult) {
+			html += "<tr role='row' class='odd'>";
+			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
+			html += "<td class=''>" + (i++) + "</td>";
+			html += "<td style=\"max-width: 400px\" class=\"\"><a href=\"#\"";
+			html += " onclick='viewPost(" + item.getId() + ",\"" + item.getTitle() + "\")'";
+			html += " title=\"Xem bài viết\">" + item.getTitle() + "</a></td>";
+			html += "<td class=\"sorting_1\">" + item.getCategories().getName() + "</td>";
+			html += "<td>" + item.showPublishedDate() + "</td>";
+			html += "<td>" + item.getAuthor() + "</td>";
+			html += "<td style=\"text-align: center;\"><a href=\"#\"";
+			html += " class=\"fa fa-remove\" title=\"Gỡ bài viết\"";
+			html += " onclick='openModalUnpublicPost(" + item.getId() + ", \"" + item.getTitle() + "\")'></a></td>";
+			html += "</tr>";
+		}
+
+		return html + (i - 1);
 	}
 
 	/**

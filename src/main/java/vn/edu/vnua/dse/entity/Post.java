@@ -53,8 +53,8 @@ public class Post implements Serializable {
 
 	public Post(int id, String shortContent, String title, String url, String avatarPost, String content,
 			Categories categories, String editor, String author, Date createdDate, Date updatedDate, String updatedUser,
-			Date publishedDate, boolean status, String approvedUser, String unapprovedUser, Collection<Comment> comments,
-			User user, boolean isPublic) {
+			Date publishedDate, boolean status, String approvedUser, String unapprovedUser,
+			Collection<Comment> comments, User user, boolean isPublic) {
 		super();
 		this.id = id;
 		this.shortContent = shortContent;
@@ -88,7 +88,7 @@ public class Post implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "short_content", length = 500)
+	@Column(name = "short_content", length = 500, nullable = false)
 	public String getShortContent() {
 		return shortContent;
 	}
@@ -97,7 +97,7 @@ public class Post implements Serializable {
 		this.shortContent = shortContent;
 	}
 
-	@Column(name = "title", length = 255)
+	@Column(name = "title", length = 255, nullable = false)
 	public String getTitle() {
 		return title;
 	}
@@ -115,7 +115,7 @@ public class Post implements Serializable {
 		this.url = url;
 	}
 
-	@Column(name = "avatar_post", length = 255)
+	@Column(name = "avatar_post", length = 255, nullable = false)
 	public String getAvatarPost() {
 		return avatarPost;
 	}
@@ -124,7 +124,7 @@ public class Post implements Serializable {
 		this.avatarPost = avatarPost;
 	}
 
-	@Column(name = "content")
+	@Column(name = "content", nullable = false)
 	public String getContent() {
 		return content;
 	}
@@ -134,7 +134,7 @@ public class Post implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "categories_id")
+	@JoinColumn(name = "categories_id", nullable = false)
 	public Categories getCategories() {
 		return categories;
 	}

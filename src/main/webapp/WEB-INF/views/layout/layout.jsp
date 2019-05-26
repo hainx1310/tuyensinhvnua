@@ -108,6 +108,7 @@
 	<script
 		src="<%=request.getContextPath()%>/resources/bower_components/moment/min/moment.min.js"></script>
 	<!-- datetime picker -->
+<script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/resources/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- Bootstrap WYSIHTML5 -->

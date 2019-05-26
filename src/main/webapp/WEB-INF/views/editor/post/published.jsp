@@ -19,8 +19,35 @@
 			<br>
 		</section>
 
-		<div style="margin-left: 10px; margin-right: 10px;">
-			<div class="box">
+		<div style="margin-left: 10px;">
+			<div style="margin-bottom: 10px">
+				<a href="${pageContext.request.contextPath}/bai-viet/bai-da-dang">Tất
+					cả (<span>${totalAllRecord}</span>)
+				</a> | <a id="post-published-of-mine" href="#" class="current"
+					aria-current="page" onclick="getPostPublishedOfMe()">Của tôi (<span
+					class="count">${postByUserId}</span>)
+				</a>
+				<div style="float: right;" class="alignleft actions">
+					<select name="cat" id="cat" style="height: 26px;">
+						<option value="0" selected="selected">Tất cả chuyên mục</option>
+						<c:forEach var="i" begin="1" end="${listCategories.size()}">
+							<option class="level-0"
+								value="${listCategories.get(i-1).getId()}">
+								<c:out value="${listCategories.get(i-1).getName()}"></c:out>
+							</option>
+						</c:forEach>
+					</select><input type="submit" name="title" id="post-query-submit"
+						class="button" value="Lọc">
+					<p style="float: right; margin-left: 10px" class="search-box">
+						<input type="text" id="post-search-input" name="s"
+							placeholder="Tìm theo tiêu đề" value=""><input
+							type="submit" id="search-submit" class="button"
+							value="Tìm tất cả bài viết">
+					</p>
+				</div>
+			</div>
+
+			<div style="clear: left;" class="box">
 				<div class="box-body">
 					<div id="example1_wrapper"
 						class="dataTables_wrapper form-inline dt-bootstrap">
@@ -30,7 +57,8 @@
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
 								<c:if test="${totalRecord > 0}">
-									<table id="example2" class="table table-bordered table-striped">
+									<table id="post-published"
+										class="table table-bordered table-striped">
 										<thead>
 											<tr role="row">
 												<sec:authorize
@@ -43,7 +71,6 @@
 												<th>Chuyên mục</th>
 												<th>Thời gian đăng bài</th>
 												<th>Tác giả</th>
-												<th>Người duyệt</th>
 												<sec:authorize
 													access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 													<th style="text-align: center;">Gỡ bài viết</th>
@@ -70,19 +97,71 @@
 															value="${listPublishedPost.get(i-1).showPublishedDate()}"></c:out></td>
 													<td><c:out
 															value="${listPublishedPost.get(i-1).getAuthor()}"></c:out></td>
-													<td><c:out
-															value="${listPublishedPost.get(i-1).getApprovedUser()}"></c:out></td>
 													<sec:authorize
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 														<td style="text-align: center;"><a href="#"
 															class="fa fa-remove" title="Gỡ bài viết"
-															onclick="unApprovedPost('${listPublishedPost.get(i-1).getId()}')"></a>
+															onclick="openModalUnpublicPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"></a>
 														</td>
 													</sec:authorize>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<c:if test="${totalAllRecord > 5}">
+										<div class="row">
+											<div class="col-sm-5">
+												<div class="dataTables_info" id="show-data-of-page"
+													role="status" aria-live="polite">
+													Hiển thị <span id="recored-start">1</span> đến <span
+														id="recored-end">${listPublishedPost.size()}</span> trong
+													số
+													<c:out value="${totalRecord}" />
+													kết quả
+												</div>
+											</div>
+											<div class="col-sm-7">
+												<div class="dataTables_paginate paging_simple_numbers"
+													id="example2_paginate">
+													<ul class="pagination">
+														<c:forEach var="i" begin="1" end="${numberPage}">
+															<c:if test="${not empty allPost}">
+																<li class="paginate_button page-of-post-published next"
+																	id="example2_next"><a href="#"
+																	aria-controls="example2" data-dt-idx="'${i}'"
+																	tabindex="0">${i}</a></li>
+															</c:if>
+															<c:if test="${empty allPost}">
+																<li
+																	class="paginate_button page-of-post-published-of-me next"
+																	id="example2_next"><a href="#"
+																	aria-controls="example2" data-dt-idx="'${i}'"
+																	tabindex="0">${i}</a></li>
+															</c:if>
+														</c:forEach>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</c:if>
+									<div class="modal fade" id="modal-confirm-unpublic">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-body"></div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Hủy bỏ</button>
+													<button id="btn-unpublic-pots" type="button"
+														onclick="unApprovedPost()" class="btn btn-primary">Đồng
+														ý</button>
+												</div>
+
+
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
 									<div class="modal fade" id="modal-view-post">
 										<div class="modal-dialog">
 											<div class="modal-content">

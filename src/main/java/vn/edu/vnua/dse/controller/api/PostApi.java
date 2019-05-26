@@ -88,7 +88,7 @@ public class PostApi {
 		List<Comment> listComment = new ArrayList<Comment>();
 
 		try {
-			listResult = postService.getLimitPostPublished(startIndex);
+			listResult = postService.getLimitPostPublished(startIndex, 10);
 			if (listResult != null && listResult.size() > 0) {
 				for (Post post : listResult) {
 					postCO.setId(post.getId());

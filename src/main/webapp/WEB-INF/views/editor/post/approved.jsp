@@ -77,12 +77,28 @@
 													<td style="text-align: center;"><sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="unApprovedPost('${listApprovedPost.get(i-1).getId()}')"></a>
+																onclick="openModalUnpublicPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"></a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<div class="modal fade" id="modal-confirm-unpublic">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-body"></div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Hủy bỏ</button>
+													<button id="btn-unpublic-pots" type="button"
+														onclick="unApprovedPost()" class="btn btn-primary">Đồng
+														ý</button>
+												</div>
+											</div>
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
 									<div class="modal fade" id="modal-view-post">
 										<div class="modal-dialog">
 											<div class="modal-content">
