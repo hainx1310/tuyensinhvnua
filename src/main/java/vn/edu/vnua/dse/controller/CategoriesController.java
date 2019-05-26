@@ -49,6 +49,7 @@ public class CategoriesController {
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalrRecord", totalrRecord);
+		model.addAttribute("activeCategoriesPage", "active");
 
 		return "admin/quan-ly-chuyen-muc";
 	}

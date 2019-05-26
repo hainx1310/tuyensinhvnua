@@ -46,6 +46,7 @@ public class HomeController {
 		model.addAttribute("pendingPosts", pendingPosts);
 		model.addAttribute("approvedPosts", approvedPosts);
 		model.addAttribute("listPublishedPost", listLimitPublishedPost);
+		model.addAttribute("activeHomePage", "active");
 		
 		return "home";
 	}

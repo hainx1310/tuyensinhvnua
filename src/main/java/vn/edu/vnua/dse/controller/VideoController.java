@@ -60,7 +60,8 @@ public class VideoController {
 		model.addAttribute("listVideo", listLimitVideo);
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
-
+		model.addAttribute("activeAddNewVideo", "active");
+		
 		return "video/them-moi-video";
 	}
 
@@ -263,6 +264,7 @@ public class VideoController {
 		model.addAttribute("listPendingVideo", listLimitPendingVideo);
 		model.addAttribute("totalRecord", listAllPendingVideo.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activeVideoPending", "active");
 
 		return "video/video-dang-cho-duyet";
 	}
@@ -286,6 +288,7 @@ public class VideoController {
 		model.addAttribute("listApprovedVideo", listLimitApprovedVideo);
 		model.addAttribute("totalRecord", listAllApprovedVideo.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activeVideoApproved", "active");
 
 		return "video/video-cho-dang";
 	}
@@ -310,7 +313,8 @@ public class VideoController {
 		model.addAttribute("listPublishedVideo", listLimitPublishedVideo);
 		model.addAttribute("totalRecord", listAllPublishedVideo.size());
 		model.addAttribute("numberPage", numberPage);
-
+		model.addAttribute("activeVideoPublised", "active");
+		
 		return "video/video-da-dang";
 	}
 
@@ -452,6 +456,7 @@ public class VideoController {
 		model.addAttribute("listVideoUnPublic", listLimitVideo);
 		model.addAttribute("totalRecord", listAllVideo.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activeVideoUnPublic", "active");
 
 		return "video/video-da-go";
 	}

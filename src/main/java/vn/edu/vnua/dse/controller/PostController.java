@@ -54,6 +54,7 @@ public class PostController {
 
 		model.addAttribute("titleContent", "Thêm bài viết");
 		model.addAttribute("listAllCatergories", listAllCatergories);
+		model.addAttribute("activeAddNewPost", "active");
 		return "bai-viet/them-moi-bai-viet";
 	}
 
@@ -176,6 +177,7 @@ public class PostController {
 		model.addAttribute("listPendingPost", listLimitPendingPost);
 		model.addAttribute("totalRecord", listAllPendingPost.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activePendingPage", "active");
 
 		return "bai-viet/bai-cho-duyet";
 	}
@@ -199,6 +201,7 @@ public class PostController {
 		model.addAttribute("listApprovedPost", listLimitApprovedPost);
 		model.addAttribute("totalRecord", listAllApprovedPost.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activeApprovedPage", "active");
 
 		return "bai-viet/bai-da-duyet";
 	}
@@ -256,6 +259,7 @@ public class PostController {
 		model.addAttribute("postByUserId", postByUserId);
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("activePublishedPage", "active");
 		return "bai-viet/bai-da-dang";
 	}
 
@@ -517,6 +521,7 @@ public class PostController {
 		model.addAttribute("listPostUnPublic", listLimitPost);
 		model.addAttribute("totalRecord", listAllPost.size());
 		model.addAttribute("numberPage", numberPage);
+		model.addAttribute("activeUnPublicPage", "active");
 
 		return "bai-viet/bai-da-go";
 	}

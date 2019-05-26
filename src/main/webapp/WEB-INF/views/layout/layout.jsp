@@ -151,7 +151,7 @@
 	<script>
 		/*menu handler*/
 		$(function() {
-			function stripTrailingSlash(str) {
+			/* function stripTrailingSlash(str) {
 				if (str.substr(-1) == '/') {
 					return str.substr(0, str.length - 1);
 				}
@@ -171,6 +171,8 @@
 									'menu-open').addClass('active')
 						}
 					});
+			
+			var url = window.location; */
 		});
 	</script>
 	<script>

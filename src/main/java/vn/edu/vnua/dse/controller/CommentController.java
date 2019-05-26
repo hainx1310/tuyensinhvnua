@@ -52,6 +52,7 @@ public class CommentController {
 		model.addAttribute("totalRecord", listAllCommentPending.size());
 		model.addAttribute("listComment", listLimitCommentPending);
 		model.addAttribute("pagesNumber", (int) Math.ceil(listAllCommentPending.size() / 5.0));
+		model.addAttribute("activeApprovedComment", "active");
 
 		return "binh-luan/duyet-binh-luan";
 	}
@@ -78,6 +79,7 @@ public class CommentController {
 		model.addAttribute("totalRecord", listAllCommentApproved.size());
 		model.addAttribute("listComment", listLimitCommentApproved);
 		model.addAttribute("pagesNumber", (int) Math.ceil(listAllCommentApproved.size() / 5.0));
+		model.addAttribute("activePublicComment", "active");
 
 		return "binh-luan/da-duoc-duyet";
 	}
@@ -104,7 +106,8 @@ public class CommentController {
 		model.addAttribute("totalRecord", listAllCommentNotApproved.size());
 		model.addAttribute("listComment", listLimitCommentNotApproved);
 		model.addAttribute("pagesNumber", (int) Math.ceil(listAllCommentNotApproved.size() / 5.0));
-
+		model.addAttribute("activeUnPublicComment", "active");
+		
 		return "binh-luan/khong-duoc-duyet";
 	}
 

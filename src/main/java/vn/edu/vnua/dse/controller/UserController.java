@@ -97,6 +97,7 @@ public class UserController {
 		model.addAttribute("listUser", listUser);
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
+		model.addAttribute("activeUserPage", "active");
 
 		return "admin/quan-ly-tai-khoan";
 	}
