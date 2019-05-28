@@ -26,6 +26,10 @@
 							class="dataTables_wrapper form-inline dt-bootstrap">
 							<div class="row">
 								<div class="col-sm-12">
+									<c:if test="${not empty msg}">
+										<input type="hidden" id="msg" value="${msg}"
+											disabled="disabled">
+									</c:if>
 									<c:if test="${totalRecord == 0}">
 										<p>Không có dữ liệu để hiển thị</p>
 									</c:if>
@@ -61,11 +65,23 @@
 																value="${listComment.get(i-1).getName()}" /></td>
 														<td id="user-role"><c:out
 																value="${listComment.get(i-1).showCreatedDate()}" /></td>
-														<td style="text-align: center;"><a href="#"
-															class="fa fa-check" title="Duyệt"
-															onclick="approvedComment('${listComment.get(i-1).getId()}')"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-															href="#" class="fa fa-remove" title="Không duyệt"
-															onclick="unApprovedComment('${listComment.get(i-1).getId()}')"></a></td>
+														<td style="text-align: center;"><form
+																style="display: inline-block;"
+																id="form-approved-comment-${i}" action="editor/approved"
+																method="POST">
+																<input name="commentId" type="hidden"
+																	value="${listComment.get(i-1).getId()}"><a
+																	href="#" class="fa fa-check" title="Duyệt"
+																	onclick='approvedComment("${i}")'></a>
+															</form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															<form style="display: inline-block;"
+																id="form-unapproved-comment-${i}"
+																action="editor/unapproved" method="POST">
+																<input name="commentId" type="hidden"
+																	value="${listComment.get(i-1).getId()}"><a
+																	href="#" class="fa fa-remove" title="Không duyệt"
+																	onclick='unapprovedComment("${i}")'></a>
+															</form></td>
 													</tr>
 												</c:forEach>
 											</tbody>

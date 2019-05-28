@@ -1090,7 +1090,7 @@ function openModalUnpublicVideo(videoId, title) {
 }
 
 /**
- * Sự kiện reset form gỡ bài viết
+ * Sự kiện reset form gỡ video
  * 
  * @returns
  */
@@ -1115,6 +1115,15 @@ function publicPost(i) {
  */
 function publicVideo(i) {
 	document.getElementById("form-public-video-" + i).submit();
+}
+
+/**
+ * Phuong thuc duyet binh luan
+ * 
+ * @returns
+ */
+function approvedComment(i) {
+	document.getElementById("form-approved-comment-" + i).submit();
 }
 
 /**
@@ -1150,46 +1159,12 @@ $("#modal-delete-categories").on("hidden.bs.modal", function() {
 });
 
 /**
- * Phuong thuc xu ly su kien nguoi dung click duyet binh luan
+ * Phuong thuc khong duyet binh luan
  * 
  * @returns
  */
-function approvedComment(commentId) {
-	$.ajax({
-		type : "post",
-		url : "editor/approved",
-		data : {
-			commentId : commentId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
-	});
-}
-
-/**
- * Phuong thuc go video
- * 
- * @param postId
- * @returns
- */
-function unApprovedComment(commentId) {
-	$.ajax({
-		type : "post",
-		url : "editor/unapproved",
-		data : {
-			commentId : commentId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			// location.reload();
-		}
-	});
+function unapprovedComment(i) {
+	document.getElementById("form-unapproved-comment-" + i).submit();
 }
 
 /**

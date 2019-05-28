@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.entity.Comment;
@@ -37,10 +39,11 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/binh-luan/duyet-binh-luan")
-	public String loadComment(ModelMap model) {
+	public String loadComment(Model model) {
 
 		List<Comment> listLimitCommentPending = new ArrayList<Comment>();
 		List<Comment> listAllCommentPending = new ArrayList<Comment>();
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			listLimitCommentPending = commentService.getLimitCommentPending(0);
@@ -53,6 +56,8 @@ public class CommentController {
 		model.addAttribute("listComment", listLimitCommentPending);
 		model.addAttribute("pagesNumber", (int) Math.ceil(listAllCommentPending.size() / 5.0));
 		model.addAttribute("activeApprovedComment", "active");
+		model.addAttribute("activeApprovedComment", "active");
+		model.addAttribute("msg", msg);
 
 		return "binh-luan/duyet-binh-luan";
 	}
@@ -91,10 +96,11 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/binh-luan/khong-duoc-duyet")
-	public String loadCommentNotApproved(ModelMap model) {
+	public String loadCommentNotApproved(Model model) {
 
 		List<Comment> listLimitCommentNotApproved = new ArrayList<Comment>();
 		List<Comment> listAllCommentNotApproved = new ArrayList<Comment>();
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			listLimitCommentNotApproved = commentService.getLimitCommentNotAprroved(0);
@@ -107,7 +113,8 @@ public class CommentController {
 		model.addAttribute("listComment", listLimitCommentNotApproved);
 		model.addAttribute("pagesNumber", (int) Math.ceil(listAllCommentNotApproved.size() / 5.0));
 		model.addAttribute("activeUnPublicComment", "active");
-		
+		model.addAttribute("msg", msg);
+
 		return "binh-luan/khong-duoc-duyet";
 	}
 
@@ -117,7 +124,7 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping(value = { "binh-luan/editor/approved" }, method = RequestMethod.POST)
-	public String approved(HttpServletRequest request) {
+	public String approved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String approvedUser = "";
@@ -133,19 +140,21 @@ public class CommentController {
 			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_EDITOR)
 					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 
-				// get videoId
+				// get commentId
 				int commentId = request.getParameter("commentId") != null
 						? Integer.parseInt(request.getParameter("commentId").toString())
 						: 0;
 
 				// duyet binh luan
 				commentService.approved(commentId, approvedUser);
+				redirectAttributes.addFlashAttribute("msg", "Duyệt bình luận thành công!");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/binh-luan/duyet-binh-luan";
+		return request.getParameter("unapporved") != null ? "redirect:/binh-luan/khong-duoc-duyet"
+				: "redirect:/binh-luan/duyet-binh-luan";
 	}
 
 	/**
@@ -154,8 +163,7 @@ public class CommentController {
 	 * @return
 	 */
 	@RequestMapping(value = { "binh-luan/editor/unapproved" }, method = RequestMethod.POST)
-	@ResponseBody
-	public String unapproved(HttpServletRequest request) {
+	public String unapproved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String unapprovedUser = "";
@@ -178,12 +186,15 @@ public class CommentController {
 
 				// go binh luan
 				commentService.unapproved(commentId, unapprovedUser);
+				redirectAttributes.addFlashAttribute("msg",
+						"Thành công! Bình luận đã được chuyển đến mục không được duyệt.");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/comment";
+		return request.getParameter("approved") != null ? "redirect:/binh-luan/da-duoc-duyet"
+				: "redirect:/binh-luan/duyet-binh-luan";
 	}
 
 	/**
@@ -199,6 +210,7 @@ public class CommentController {
 		List<Comment> listComment = new ArrayList<Comment>();
 		String html = "";
 		int i = startIndex + 1;
+		int j = 1;
 		try {
 			listComment = commentService.getLimitCommentAprroved(startIndex);
 		} catch (Exception e) {
@@ -214,8 +226,11 @@ public class CommentController {
 			html += "<td>" + item.getName() + "</td>";
 			html += "<td>" + item.showCreatedDate() + "</td>";
 			html += "<td style=\"text-align: center\">";
+			html += "<form id=\"form-unapproved-comment-" + j + "\" action=\"editor/unapproved\" ";
+			html += "method=\"POST\"> <input name=\"commentId\" type=\"hidden\" ";
+			html += "value=\"" + item.getId() + "\"><input name=\"approved\" type=\"hidden\" value=\"approved\">";
 			html += "<a href=\"#\" class=\"fa fa-remove\" title=\"Bỏ duyệt\" ";
-			html += "onclick='unApprovedComment(" + item.getId() + ")'></a></td>";
+			html += "onclick='unapprovedComment(\"" + (j++) + "\")'></a></form></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);
@@ -234,6 +249,7 @@ public class CommentController {
 		List<Comment> listComment = new ArrayList<Comment>();
 		String html = "";
 		int i = startIndex + 1;
+		int j = 1;
 		try {
 			listComment = commentService.getLimitCommentNotAprroved(startIndex);
 		} catch (Exception e) {
@@ -249,8 +265,11 @@ public class CommentController {
 			html += "<td>" + item.getName() + "</td>";
 			html += "<td>" + item.showCreatedDate() + "</td>";
 			html += "<td style=\"text-align: center;\">";
+			html += "<form id=\"form-approved-comment-" + j + "\" action=\"editor/approved\" ";
+			html += "method=\"POST\"> <input name=\"commentId\" type=\"hidden\" ";
+			html += "value=\"" + item.getId() + "\"><input name=\"unapporved\" type=\"hidden\" value=\"unapporved\">";
 			html += "<a href=\"#\" class=\"fa fa-check\" title=\"Duyệt\" ";
-			html += "onclick='approvedComment(" + item.getId() + ")'></a></td>";
+			html += "onclick='approvedComment(\"" + (j++) + "\")'></a></form></td>";
 			html += "</tr>";
 		}
 		return html + (i - 1);
@@ -269,6 +288,7 @@ public class CommentController {
 		List<Comment> listComment = new ArrayList<Comment>();
 		String html = "";
 		int i = startIndex + 1;
+		int j = 1;
 		try {
 			listComment = commentService.getLimitCommentPending(startIndex);
 		} catch (Exception e) {
@@ -284,11 +304,19 @@ public class CommentController {
 			html += "<td>" + item.getName() + "</td>";
 			html += "<td>" + item.showCreatedDate() + "</td>";
 			html += "<td style=\"text-align: center\"> ";
+			html += "<form style=\"display: inline-block;\" id=\"form-approved-comment-" + j;
+			html += "\" action=\"editor/approved\" ";
+			html += "method=\"POST\"> <input name=\"commentId\" type=\"hidden\" ";
+			html += "value=\"" + item.getId() + "\">";
 			html += "<a href=\"#\" class=\"fa fa-check\" title=\"Duyệt\" ";
-			html += "onclick='approvedComment(" + item.getId() + ")'></a>";
+			html += "onclick='approvedComment(\"" + j + "\")'></a></form>";
 			html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			html += "<a href=\"#\" class=\"fa fa-remove\" title=\"Không duyệt\" ";
-			html += "onclick=\'unApprovedComment(" + item.getId() + ")'></a></td>";
+			html += "<form style=\"display: inline-block;\" id=\"form-unapproved-comment-" + j;
+			html += "\" action=\"editor/unapproved\" ";
+			html += "method=\"POST\"> <input name=\"commentId\" type=\"hidden\" ";
+			html += "value=\"" + item.getId() + "\">";
+			html += "<a href=\"#\" class=\"fa fa-remove\" title=\"Bỏ duyệt\" ";
+			html += "onclick='unapprovedComment(\"" + (j++) + "\")'></a></form></td";
 			html += "</tr>";
 		}
 		return html + (i - 1);

@@ -26,6 +26,10 @@
 							class="dataTables_wrapper form-inline dt-bootstrap">
 							<div class="row">
 								<div class="col-sm-12">
+									<c:if test="${not empty msg}">
+										<input type="hidden" id="msg" value="${msg}"
+											disabled="disabled">
+									</c:if>
 									<c:if test="${totalRecord == 0}">
 										<p>Không có dữ liệu để hiển thị</p>
 									</c:if>
@@ -58,9 +62,15 @@
 														<td><c:out value="${listComment.get(i-1).getName()}" /></td>
 														<td><c:out
 																value="${listComment.get(i-1).showCreatedDate()}" /></td>
-														<td style="text-align: center;"><a href="#"
-															class="fa fa-remove" title="Bỏ duyệt"
-															onclick="unApprovedComment('${listComment.get(i-1).getId()}')"></a></td>
+														<td style="text-align: center;"><form
+																id="form-unapproved-comment-${i}"
+																action="editor/unapproved" method="POST">
+																<input name="commentId" type="hidden"
+																	value="${listComment.get(i-1).getId()}"> <input
+																	name="approved" type="hidden" value="approved"><a
+																	href="#" class="fa fa-remove" title="Bỏ duyệt"
+																	onclick='unapprovedComment("${i}")'></a>
+															</form></td>
 													</tr>
 												</c:forEach>
 											</tbody>
