@@ -643,6 +643,25 @@ function unApprovedPost() {
 }
 
 /**
+ * Phuong thuc go video
+ * 
+ * @param postId
+ * @returns
+ */
+function unApprovedVideo() {
+	document.getElementById("form-unpublic-video").submit();
+}
+
+/**
+ * Phuong thuc xu ly su kien nguoi dung click duyet video
+ * 
+ * @returns
+ */
+function approvedVideo() {
+	document.getElementById("form-approved-video").submit();
+}
+
+/**
  * Phuong thuc go bai viet tai trang chu
  * 
  * @param postId
@@ -1048,48 +1067,37 @@ $("#modal-approved-post").on("hidden.bs.modal", function() {
 });
 
 /**
- * Phuong thuc go video
+ * Hàm mở modal xác nhận gỡ video
  * 
- * @param postId
+ * @param videoId
+ * @param title
  * @returns
  */
-function unApprovedVideo(videoId) {
-	$.ajax({
-		type : "post",
-		url : "editor/unapproved",
-		data : {
-			videoId : videoId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
+function openModalUnpublicVideo(videoId, title) {
+	// show modal
+	$('#modal-confirm-unpublic').modal({
+		show : 'true'
 	});
+	$('#modal-confirm-unpublic .modal-body').append(
+			'<strong> <p>Xác nhận </strong>'
+					+ '<p>Bạn chắc chắn muốn gỡ video <strong>' + title
+					+ '</strong>?</p>');
+	$('#modal-confirm-unpublic .modal-body').append(
+			"<input name = \"videoId\" id = \"videoId\" type = \"text\" value = "
+					+ videoId + " />");
+
+	$('#modal-confirm-unpublic #videoId').hide();
 }
 
 /**
- * Phuong thuc bỏ go video
+ * Sự kiện reset form gỡ bài viết
  * 
- * @param postId
  * @returns
  */
-function publicVideo(videoId) {
-	$.ajax({
-		type : "post",
-		url : "editor/public",
-		data : {
-			videoId : videoId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
-	});
-}
+$("#modal-confirm-unpublic").on("hidden.bs.modal", function() {
+	$('#modal-confirm-unpublic #videoId').remove();
+	$('#modal-confirm-unpublic p').remove();
+});
 
 /**
  * Phuong thuc bỏ go bai viet
@@ -1098,6 +1106,15 @@ function publicVideo(videoId) {
  */
 function publicPost(i) {
 	document.getElementById("form-public-post-" + i).submit();
+}
+
+/**
+ * Phuong thuc bỏ go video
+ * 
+ * @returns
+ */
+function publicVideo(i) {
+	document.getElementById("form-public-video-" + i).submit();
 }
 
 /**

@@ -31,6 +31,10 @@
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
+								<c:if test="${not empty msg}">
+									<input type="hidden" id="msg" value="${msg}"
+										disabled="disabled">
+								</c:if>
 								<c:if test="${totalRecord == 0}">
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
@@ -50,7 +54,7 @@
 												<th>Id youtube video</th>
 												<th>Tác giả</th>
 												<th>Ngày tạo</th>
-												<th></th>
+												<th style="text-align: center;">Hành động</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -70,7 +74,7 @@
 															value="${listPendingVideo.get(i-1).getAuthor()}"></c:out></td>
 													<td><c:out
 															value="${listPendingVideo.get(i-1).getCreatedDate()}"></c:out></td>
-													<td><sec:authorize
+													<td style="text-align: center;"><sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-check" title="Duyệt video"
 																onclick='openModalApprovedVideo(${listPendingVideo.get(i-1).getId()}, "${listPendingVideo.get(i-1).getVideoYoutubeId()}", "${listPendingVideo.get(i-1).getTitle()}")'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>

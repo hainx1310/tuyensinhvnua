@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.DateUtils;
@@ -37,7 +38,7 @@ public class VideoController {
 	private UserService userService;
 
 	/**
-	 * Controller lấy ra danh sách tất cả video dang duoc kich hoat
+	 * Controller thực hiện điều hướng tới màn hình thêm mới video
 	 * 
 	 * @param model
 	 * @return
@@ -49,6 +50,8 @@ public class VideoController {
 		List<Video> listLimitVideo = new ArrayList<Video>();
 		int pagesNumber = 0;
 		int totalRecord = 0;
+		String msg = (String) model.asMap().get("msg");
+
 		try {
 			listAllVideo = videoService.getAllVideo();
 			listLimitVideo = videoService.getLimitedVideo(0);
@@ -61,7 +64,8 @@ public class VideoController {
 		model.addAttribute("pagesNumber", pagesNumber);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("activeAddNewVideo", "active");
-		
+		model.addAttribute("msg", msg);
+
 		return "video/them-moi-video";
 	}
 
@@ -73,8 +77,9 @@ public class VideoController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView createVideo(HttpServletRequest request, @ModelAttribute("Video") Video video,
-			BindingResult result) {
+			BindingResult result, final RedirectAttributes redirectAttributes) {
 		String username = "";
+		String msg = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof UserDetails) {
 			username = ((UserDetails) principal).getUsername();
@@ -94,11 +99,13 @@ public class VideoController {
 					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
 				video.setStatus(true);
 				video.setPublishedDate(DateUtils.stringToDateTime(request.getParameter("publishedDate")));
+				msg = "Thêm mới video thành công";
 			} else {
 				video.setStatus(false);
+				msg = "Thêm mới thành công! Video của bạn đã được chuyển đến mục chờ duyệt.";
 			}
 			videoService.addVideo(video);
-
+			redirectAttributes.addFlashAttribute("msg", msg);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -112,7 +119,7 @@ public class VideoController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView updateVideo(HttpServletRequest request, @ModelAttribute("Video") Video video,
-			BindingResult result) {
+			BindingResult result, final RedirectAttributes redirectAttributes) {
 
 		// Get username
 		String username;
@@ -131,6 +138,7 @@ public class VideoController {
 
 		try {
 			videoService.updateVideo(video);
+			redirectAttributes.addFlashAttribute("msg", "Cập nhật video thành công!");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -144,11 +152,12 @@ public class VideoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public ModelAndView deleteVideo(HttpServletRequest request) {
+	public ModelAndView deleteVideo(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 		int videoId;
 		videoId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
 		try {
 			videoService.deleteVideo(videoId);
+			redirectAttributes.addFlashAttribute("msg", "Xóa video thành công!");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -161,7 +170,7 @@ public class VideoController {
 	 * @param request
 	 */
 	@RequestMapping(value = "/change-status", method = RequestMethod.POST)
-	public String changeStatusVideo(HttpServletRequest request) {
+	public String changeStatusVideo(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 		int videoId;
 		String username = null;
 
@@ -179,6 +188,7 @@ public class VideoController {
 
 		try {
 			videoService.changeStatusVideo(videoId, status, username);
+			redirectAttributes.addFlashAttribute("msg", "Đổi trạng thái video thành công!");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -249,6 +259,7 @@ public class VideoController {
 	public String pendingPosttPage(Model model) {
 		List<Video> listAllPendingVideo = new ArrayList<Video>();
 		List<Video> listLimitPendingVideo = new ArrayList<Video>();
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay tat ca danh sach video dang cho duyet
@@ -265,6 +276,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllPendingVideo.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeVideoPending", "active");
+		model.addAttribute("msg", msg);
 
 		return "video/video-dang-cho-duyet";
 	}
@@ -273,6 +285,7 @@ public class VideoController {
 	public String approvedVideoPage(Model model) {
 		List<Video> listAllApprovedVideo = new ArrayList<Video>();
 		List<Video> listLimitApprovedVideo = new ArrayList<Video>();
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay danh sach tat ca video da duyet tu db
@@ -289,6 +302,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllApprovedVideo.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeVideoApproved", "active");
+		model.addAttribute("msg", msg);
 
 		return "video/video-cho-dang";
 	}
@@ -314,7 +328,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllPublishedVideo.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeVideoPublised", "active");
-		
+
 		return "video/video-da-dang";
 	}
 
@@ -324,7 +338,7 @@ public class VideoController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/editor/approved" }, method = RequestMethod.POST)
-	public String approved(HttpServletRequest request) {
+	public String approved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String approvedUser = "";
@@ -354,6 +368,7 @@ public class VideoController {
 
 				// duyet video
 				videoService.approved(videoId, approvedUser, publishedDate);
+				redirectAttributes.addFlashAttribute("msg", "Duyệt video thành công!");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -368,7 +383,7 @@ public class VideoController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/editor/unapproved" }, method = RequestMethod.POST)
-	public String unapproved(HttpServletRequest request) {
+	public String unapproved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String unapprovedUser = "";
@@ -391,12 +406,14 @@ public class VideoController {
 
 				// go video
 				videoService.unapproved(videoId, unapprovedUser);
+				redirectAttributes.addFlashAttribute("msg", "Gỡ video thành công!");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return request.getRequestURL().toString();
+		return request.getParameter("approved") != null ? "redirect:/video/video-cho-dang"
+				: "redirect:/video/video-da-dang";
 	}
 
 	/**
@@ -405,7 +422,7 @@ public class VideoController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/editor/public" }, method = RequestMethod.POST)
-	public String unpublic(HttpServletRequest request) {
+	public String unpublic(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String unapprovedUser = "";
@@ -428,12 +445,13 @@ public class VideoController {
 
 				// bo go video
 				videoService.publicVideo(videoId);
+				redirectAttributes.addFlashAttribute("msg", "Bỏ gỡ video thành công!");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "video/video-da-go";
+		return "redirect:/video/video-da-go";
 	}
 
 	@RequestMapping(value = { "/video-da-go" }, method = RequestMethod.GET)
@@ -441,6 +459,7 @@ public class VideoController {
 
 		List<Video> listAllVideo = new ArrayList<Video>();
 		List<Video> listLimitVideo = new ArrayList<Video>();
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay danh sach tat ca video da bi go moi nhat tu db
@@ -457,6 +476,7 @@ public class VideoController {
 		model.addAttribute("totalRecord", listAllVideo.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeVideoUnPublic", "active");
+		model.addAttribute("video", msg);
 
 		return "video/video-da-go";
 	}

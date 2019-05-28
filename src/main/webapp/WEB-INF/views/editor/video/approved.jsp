@@ -27,6 +27,10 @@
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
+								<c:if test="${not empty msg}">
+									<input type="hidden" id="msg" value="${msg}"
+										disabled="disabled">
+								</c:if>
 								<c:if test="${totalRecord == 0}">
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
@@ -90,13 +94,35 @@
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 														<td style="text-align: center;"><a href="#"
 															class="fa fa-remove" title="Gỡ video"
-															onclick="unApprovedVideo('${listApprovedVideo.get(i-1).getId()}')"></a>
+															onclick="openModalUnpublicVideo('${listApprovedVideo.get(i-1).getId()}', '${listApprovedVideo.get(i-1).getTitle()}')"></a>
 														</td>
 													</sec:authorize>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<form action="editor/unapproved" method="POST"
+										id="form-unpublic-video">
+										<div class="modal fade" id="modal-confirm-unpublic">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-body">
+														<input type="hidden" name="approved"
+															value="approved">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Hủy bỏ</button>
+														<button id="btn-unpublic-pots" type="button"
+															onclick="unApprovedVideo()" data-dismiss="modal"
+															class="btn btn-primary">Đồng ý</button>
+													</div>
+												</div>
+												<!-- /.modal-content -->
+											</div>
+											<!-- /.modal-dialog -->
+										</div>
+									</form>
 									<div class="modal fade" id="modal-update-video">
 										<div class="modal-dialog">
 											<div class="modal-content">

@@ -22,6 +22,9 @@
 			<div class="box-header with-border" style="text-align: center">
 				<h3>Thêm mới video</h3>
 			</div>
+			<c:if test="${not empty msg}">
+				<input type="hidden" id="msg" value="${msg}" disabled="disabled">
+			</c:if>
 			<!-- /.box-header -->
 			<!-- form start -->
 			<form role="form" action="${add}" method="post">
