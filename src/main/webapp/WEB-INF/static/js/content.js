@@ -1,3 +1,13 @@
+$(document).ready(function() {
+	message();
+});
+function message() {
+	var msg = document.getElementById("msg").value;
+	if (msg != null && msg != undefined && msg.trim() != "") {
+		toastr["success"](msg);
+	}
+}
+
 /**
  * File js định nghĩa cho phần body của web
  */
@@ -567,6 +577,7 @@ function BrowseServer(startupPath) {
 // CKFinder.
 function SetFileField(fileUrl, data) {
 	document.getElementById("avatarPost").src = fileUrl;
+	document.getElementById("input-avatarPost").value = fileUrl;
 }
 
 /**
@@ -618,24 +629,7 @@ $("#btn-save-video").on("click", function() {
  * @returns
  */
 function approvedPost() {
-	var postId = document.getElementById("postId").value;
-	var publishedDate = document.getElementById("datepicker-approved").value;
-	console.log(postId)
-	console.log(publishedDate)
-	$.ajax({
-		type : "post",
-		url : "editor/approved",
-		data : {
-			postId : postId,
-			publishedDate : publishedDate,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
-	});
+	document.getElementById("form-approved-post").submit();
 }
 
 /**
@@ -645,20 +639,7 @@ function approvedPost() {
  * @returns
  */
 function unApprovedPost() {
-	var postId = document.getElementById("postId").value;
-	$.ajax({
-		type : "post",
-		url : "editor/unapproved",
-		data : {
-			postId : postId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
-	});
+	document.getElementById("form-unpublic-post").submit();
 }
 
 /**
@@ -1113,23 +1094,10 @@ function publicVideo(videoId) {
 /**
  * Phuong thuc bỏ go bai viet
  * 
- * @param postId
  * @returns
  */
-function publicPost(postId) {
-	$.ajax({
-		type : "post",
-		url : "editor/public",
-		data : {
-			postId : postId,
-		},
-		success : function(response) {
-			location.reload();
-		},
-		error : function(e) {
-			location.reload();
-		}
-	});
+function publicPost(i) {
+	document.getElementById("form-public-post-" + i).submit();
 }
 
 /**
@@ -1224,7 +1192,7 @@ function openModalUnpublicPost(postId, title) {
 					+ '<p>Bạn chắc chắn muốn gỡ bài viết <strong>' + title
 					+ '</strong>?</p>');
 	$('#modal-confirm-unpublic .modal-body').append(
-			"<input name = \"id\" id = \"postId\" type = \"text\" value = "
+			"<input name = \"postId\" id = \"postId\" type = \"text\" value = "
 					+ postId + " />");
 
 	$('#modal-confirm-unpublic #postId').hide();

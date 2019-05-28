@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<c:set var="publicpost"
+	value="${pageContext.request.contextPath}/bai-viet/editor/public" />
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -26,6 +28,10 @@
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
+								<c:if test="${not empty msg}">
+									<input type="hidden" id="msg" value="${msg}"
+										disabled="disabled">
+								</c:if>
 								<c:if test="${totalRecord == 0}">
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
@@ -74,10 +80,15 @@
 															value="${listPostUnPublic.get(i-1).getUnapprovedUser()}"></c:out></td>
 													<sec:authorize
 														access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
-														<td style="text-align: center;"><a href="#"
-															class="fa fa-remove" title="Bỏ gỡ bài viết"
-															onclick="publicPost('${listPostUnPublic.get(i-1).getId()}')"></a>
-														</td>
+
+														<td style="text-align: center;"><form
+																id="form-public-post-${i}" action="${publicpost}"
+																method="POST">
+																<input name="postId" type="hidden"
+																	value="${listPostUnPublic.get(i-1).getId()}"> <a
+																	href="#" class="fa fa-remove" title="Bỏ gỡ bài viết"
+																	onclick='publicPost("${i}")'> </a>
+															</form></td>
 													</sec:authorize>
 												</tr>
 											</c:forEach>

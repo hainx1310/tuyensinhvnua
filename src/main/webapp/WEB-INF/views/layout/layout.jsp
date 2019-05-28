@@ -12,6 +12,8 @@
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport">
+<link rel="shortcut icon" type="image/png"
+	href="<%=request.getContextPath()%>/resources/images/Logo.png" />
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -44,11 +46,14 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bower_components/select2/dist/css/select2.min.css">
 <!-- DataTables -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">	
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/resources/css/content.css" />
-
+<link
+	href="<%=request.getContextPath()%>/resources/css/toastr.css"
+	rel="stylesheet" />
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -108,7 +113,8 @@
 	<script
 		src="<%=request.getContextPath()%>/resources/bower_components/moment/min/moment.min.js"></script>
 	<!-- datetime picker -->
-<script src="<%=request.getContextPath()%>/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/resources/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/resources/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 	<!-- Bootstrap WYSIHTML5 -->
@@ -143,46 +149,19 @@
 		src="<%=request.getContextPath()%>/resources/bower_components/ckeditor/ckeditor.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/resources/bower_components/ckfinder/ckfinder.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/toastr.js"></script>
 	<script>
 			var editor = CKEDITOR.replace('frmContent');
 			CKFinder.setupCKEditor(editor, '<%=request.getContextPath()%>/resources/bower_components/ckfinder/');
 	</script>
-
 	<script>
-		/*menu handler*/
 		$(function() {
-			/* function stripTrailingSlash(str) {
-				if (str.substr(-1) == '/') {
-					return str.substr(0, str.length - 1);
-				}
-				return str;
-			}
-
-			var url = window.location.pathname;
-
-			var activePage = stripTrailingSlash(url);
-			$('.sidebar-menu li a').each(
-					function() {
-						var currentPage = stripTrailingSlash($(this).attr(
-								'href'));
-						if (activePage == currentPage) {
-							$(this).parent().addClass('active');
-							$(this).parent().parent().parent().addClass(
-									'menu-open').addClass('active')
-						}
-					});
-			
-			var url = window.location; */
-		});
-	</script>
-	<script>
-	$(function() {
-		$('#example1').DataTable()
-		$('#example2').DataTable({
-	        "ordering": false,
-	        "aLengthMenu": [5,10,15]
+			$('#example1').DataTable()
+			$('#example2').DataTable({
+				"ordering" : false,
+				"aLengthMenu" : [ 5, 10, 15 ]
+			})
 		})
-	})
-</script>
+	</script>
 </body>
 </html>

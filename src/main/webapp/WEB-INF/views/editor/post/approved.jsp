@@ -26,6 +26,10 @@
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
+								<c:if test="${not empty msg}">
+									<input type="hidden" id="msg" value="${msg}"
+										disabled="disabled">
+								</c:if>
 								<c:if test="${totalRecord == 0}">
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
@@ -77,28 +81,34 @@
 													<td style="text-align: center;"><sec:authorize
 															access="hasAnyRole('ROLE_EDITOR', 'ROLE_ADMIN')">
 															<a href="#" class="fa fa-remove" title="Gỡ bài viết"
-																onclick="openModalUnpublicPost('${listPublishedPost.get(i-1).getId()}', '${listPublishedPost.get(i-1).getTitle()}')"></a>
+																onclick="openModalUnpublicPost('${listApprovedPost.get(i-1).getId()}', '${listApprovedPost.get(i-1).getTitle()}')"></a>
 														</sec:authorize></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="modal fade" id="modal-confirm-unpublic">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-body"></div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Hủy bỏ</button>
-													<button id="btn-unpublic-pots" type="button"
-														onclick="unApprovedPost()" class="btn btn-primary">Đồng
-														ý</button>
+									<form action="editor/unapproved" method="POST"
+										id="form-unpublic-post">
+										<div class="modal fade" id="modal-confirm-unpublic">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-body">
+														<input type="hidden" name="pendingpost"
+															value="pendingpost">
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Hủy bỏ</button>
+														<button id="btn-unpublic-pots" type="button"
+															onclick="unApprovedPost()" data-dismiss="modal"
+															class="btn btn-primary">Đồng ý</button>
+													</div>
 												</div>
+												<!-- /.modal-content -->
 											</div>
-											<!-- /.modal-content -->
+											<!-- /.modal-dialog -->
 										</div>
-										<!-- /.modal-dialog -->
-									</div>
+									</form>
 									<div class="modal fade" id="modal-view-post">
 										<div class="modal-dialog">
 											<div class="modal-content">

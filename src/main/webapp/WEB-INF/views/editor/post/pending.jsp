@@ -3,6 +3,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<c:set var="delete"
+	value="${pageContext.request.contextPath}/bai-viet/delete" />
 
 <div id="wrapper-content">
 	<div id="container-content">
@@ -26,6 +28,10 @@
 						class="dataTables_wrapper form-inline dt-bootstrap">
 						<div class="row">
 							<div class="col-sm-12">
+								<c:if test="${not empty msg}">
+									<input type="hidden" id="msg" value="${msg}"
+										disabled="disabled">
+								</c:if>
 								<c:if test="${totalRecord == 0}">
 									<p>Không có dữ liệu để hiển thị</p>
 								</c:if>
@@ -95,7 +101,7 @@
 									<div class="modal fade" id="modal-confirm-delete">
 										<div class="modal-dialog">
 											<div class="modal-content">
-												<form action="post/delete" method="post">
+												<form action="${delete}" method="post">
 													<div class="modal-body"></div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
@@ -109,17 +115,18 @@
 										</div>
 										<!-- /.modal-dialog -->
 									</div>
-									<div class="modal fade" id="modal-approved-post">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-													<h4>Duyệt bài viết</h4>
-												</div>
-												<form>
+									<form id="form-approved-post" action="editor/approved"
+										method="POST">
+										<div class="modal fade" id="modal-approved-post">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+														<h4>Duyệt bài viết</h4>
+													</div>
 													<div class="modal-body">
 														<table
 															style="display: table; border-collapse: separate; border-spacing: 0px 10px; border-color: grey">
@@ -146,12 +153,12 @@
 														<button id="btn-save-approved" type="button"
 															class="btn btn-primary" onclick="approvedPost()">Duyệt</button>
 													</div>
-												</form>
+												</div>
+												<!-- /.modal-content -->
 											</div>
-											<!-- /.modal-content -->
+											<!-- /.modal-dialog -->
 										</div>
-										<!-- /.modal-dialog -->
-									</div>
+									</form>
 								</c:if>
 							</div>
 						</div>

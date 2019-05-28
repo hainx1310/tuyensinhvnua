@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.edu.vnua.dse.common.CommonConst;
 import vn.edu.vnua.dse.common.DateUtils;
@@ -66,8 +67,8 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/them-moi-bai-viet" }, method = RequestMethod.POST)
-	public ModelAndView createdPost(@ModelAttribute("Post") Post post, BindingResult result,
-			HttpServletRequest request) {
+	public ModelAndView createdPost(@ModelAttribute("Post") Post post, BindingResult result, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 
 		// Get username
 		String author = null;
@@ -104,6 +105,7 @@ public class PostController {
 				post.setStatus(false);
 			}
 			postService.createdPost(post);
+			redirectAttributes.addFlashAttribute("msg", "Thêm bài viết thành công!");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -153,6 +155,24 @@ public class PostController {
 	}
 
 	/**
+	 * Phương thức xóa bỏ 1 bai viet
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public ModelAndView deletePost(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		int postId;
+		postId = request.getParameter("id") != null ? Integer.parseInt(request.getParameter("id").toString()) : 0;
+		try {
+			postService.deletePost(postId);
+			redirectAttributes.addFlashAttribute("msg", "Xóa bài viết thành công!");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return new ModelAndView("redirect:/bai-viet/bai-cho-duyet");
+	}
+
+	/**
 	 * Controller xua ly su kien click vao menu bai cho duyet
 	 * 
 	 * @param model
@@ -162,6 +182,8 @@ public class PostController {
 	public String pendingPosttPage(Model model) {
 		List<Post> listAllPendingPost = new ArrayList<Post>();
 		List<Post> listLimitPendingPost = new ArrayList<Post>();
+
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay danh sach 10 bai viet dang cho duyet moi nhat tu db
@@ -178,6 +200,7 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPendingPost.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activePendingPage", "active");
+		model.addAttribute("msg", msg);
 
 		return "bai-viet/bai-cho-duyet";
 	}
@@ -186,6 +209,8 @@ public class PostController {
 	public String approvedPostPage(Model model) {
 		List<Post> listAllApprovedPost = new ArrayList<Post>();
 		List<Post> listLimitApprovedPost = new ArrayList<Post>();
+
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay danh sach tatc ca bai viet dang cho duyet tu db
@@ -202,12 +227,14 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllApprovedPost.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeApprovedPage", "active");
+		model.addAttribute("msg", msg);
 
 		return "bai-viet/bai-da-duyet";
 	}
 
 	@RequestMapping(value = { "/bai-da-dang" }, method = RequestMethod.GET)
-	public String postPublishedPage(Model model, HttpServletRequest request) {
+	public String postPublishedPage(Model model, HttpServletRequest request,
+			final RedirectAttributes redirectAttributes) {
 		User user = new User();
 		List<Post> listAllPublishedPost = new ArrayList<Post>();
 		int postByUserId = 0;
@@ -216,6 +243,7 @@ public class PostController {
 		int numberPage = 0;
 		List<Categories> listCategories = new ArrayList<Categories>();
 		List<Post> listLimitPublishedPost = new ArrayList<Post>();
+		String msg = (String) model.asMap().get("msg");
 
 		// Get user
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -228,10 +256,10 @@ public class PostController {
 			// lay danh sach tat ca bai viet da xuat ban moi nhat tu db
 			listAllPublishedPost = postService.getPostPublished();
 			totalAllRecord = listAllPublishedPost.size();
-			
+
 			// lay tat ca chuyen muc
 			listCategories = categoriesService.getAllCategories(-1);
-			
+
 			if (user != null) {
 				postByUserId = postService.getPostIsPublishedByUserId(user.getId());
 			}
@@ -260,6 +288,7 @@ public class PostController {
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("activePublishedPage", "active");
+		model.addAttribute("msg", msg);
 		return "bai-viet/bai-da-dang";
 	}
 
@@ -301,7 +330,10 @@ public class PostController {
 
 		for (Post item : listResult) {
 			html += "<tr role='row' class='odd'>";
-			html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+				html += "<td><input type=\"checkbox\" class=\"custom-control-input\" id=\"defaultUnchecked\"></td>";
+			}
 			html += "<td class=''>" + (i++) + "</td>";
 			html += "<td style=\"max-width: 400px\" class=\"\"><a href=\"#\"";
 			html += " onclick='viewPost(" + item.getId() + ",\"" + item.getTitle() + "\")'";
@@ -309,9 +341,12 @@ public class PostController {
 			html += "<td class=\"sorting_1\">" + item.getCategories().getName() + "</td>";
 			html += "<td>" + item.showPublishedDate() + "</td>";
 			html += "<td>" + item.getAuthor() + "</td>";
-			html += "<td style=\"text-align: center;\"><a href=\"#\"";
-			html += " class=\"fa fa-remove\" title=\"Gỡ bài viết\"";
-			html += " onclick='openModalUnpublicPost(" + item.getId() + ", \"" + item.getTitle() + "\")'></a></td>";
+			if (user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)
+					|| user.getRole().equals(CommonConst.ROLE_NAME.ROLE_ADMIN)) {
+				html += "<td style=\"text-align: center;\"><a href=\"#\"";
+				html += " class=\"fa fa-remove\" title=\"Gỡ bài viết\"";
+				html += " onclick='openModalUnpublicPost(" + item.getId() + ", \"" + item.getTitle() + "\")'></a></td>";
+			}
 			html += "</tr>";
 		}
 
@@ -325,7 +360,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = { "editor/approved" }, method = RequestMethod.POST)
-	public String approved(HttpServletRequest request) {
+	public String approved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		User user = new User();
@@ -353,13 +388,14 @@ public class PostController {
 
 				// duyet bai viet
 				postService.approved(postId, approvedUser, publishedDate);
+				redirectAttributes.addFlashAttribute("msg", "Duyệt bài viết thành công!");
 			}
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:bai-viet/bai-cho-duyet";
+		return "redirect:/bai-viet/bai-cho-duyet";
 	}
 
 	/**
@@ -369,7 +405,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = { "editor/unapproved" }, method = RequestMethod.POST)
-	public String unapproved(HttpServletRequest request) {
+	public String unapproved(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// get postId
 		int postId = request.getParameter("postId") != null
@@ -386,11 +422,13 @@ public class PostController {
 		// go bai viet
 		try {
 			postService.unapproved(postId, unapprovedUser);
+			redirectAttributes.addFlashAttribute("msg", "Gỡ bài viết thành công");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/bai-viet/bai-cho-duyet";
+		return request.getParameter("pendingpost") != null ? "redirect:/bai-viet/bai-cho-dang"
+				: "redirect:/bai-viet/bai-da-dang";
 	}
 
 	/**
@@ -402,8 +440,8 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/cap-nhat-bai-viet" }, method = RequestMethod.POST)
-	public ModelAndView updatedPost(@ModelAttribute("Post") Post post, BindingResult result,
-			HttpServletRequest request) {
+	public ModelAndView updatedPost(@ModelAttribute("Post") Post post, BindingResult result, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
 
 		// Get user hien tai trong he thong
 		String userCurrent;
@@ -432,11 +470,12 @@ public class PostController {
 		post.setCategories(categories);
 		try {
 			postService.updatePost(post);
+			redirectAttributes.addFlashAttribute("msg", "Cập nhật bài viết thành công!");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return new ModelAndView("redirect:" + "/bai-viet/bai-cho-duyet");
+		return new ModelAndView("redirect:/bai-viet/bai-cho-duyet");
 	}
 
 	/**
@@ -470,7 +509,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = { "/editor/public" }, method = RequestMethod.POST)
-	public String unpublic(HttpServletRequest request) {
+	public String unpublic(HttpServletRequest request, final RedirectAttributes redirectAttributes) {
 
 		// Get user
 		String unapprovedUser = "";
@@ -493,19 +532,22 @@ public class PostController {
 
 				// bo go bai viet
 				postService.publicPost(postId);
+				redirectAttributes.addFlashAttribute("msg", "Bỏ gỡ bài viết thành công");
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		return "bai-viet/bai-da-go";
+		return "redirect:/bai-viet/bai-da-go";
 	}
 
-	@RequestMapping(value = { "/bai-da-go" }, method = RequestMethod.GET)
-	public String unPublicVideo(Model model) {
+	@RequestMapping(value = { "/bai-da-go" }, method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
+	public String unPublicVideo(HttpServletRequest request, Model model) {
 
 		List<Post> listAllPost = new ArrayList<Post>();
 		List<Post> listLimitPost = new ArrayList<Post>();
+
+		String msg = (String) model.asMap().get("msg");
 
 		try {
 			// lay danh sach tat ca bai viet da bi go moi nhat tu db
@@ -522,6 +564,7 @@ public class PostController {
 		model.addAttribute("totalRecord", listAllPost.size());
 		model.addAttribute("numberPage", numberPage);
 		model.addAttribute("activeUnPublicPage", "active");
+		model.addAttribute("msg", msg);
 
 		return "bai-viet/bai-da-go";
 	}
